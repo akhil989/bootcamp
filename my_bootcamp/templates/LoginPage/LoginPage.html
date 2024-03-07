@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block loginpage %}
+<div class='flex items-center justify-center text-center text-slate-200'>
+    <form class='py-12 px-4 w-96' method='POST' action=''>
+        {% csrf_token %}
+        <p class='text-left font-bold'>Login to your Account</p><br>
+        <p>
+            <input class='w-full text-slate-800' type='text' name='username' placeholder='User Name'></input>
+        </p><br>
+        <p>
+            <input class='w-full text-slate-800' type='password' name='password' placeholder='Password'></input>
+        </p><br>
+        <p class=''>
+            <input class='text-center bg-blue-500 w-full p-2' type='submit' value='Login'></input>
+        </p><br>
+        <p class='border-b-2 border-slate-300'>
+            or <span class='font-bold text-violet-500 underline'><a href="">Forgot Password</a></span>
+        </p><br>
+        <p class='divide-y-2 divide-slate-300'>
+            Dont have an account? <span class='font-bold text-violet-500 underline'><a href="{% url "signup" %}">Sign Up</a></span>
+        </p><br>
+    </form>
+</div>
+
+{% endblock loginpage %}

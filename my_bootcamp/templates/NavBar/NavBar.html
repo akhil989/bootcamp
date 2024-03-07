@@ -1,0 +1,81 @@
+
+<nav class='flex h-24 lg:h-20 justify-between bg-slate-900 items-center  shadow-xl shadow-slate-800 w-screen'>
+        
+    <a href=""  class='font-serif text-lg lg:text-4xl font-extrabold mx-2'>
+        <span class=" bg-clip-text text-transparent bg-gradient-to-r  from-orange-700 via-indigo-500 to-blue-500  align-middle ">
+        TutorsCloud
+        </span>
+    </a>
+        <div class='flex text-teal-900 align-middle py-0.5 px-4 '>
+        <div  class='mx-2  hidden lg:flex xl:flex 2xl:flex  hover:text-slate-200 items-center justify-center text-2xl bg-clip-text text-transparent bg-gradient-to-r  from-orange-700 via-indigo-500 to-blue-500'>
+            <a>
+            Categories
+            </a>
+        </div> 
+        <div  class=' mx-2 hidden lg:flex xl:flex 2xl:flex  items-center justify-center text-2xl bg-clip-text text-transparent bg-gradient-to-r  from-orange-700 via-indigo-500 to-blue-500'>
+           <form action='/' method='POST' class='flex '>
+            {% csrf_token %}
+            <input class='flex-1 rounded-l-lg w-96 text-slate-800' placeholder='Search Here' type='text'></input>
+            <button
+                type="submit"
+                value="Submit"
+                name='save' 
+                class="bg-green-700 rounded-r-lg flex-initial text-slate-800 p-2 hover:bg-blue-700"
+                >Search</button>
+           </form>
+        </div> 
+        <div  class='mx-2  hidden lg:flex xl:flex 2xl:flex hover:text-slate-200 items-center justify-center text-2xl bg-clip-text text-transparent bg-gradient-to-r  from-orange-700 via-indigo-500 to-blue-500'>
+            <a href="">
+            Start Tutoring
+            </a>
+        </div> 
+        <div  class=' mx-2 sm:flex  md:flex lg:flex xl:flex 2xl:flex'>
+            <a>
+            <i class="fa-solid fa-cart-plus w-8 h-8 font-serif 
+            items-center p-2  text-blue-200 hover:text-blue-700"  ></i>
+            </a>
+        </div>  
+        <div  class=' mx-2 sm:flex  md:hidden lg:hidden xl:hidden 2xl:hidden'>
+            <a>
+            <i class="fa-solid fa-bars w-8 h-8 font-serif 
+            items-center p-2  text-blue-200 hover:text-blue-700"  ></i>
+            </a>
+        </div>  
+         
+        {% if user.is_authenticated %}
+            
+            <div  class='mx-2 hidden lg:flex xl:flex 2xl:flex '>
+                <a href="">
+                <button class=' font-serif rounded-md 
+                items-center   h-12 px-8
+                text-white hover:text-black hover:bg-slate-300 bg-white  border border-violet-700 shadow-lg '>
+                <span class='bg-clip-text text-transparent bg-gradient-to-r  from-orange-700 via-indigo-500 to-blue-500'>Logout</span>
+                </button>
+                </a>
+            </div>  
+         {% else %} 
+            <div  class='mx-2 hidden lg:flex xl:flex 2xl:flex '>
+                <a href="">
+                <button class=' font-serif rounded-md 
+                items-center   h-12 px-8
+                text-white hover:text-black hover:bg-slate-300 bg-white  border border-violet-700 shadow-lg '>
+                <span class='bg-clip-text text-transparent bg-gradient-to-r  from-orange-700 via-indigo-500 to-blue-500'>Login</span>
+                </button>
+                </a>
+            </div> 
+        {% endif %}
+            
+        <div  class='mx-2 hidden  lg:flex xl:flex 2xl:flex '>
+            <a href="">
+            <button class=' font-serif rounded-md
+            items-center h-12  px-8 
+            text-white hover:text-black hover:bg-slate-300  border border-violet-700 shadow-lg '>
+            <span class='bg-clip-text text-transparent bg-gradient-to-r  from-orange-700 via-indigo-500 to-blue-500'>SignUp</span>
+            </button>
+            </a>
+        </div>  
+        
+ 
+    </div>
+
+</nav>
