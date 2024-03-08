@@ -14,10 +14,10 @@
             <input class='text-center bg-blue-500 w-full p-2' type='submit' value='Login'></input>
         </p><br>
         <p class='border-b-2 border-slate-300'>
-            or <span class='font-bold text-violet-500 underline'><a href="">Forgot Password</a></span>
+            or <span class='font-bold text-violet-500 underline'><a href="{% url "password-forget" %}">Forgot Password</a></span>
         </p><br>
         <p class='divide-y-2 divide-slate-300'>
-            Dont have an account? <span class='font-bold text-violet-500 underline'><a href="{% url "signup" %}">Sign Up</a></span>
+            Dont have an account? <span class='font-bold text-violet-500 underline'><a href="{% url "signup-page" %}">Sign Up</a></span>
         </p><br>
     </form>
 </div>

@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'my_bootcamp',
     'rest_framework',
-    'djoser',
     'tailwind',
     'theme',
     'django_browser_reload',

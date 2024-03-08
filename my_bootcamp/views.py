@@ -1,13 +1,14 @@
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import  logout, authenticate
+from django.contrib.auth import  authenticate
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.decorators import permission_classes
+from django.contrib.auth.models import User
 
 from django.core.mail import send_mail
 from django.core.mail import EmailMessage, get_connection
@@ -31,12 +32,12 @@ def home_view(request):
 def logout_view(request):
     auth_logout(request)
     messages.info(request, "You Logged out successfully!")
-    return redirect('home')
+    return redirect('home-page')
   
     
 def login_view(request):
     if request.user.is_authenticated:
-        return redirect('home')
+        return redirect('home-page')
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -44,7 +45,7 @@ def login_view(request):
         if user is not None:
             auth_login(request, user)
             messages.success(request,'You have successfully Logged in!!!')
-            return redirect('home')
+            return redirect('home-page')
         elif user is None:
             messages.error(request, "You Haven't an Acoount yet. Please Signup first.")
             return redirect(signup_view)
@@ -56,14 +57,14 @@ def login_view(request):
 @permission_classes([AllowAny])
 def signup_view(request):
     if request.user.is_authenticated:
-        return redirect("home")
+        return redirect("home-page")
 
     if request.method == 'POST':
         form = UserRegistrationForm(request.POST)
         if form.is_valid():
             user = form.save()
             auth_login(request, user)
-            return redirect('login')
+            return redirect('login-page')
         else:
             for error in list(form.errors.values()):
                 print(request, error)
@@ -92,6 +93,12 @@ def send_password(request):
         subject = request.POST.get("subject", "")
         message = request.POST.get("message", "")
         recipient = request.POST.get("recipient", "")
+        
+        user = User.objects.get(email=recipient)
+        print('user',user)
+        
+        subject = subject+'heloo akhil'
+        message = message+'your message'+user.username+user.password
         recipient_list = [recipient]
         print('sub',subject, 'msg',message, recipient_list)
         if subject and message and recipient_list:
@@ -99,11 +106,14 @@ def send_password(request):
             if send_email(subject, message, from_email, recipient_list):
                 print('sub',subject, 'msg',message, recipient_list, from_email)
                 print("Email sent successfully!")
-                return HttpResponse("Email sent successfully!")
+                messages.success(request, 'Check Your Email, We have sent password to your email')
+                return redirect('login-page')
             else:
-                return HttpResponse("Failed to send email. Please try again later.")
+                messages.error("Failed to send email. Please try again later.")
+                return render(request, 'SendMail/SendMail.html')
         else:
-            return HttpResponse("Make sure all fields are entered and valid.")
+            messages.error("Make sure all fields are entered and valid.")
+            return render(request, 'SendMail/SendMail.html')
     else:
         return render(request, 'SendMail/SendMail.html')
 
