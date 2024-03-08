@@ -1,17 +1,20 @@
 {% extends "base.html" %}
-{% block loginpage %}
+{% block sendmail %}
 <div class='flex items-center justify-center text-center text-slate-200'>
     <form class='py-12 px-4 w-96' method='POST' action=''>
         {% csrf_token %}
-        <p class='text-left font-bold'>Login to your Account</p><br>
+        <p class='text-left font-bold'>Send Password</p><br>
         <p>
-            <input class='w-full text-slate-800' type='text' name='username' placeholder='Username'></input>
+            <input class='w-full text-slate-800' type='text' name='recipient' placeholder='Email'></input>
         </p><br>
         <p>
-            <input class='w-full text-slate-800' type='password' name='password' placeholder='Password'></input>
+            <input class='w-full text-slate-800 hidden' type='text' name='subject' placeholder='email' value='djdb'></input>
+        </p><br>
+        <p>
+            <input class='w-full text-slate-800 hidden' type='text' name='message' placeholder='email' value='jjgnjng'></input>
         </p><br>
         <p class=''>
-            <input class='text-center bg-blue-500 w-full p-2' type='submit' value='Login'></input>
+            <input class='text-center bg-blue-500 w-full p-2' type='submit' value='Send Mail'></input>
         </p><br>
         <p class='border-b-2 border-slate-300'>
             or <span class='font-bold text-violet-500 underline'><a href="">Forgot Password</a></span>
@@ -22,4 +25,4 @@
     </form>
 </div>
 
-{% endblock loginpage %}
+{% endblock sendmail %}

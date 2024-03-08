@@ -45,7 +45,7 @@
         {% if user.is_authenticated %}
             
             <div  class='mx-2 hidden lg:flex xl:flex 2xl:flex '>
-                <a href="">
+                <a href="{% url "logout" %}">
                 <button class=' font-serif rounded-md 
                 items-center   h-12 px-8
                 text-white hover:text-black hover:bg-slate-300 bg-white  border border-violet-700 shadow-lg '>
@@ -55,7 +55,7 @@
             </div>  
          {% else %} 
             <div  class='mx-2 hidden lg:flex xl:flex 2xl:flex '>
-                <a href="">
+                <a href="{% url "login" %}">
                 <button class=' font-serif rounded-md 
                 items-center   h-12 px-8
                 text-white hover:text-black hover:bg-slate-300 bg-white  border border-violet-700 shadow-lg '>
@@ -66,7 +66,7 @@
         {% endif %}
             
         <div  class='mx-2 hidden  lg:flex xl:flex 2xl:flex '>
-            <a href="">
+            <a href="{% url "signup" %}">
             <button class=' font-serif rounded-md
             items-center h-12  px-8 
             text-white hover:text-black hover:bg-slate-300  border border-violet-700 shadow-lg '>

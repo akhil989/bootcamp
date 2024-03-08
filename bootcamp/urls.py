@@ -21,4 +21,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path("__reload__/", include("django_browser_reload.urls")),
     path('', include('my_bootcamp.urls')), 
+    path('auth/',include('djoser.urls')),
+    path('auth/', include('djoser.urls.authtoken')),
 ]

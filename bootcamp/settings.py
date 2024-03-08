@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'my_bootcamp',
     'rest_framework',
+    'djoser',
     'tailwind',
     'theme',
     'django_browser_reload',
@@ -133,3 +134,32 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+REST_FRAMEWORK = {
+        'DEFAULT_AUTHENTICATION_CLASSES': (
+            'rest_framework.authentication.TokenAuthentication',
+            'rest_framework.authentication.SessionAuthentication',
+        ),}
+DJOSER={
+        # "USER_ID_FIELD":"username",
+        "USER_ID_FIELD":"email",
+        "LOGIN_FIELD":"email",
+    }
+
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_FROM = 'webdevwithakhil@gmail.com'
+# EMAIL_HOST_USER = 'webdevwithakhil@gmail.com'
+# EMAIL_HOST_PASSWORD = 'buxv rtza ajak iiwi'
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+# PASSWORD_RESET_TIMEOUT = 14400
+
+# SMTP configuration for sending emails
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'  # Example: 'smtp.gmail.com'
+EMAIL_PORT = 587  # Port for SMTP (587 for TLS)
+EMAIL_USE_TLS = True  # Enable TLS for secure connection
+
+# Credentials for the email account used to send emails
+EMAIL_HOST_USER = 'webdevwithakhil989@gmail.com'  # Your email address
+EMAIL_HOST_PASSWORD = 'dknw qewi loat inhl'  # Your email password
