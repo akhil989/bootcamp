@@ -66,7 +66,7 @@ ROOT_URLCONF = 'bootcamp.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, '../my_bootcamp/templates/'),],
+        'DIRS': [os.path.join(BASE_DIR, '../my_bootcamp/templates'),],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -162,3 +162,7 @@ EMAIL_USE_TLS = True  # Enable TLS for secure connection
 # Credentials for the email account used to send emails
 EMAIL_HOST_USER = 'webdevwithakhil989@gmail.com'  # Your email address
 EMAIL_HOST_PASSWORD = 'dknw qewi loat inhl'  # Your email password
+
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'home'
+EMAIL_FILE_PATH = BASE_DIR / 'emails'

@@ -9,6 +9,8 @@ from django.contrib.auth import get_user_model
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.decorators import permission_classes
 from django.contrib.auth.models import User
+from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth import update_session_auth_hash
 
 from django.core.mail import send_mail
 from django.core.mail import EmailMessage, get_connection
@@ -28,7 +30,7 @@ from .tokens import account_activation_token
 def home_view(request):
     return render(request, 'Home/Home.html')
 
-@permission_classes([IsAuthenticated])
+@login_required
 def logout_view(request):
     auth_logout(request)
     messages.info(request, "You Logged out successfully!")
@@ -98,7 +100,7 @@ def send_password(request):
         print('user',user)
         
         subject = subject+'heloo akhil'
-        message = message+'your message'+user.username+user.password
+        message = message+'Hello '+user.username+ ' Your Username is:'+user.username+' '+ user.password
         recipient_list = [recipient]
         print('sub',subject, 'msg',message, recipient_list)
         if subject and message and recipient_list:
@@ -118,20 +120,27 @@ def send_password(request):
         return render(request, 'SendMail/SendMail.html')
 
 
-    
-# def send_email(request):  
-#    if request.method == "POST": 
-#        with get_connection(  
-#            host=settings.EMAIL_HOST, 
-#         port=settings.EMAIL_PORT,  
-#         username=settings.EMAIL_HOST_USER, 
-#         password=settings.EMAIL_HOST_PASSWORD, 
-#         use_tls=settings.EMAIL_USE_TLS  
-#        ) as connection:  
-#            subject = request.POST.get("subject")  
-#            email_from = settings.EMAIL_HOST_USER  
-#            recipient_list = [request.POST.get("email"), ]  
-#            message = request.POST.get("message")  
-#            EmailMessage(subject, message, email_from, recipient_list, connection=connection).send()  
- 
-#    return render(request, 'SendMail/SendMail.html')
+@login_required   
+def password_change(request):
+    if not request.user.is_authenticated:
+        return redirect('login')
+    elif request.user is not None:
+        if request.method == "POST":
+            form = PasswordChangeForm(request.user, data=request.POST)
+            
+            if form.is_valid():
+                user=form.save()
+                update_session_auth_hash(request, user)
+                messages.success(request, 'Your password has been successfully changed.')
+                return redirect('password_change_done')
+        else:
+            messages.error(request, 'Failed to change password')
+    else:
+        messages.error(request, 'You Have no Account Signup first')
+        return redirect('signup')
+    form = PasswordChangeForm(user=request.user)
+    return render(request,"PasswordChange/PasswordChange.html",
+                  context={"form":form})
+@login_required
+def password_change_done(request):
+    return render(request, 'registration/password_change_done.html')
