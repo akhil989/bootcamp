@@ -9,7 +9,7 @@ from django.contrib.auth import get_user_model
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.decorators import permission_classes
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth.forms import PasswordChangeForm, PasswordResetForm
 from django.contrib.auth import update_session_auth_hash
 
 from django.core.mail import send_mail
@@ -53,8 +53,8 @@ def login_view(request):
             return redirect(signup_view)
         else:
             messages.error(request,'Something Wrong happend, Try Again...')
-    else:
-        return render(request, 'LoginPage/LoginPage.html')
+    
+    return render(request, 'LoginPage/LoginPage.html')
     
 @permission_classes([AllowAny])
 def signup_view(request):
@@ -144,3 +144,18 @@ def password_change(request):
 @login_required
 def password_change_done(request):
     return render(request, 'registration/password_change_done.html')
+
+@login_required
+def password_reset(request):
+    form = PasswordResetForm()
+    if request.method == "POST":
+            form = PasswordResetForm(data=request.POST or None)
+            
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Your password has been successfully changed.')
+                return redirect('password_change_done')
+    else:
+            messages.error(request, 'Failed to change password')
+    print(form)
+    return render(request, 'PasswordReset/PasswordReset.html')
