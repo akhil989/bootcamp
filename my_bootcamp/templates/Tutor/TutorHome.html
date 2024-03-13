@@ -1,5 +1,52 @@
 {% extends "base.html" %}
 {% block tutor_home %}
+<div>
+    <div class='md:hidden lg:hidden xl:hidden 2xl:hidden flex-col lg:flex-row  items-center justify-center'>
+        <div class='flex-1 text-center w-full text-xl py-20'>
+            <h2 class='text-7xl font-mono font-extrabold'>Come teach with us</h2>
+            <p>Become an instructor and change lives — including your own</p>
+            <p>
+                <button class='bg-blue-700 rounded-sm border border-blue-200 p-2  w-72 my-4'>Get Started</button>
+            </p>
+        </div>
+    </div>
+
+    <div class='flex flex-col lg:flex-row items-center justify-center relative'>
+        <!-- Image -->
+        <div class='flex-1'>
+            <img class='w-full h-full' src='https://images.unsplash.com/photo-1484807352052-23338990c6c6?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' alt='billboard_pic_tutor1'>
+        </div>
+    
+        <!-- Text overlay -->
+        <div class='p-8 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center text-white z-10'>
+            <h2 class='text-2xl md:text-4xl  font-extrabold border-b border-violet-500'>So many reasons to start</h2>
+            <div class='flex  md:w-96 text-xs'>
+                <div class='flex-1 md:mx-4 mt-2'>
+                    <div class=''>
+                    <h3 class='font-bold text-lime-600'>Teach your way</h3>
+                    </div>
+                    <p class="text-xs font-light">Publish the course you want, in the way you want, and always have control of your own content.</p>
+                </div>
+                <div class='flex-1 md:mx-4 mt-2'>
+                    <div class=''>
+                    <h3 class='font-bold text-lime-600'>Inspire learners</h3>
+                    </div>
+                    <p class="text-xs font-light">Inspire learners
+                        Teach what you know and help learners explore their interests, gain new skills, and advance their careers</p>
+                </div>
+                <div class='flex-1 md:mx-4 mt-2'>
+                    <div class=''>
+                    <h3 class='font-bold text-lime-600 '>Get rewarded</h3>
+                    </div>
+                    <p class="text-xs font-light">Expand your professional network, build your expertise, and earn money on each paid enrollment.</p>
+                </div>
+            </div>
+            <p>
+                <button class='bg-blue-700 rounded-sm border border-blue-200 p-0 w-72 my-2'>Get Started</button>
+            </p>
+        </div>
+    </div>    
+
 <div class='flex flex-col lg:flex-row  items-center justify-center'>
     <div class='flex-1 text-center w-full text-xl py-20'>
         <h2 class='text-7xl font-mono font-extrabold'>Come teach with us</h2>
@@ -22,5 +69,7 @@
         <button class='bg-blue-700 rounded-sm border border-blue-200 p-2  w-72 my-4'>Get Started</button>
     </p>
     </div>
+</div>
+
 </div>
 {% endblock tutor_home %}
