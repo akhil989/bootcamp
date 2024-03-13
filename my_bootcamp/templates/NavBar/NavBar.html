@@ -12,19 +12,19 @@
             Categories
             </a>
         </div> 
-        <div  class=' mx-2 hidden xl:flex 2xl:flex items-center justify-center text-2xl bg-clip-text text-transparent bg-gradient-to-r  from-orange-700 via-indigo-500 to-blue-500'>
+        <div  class=' mx-2 hidden lg:flex xl:flex 2xl:flex items-center justify-center text-xl bg-clip-text text-transparent bg-gradient-to-r  from-orange-700 via-indigo-500 to-blue-500'>
            <form action='/' method='POST' class='flex '>
             {% csrf_token %}
-            <input class='flex-1 rounded-l-lg w-96 text-slate-800' placeholder='Search Here' type='text'></input>
+            <input class='flex-1 rounded-l-lg lg:w-32 xl:w-72 2xl:w-96 text-slate-800' placeholder='Search Here' type='text'></input>
             <button
                 type="submit"
                 value="Submit"
                 name='save' 
-                class="bg-green-700 rounded-r-lg flex-initial text-slate-800 p-2 hover:bg-blue-700"
+                class="bg-green-700 text-xs rounded-r-lg flex-initial text-slate-800 p-2 hover:bg-blue-700"
                 >Search</button>
            </form>
         </div> 
-        <div  class='mx-2  hidden lg:flex xl:flex 2xl:flex hover:text-slate-200 items-center justify-center text-2xl bg-clip-text text-transparent bg-gradient-to-r  from-orange-700 via-indigo-500 to-blue-500'>
+        <div  class='mx-2  hidden lg:flex xl:flex 2xl:flex hover:text-slate-200 items-center justify-center text-xl bg-clip-text text-transparent bg-gradient-to-r  from-orange-700 via-indigo-500 to-blue-500'>
             <a href="{% url "tutor-home" %}">
             Start Tutoring
             </a>
