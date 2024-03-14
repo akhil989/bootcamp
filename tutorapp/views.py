@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
+from .forms import VideoFormModel
 
 # Create your views here.
 
@@ -9,4 +10,5 @@ def tutor_home(request):
 
 @login_required
 def tutor_signup_form(request):
-    return render(request, 'TutorJoinForm/TutorJoinForm.html' )
+    form = VideoFormModel()
+    return render(request, 'TutorJoinForm/TutorJoinForm.html', {'form':form} )
