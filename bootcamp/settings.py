@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'theme',
     'django_browser_reload',
     'fontawesomefree',
+    'tutorapp'
     
 ]
 TAILWIND_APP_NAME = 'theme'
