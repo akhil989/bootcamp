@@ -1,19 +1,24 @@
 {% extends "base.html" %}
 {% block tutor_join_form %}
 <div class='flex items-center justify-center text-center text-slate-200'>
-    <form class='py-12 mx-44 px-4 w-full' action='' method='POST'>
+    <form class='py-12  sm:mx-4 md:mx-12 lg:mx-20 xl:mx-32 2xl:mx-96 px-12 w-full bg-slate-800 my-32' action='' method='POST'>
         {% csrf_token %}
         
         <p class='text-left font-bold'>Fill up form and start teaching</p><br>
         {{form.as_p}}<br>
-        <p class='items-end justify-end'>
+        <p class='items-end justify-end h-12'>
             <input class='text-center w-full  p-2' type='text'></input>
         </p><br>
      
-        <p class='bg-green-200'>
-            <input class='text-center  bg-blue-500 w-60 p-2 ' type='submit' value='Submit'></input>
-        </p><br>
-        <p class='border-b-2 border-slate-300'>
+        <div class='grid grid-cols-3 h-12 mb-12'>
+                <div  class='col-span-1'></div>
+                <div class='col-span-1'></div>
+                <div class='col-span-1'>
+                    <input class='text-center  bg-blue-500 w-full rounded-md border border-blue-200 p-2 ' type='submit' value='Submit'></input>
+                </div>
+            
+        </div>
+        <p class='border-b-2 border-violet-700'>
             By signing up, you agree to our  <span class='font-bold text-violet-500 underline'><a>Terms of Use </a></span>and
             <span class='font-bold text-violet-500 underline'><a>Privacy Policy</a></span>
         </p><br>
