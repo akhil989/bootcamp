@@ -14,23 +14,26 @@ class VideoFormModel(forms.ModelForm):
         self.fields['title'].widget.attrs['placeholder'] = 'Title'
         self.fields['title'].help_text = ''
         
-        self.fields['thumbnail'].widget.attrs['class'] = ''
+        self.fields['thumbnail'].widget.attrs['class'] = 'form-control px-3 rounded-md   h-11 py-2 px-1 text-slate-200'
+        self.fields['thumbnail'].widget.attrs.update({'style': 'background-color: #059862;'})
         self.fields['thumbnail'].label = 'Add Thumbnail'
         self.fields['thumbnail'].widget.attrs['placeholder'] = ''
         self.fields['thumbnail'].help_text = ''
         
-        self.fields['video'].widget.attrs['class'] = ''
+        self.fields['video'].widget.attrs['class'] = 'form-control px-3 rounded-md   h-11 py-2 px-1 text-slate-200'
+        self.fields['video'].widget.attrs.update({'style': 'background-color: #059862;'})
         self.fields['video'].label = 'Add Video File'
         self.fields['video'].widget.attrs['placeholder'] = ''
         self.fields['video'].help_text = ''
         
-        self.fields['pdf'].widget.attrs['class'] = ''
+        self.fields['pdf'].widget.attrs['class'] = 'form-control px-3 rounded-md  h-11 py-2 px-1 text-slate-200'
+        self.fields['pdf'].widget.attrs.update({'style': 'background-color: #059862;'})
         self.fields['pdf'].label = 'Add Pdf File'
         self.fields['pdf'].widget.attrs['placeholder'] = ''
         self.fields['pdf'].help_text = ''
         
         self.fields['instructor'].label = 'Instructor'
-        self.fields['instructor'].widget.attrs['class'] = 'form-control rounded-md text-slate-800'
+        self.fields['instructor'].widget.attrs['class'] = 'form-control w-1/3 rounded-md text-slate-800'
         self.fields['instructor'].widget.attrs['placeholder'] = ''
         self.fields['instructor'].help_text = ''
         
