@@ -1,5 +1,7 @@
+from datetime import timezone
 from django.db import models
 from django.contrib.auth.models import User
+from django.http import request
 # Create your models here.
 
 class Category(models.Model):
@@ -13,7 +15,6 @@ class VideoModel(models.Model):
     title = models.CharField(max_length=200)
     thumbnail = models.ImageField(null=False, upload_to='thumbnails', default='')
     video = models.FileField(null=False, upload_to='video', default='')
-    pdf = models.FileField(null=True, upload_to='pdf', default='')
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     instructor = models.ForeignKey(User, on_delete=models.CASCADE)
     price = models.DecimalField(max_digits=10, decimal_places=2)
@@ -29,3 +30,9 @@ class Course(models.Model):
 
     def __str__(self):
         return self.title
+    
+class FileModel(models.Model):
+    file_name = models.CharField(max_length=10, null=False)
+    # file_data = models.FileField(null=False, upload_to='file')    
+    image_data = models.ImageField(null = False, upload_to='media')   
+    created_at = models.DateTimeField(editable=False) 

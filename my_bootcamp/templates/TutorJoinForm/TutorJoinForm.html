@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block tutor_join_form %}
 <div class='flex items-left justify-left text-left text-slate-200 h-full'>
-    <form class='flex-1 py-12  sm:mx-4 md:mx-12 lg:mx-20 xl:mx-32 2xl:mx-96 px-12 w-full h-full bg-slate-800 mt-32' action='' method='POST'>
+    <form class='flex-1 py-12  sm:mx-4 md:mx-12 lg:mx-20 xl:mx-32 2xl:mx-96 px-12 w-full h-full bg-slate-800 mt-32' action='' method='POST' enctype="multipart/form-data">
         {% csrf_token %}
         
         <p class='text-center text-2xl font-bold'>Fill up form and start teaching</p><br>
