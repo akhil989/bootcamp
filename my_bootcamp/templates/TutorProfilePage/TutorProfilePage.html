@@ -1,23 +1,38 @@
 {% extends "base.html" %}
+
 {% block tutor_profile_page %}
 <div class='p-4'>
     
     {% for item in data %}
-    <ul class='my-2 border-b border-b-blue-700'>
-        {{item.title}}<br>
-        {{item.price}}<br>
-        {{item.thumbnail}}<br>
-        {{item.video}}<br>
-        <div class='flex flex-row'>
-            <div class='flex-1'>
-                <button type='submit'  class='p-2 w-44 bg-orange-700 rounded-md border border-orange-200'>Delete</button>
+    <ul class='my-2 border-b border-b-blue-700 py-4'>
+        <div class='text-justify overflow-x-scroll no-scrollbar '>
+            <h3>Title: {{item.title}}</h3>
+            <p>Price: {{item.price}}</p>
+            <div class='flex xs:flex-col xm:flex-col sm:flex-col md:flex-col lg:flex-row xl:flex-row 2xl:flex-row  gap-2 items-center'>
+            <img src="/media/{{item.thumbnail}}" alt='name' class='w-[250px] h-[400px] flex-1 p-20'>
+            <video controls autoplay-off class='w-[20%] xs:w-[80%] h-[10%] flex-1'>
+                <source src="/media/{{item.video}}" type='video/mp4'>
+            </video>
             </div>
+            <br>
+            {{item.video}}
+            <br>
+        </div>
+        <div class='flex flex-row mt-4'>
             <div class='flex-1'>
-                <button  type='submit' class='p-2 w-44 bg-green-700 rounded-md border border-green-200'>Edit</button>
+                <form method="post" action="">
+                    {% csrf_token %}
+                    <button type='submit' class='p-2 w-[75%] lg:w-[50%] bg-orange-700 rounded-md border border-orange-200' aria-label="Delete">Delete</button>
+                </form>
+            </div>
+            <div class='flex-1 '>
+                <form method="get" action="">
+                    <button type='submit' class='p-2 w-[75%] lg:w-[50%] bg-green-700 rounded-md border border-green-200' aria-label="Edit">Edit</button>
+                </form>
             </div>
         </div>
     </ul>
     {% endfor %}
         
-<div>
+</div>
 {% endblock tutor_profile_page %}
