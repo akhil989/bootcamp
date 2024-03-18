@@ -4,7 +4,7 @@ from . import models
 class VideoFormModel(forms.ModelForm):
     class Meta:
         model = models.VideoModel
-        fields = '__all__'
+        fields = ['title','thumbnail','video','price','category','description']
     def __init__(self, *args, **kwargs):
         super(VideoFormModel, self).__init__(*args, **kwargs)
 
@@ -26,10 +26,10 @@ class VideoFormModel(forms.ModelForm):
         self.fields['video'].widget.attrs['placeholder'] = ''
         self.fields['video'].help_text = ''
         
-        self.fields['instructor'].label = 'Instructor'
-        self.fields['instructor'].widget.attrs['class'] = 'form-control  xs:w-full xm:w-full sm:w-full md:w-1/3 lg:w-1/3 xl:w-1/3 2xl:w-1/3 rounded-md text-slate-800'
-        self.fields['instructor'].widget.attrs['placeholder'] = ''
-        self.fields['instructor'].help_text = ''
+        # self.fields['instructor'].label = 'Instructor'
+        # self.fields['instructor'].widget.attrs['class'] = 'form-control hidden  xs:w-full xm:w-full sm:w-full md:w-1/3 lg:w-1/3 xl:w-1/3 2xl:w-1/3 rounded-md text-slate-800'
+        # self.fields['instructor'].widget.attrs['placeholder'] = ''
+        # self.fields['instructor'].help_text = ''
         
         self.fields['price'].label = 'Price'
         self.fields['price'].widget.attrs['class'] = 'form-control xs:w-full xm:w-full sm:w-full md:w-1/3 lg:w-1/3 xl:w-1/3 2xl:w-1/3 rounded-md text-slate-800'
