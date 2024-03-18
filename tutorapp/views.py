@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 
 
 from .forms import  VideoFormModel
+from .models import VideoModel
 from django.contrib.auth.models import User
 
 # Create your views here.
@@ -41,4 +42,11 @@ def tutor_signup_form(request):
         else:
             form = VideoFormModel()
     return render(request, 'TutorJoinForm/TutorJoinForm.html', {'form':form} )
+
+@login_required
+def tutor_profile(request):
+    tutorials = VideoModel.objects.all()
+    tutorials= tutorials.filter(instructor__contains=request.user)
+    context = {'data':tutorials}
+    return render(request, 'TutorProfilePage/TutorProfilePage.html', context)
 

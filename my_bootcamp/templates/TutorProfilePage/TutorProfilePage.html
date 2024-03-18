@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block tutor_profile_page %}
+<div class='p-4'>
+    
+    {% for item in data %}
+    <ul class='my-2 border-b border-b-blue-700'>
+        {{item.title}}<br>
+        {{item.price}}<br>
+        {{item.thumbnail}}<br>
+        {{item.video}}<br>
+        <div class='flex flex-row'>
+            <div class='flex-1'>
+                <button type='submit'  class='p-2 w-44 bg-orange-700 rounded-md border border-orange-200'>Delete</button>
+            </div>
+            <div class='flex-1'>
+                <button  type='submit' class='p-2 w-44 bg-green-700 rounded-md border border-green-200'>Edit</button>
+            </div>
+        </div>
+    </ul>
+    {% endfor %}
+        
+<div>
+{% endblock tutor_profile_page %}
