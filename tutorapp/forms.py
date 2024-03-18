@@ -1,10 +1,12 @@
 from django import forms
 from . import models
 
+
 class VideoFormModel(forms.ModelForm):
     class Meta:
         model = models.VideoModel
         fields = ['title','thumbnail','video','price','category','description']
+        
     def __init__(self, *args, **kwargs):
         super(VideoFormModel, self).__init__(*args, **kwargs)
 

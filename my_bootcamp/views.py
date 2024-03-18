@@ -25,10 +25,15 @@ from django.utils.encoding import force_bytes, force_str
 from django.core.mail import EmailMessage
 from .tokens import account_activation_token
 
+from tutorapp.models import VideoModel
+
 # Create your views here.
 
 def home_view(request):
-    return render(request, 'Home/Home.html')
+    tutorials = VideoModel.objects.all()
+    context = {'form':tutorials}
+    
+    return render(request, 'Home/Home.html', context)
 
 @login_required
 def logout_view(request):

@@ -1,6 +1,25 @@
 {% extends "base.html" %}
 {% block home %}
-<div>
-    <h3>Tutor Home</h3>
+<div clas='p-4'>
+    
+    {% for item in form  %}
+    <ul class='my-2 border-b border-b-blue-700 p-4 flex flex-row'>
+        <div class='text-justify overflow-x-scroll no-scrollbar '>
+            <h3>Title: {{item.title}}</h3>
+            <video controls autoplay-off class='w-[40%] xs:w-[90%] h-[80%] border border-purple-900 rounded-lg'>
+                <source src="/media/{{item.video}}" type='video/mp4'>
+            </video>
+           
+            <h3>Posted By : {{item.instructor}}</h3>
+            <p>Published On : {{item.created_at}}</p>
+            <p>Price: {{item.price}}</p>
+            <p>Description:  {{item.description}}</p>
+            <br>
+          
+            <br>
+        </div>
+    </ul>    
+    {% endfor %}
+        
 </div>
 {% endblock home %}
