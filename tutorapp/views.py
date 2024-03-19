@@ -45,8 +45,12 @@ def tutor_signup_form(request):
 
 @login_required
 def tutor_profile(request):
+    user = request.user.pk
+    user_name = User.objects.get(pk=user)
+
+    print('user', user_name)
     tutorials = VideoModel.objects.all()
-    tutorials= tutorials.filter(instructor__contains=request.user)
-    context = {'data':tutorials}
+    tutorials = tutorials.filter(instructor__contains=user)
+    context = {'data':tutorials, 'user_name':user_name}
     return render(request, 'TutorProfilePage/TutorProfilePage.html', context)
 
