@@ -47,10 +47,9 @@ def tutor_signup_form(request):
 def tutor_profile(request):
     user = request.user.pk
     user_name = User.objects.get(pk=user)
-
-    print('user', user_name)
+    print('user===>', user_name)
     tutorials = VideoModel.objects.all()
-    tutorials = tutorials.filter(instructor__contains=user)
+    tutorials = tutorials.filter(instructor=user)
     context = {'data':tutorials, 'user_name':user_name}
     return render(request, 'TutorProfilePage/TutorProfilePage.html', context)
 

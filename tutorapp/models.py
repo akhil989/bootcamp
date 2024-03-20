@@ -16,7 +16,7 @@ class VideoModel(models.Model):
     thumbnail = models.ImageField(null=False, upload_to='thumbnails', default='')
     video = models.FileField(null=False, upload_to='video', default='')
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    instructor = models.CharField(max_length=255,  null=True)
+    instructor = models.ForeignKey(User, on_delete=models.CASCADE, null=False, default='') 
     price = models.DecimalField(max_digits=10, decimal_places=2)
     description = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
