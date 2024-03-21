@@ -1,4 +1,5 @@
 from datetime import timezone
+from site import USER_BASE
 from django.db import models
 from django.contrib.auth.models import User
 from django.http import request
@@ -41,7 +42,7 @@ class FileModel(models.Model):
     
 class LikeVideo(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    video = models.ForeignKey(VideoModel, on_delete=models.CASCADE)
+    video = models.ForeignKey(VideoModel, on_delete=models.CASCADE, related_name='likes')
     
 class CartVideo(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)

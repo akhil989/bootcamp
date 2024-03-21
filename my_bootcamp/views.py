@@ -26,8 +26,8 @@ from tutorapp.models import LikeVideo
 
 def home_view(request):
     tutorials = VideoModel.objects.all()
-    # print('likes', likes, likes['video_id'])
-    context = {'form':tutorials}
+    likes = LikeVideo.objects.all()
+    context = {'form':tutorials, 'likes':likes}
     
     return render(request, 'Home/Home.html', context)
 
@@ -43,9 +43,9 @@ def like_video(request, video_id):
        video = VideoModel.objects.get(id=video_id)
        user = request.user
        liked = LikeVideo.objects.filter(user=user, video=video)
-    if liked:
+       if liked:
         liked.delete()
-    else:
+       else:
         LikeVideo.objects.create(user=user, video=video)
     return redirect('home-page')
     
