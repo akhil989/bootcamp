@@ -14,9 +14,25 @@
             <p>Published On : {{item.created_at}}</p>
             <p>Price: {{item.price}}</p>
             <p>Description:  {{item.description}}</p>
+            <p>Likes: {{item.total_likes}}</p>
             <br>
           
-            <br>
+            {% if user.is_authenticated %}
+            {% if user in video.like_set.all %}
+                <form action="{% url 'like_video' item.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit"><i class="fa-regular fa-thumbs-down  text-orange-600 w-8 h-8 "></i></button>
+                </form>
+            {% else %}
+                <form action="{% url 'like_video' item.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class=''><i class="fa-regular fa-thumbs-up  text-orange-600 w-8 h-8"></i></button>
+                </form>
+            {% endif %}
+            {% else %}
+                <p>Please <a href="{% url 'login' %}">log in</a> to like this video.</p>
+            {% endif %}
+
         </div>
     </ul>    
     {% endfor %}

@@ -16,6 +16,7 @@ def tutor_home(request):
     print('username===',  name)
     return render(request, 'Tutor/TutorHome.html')
 
+
 @login_required
 def tutor_signup_form(request):
     user = request.user

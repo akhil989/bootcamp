@@ -18,19 +18,15 @@ from django.conf import settings
 
 from .forms import  UserRegistrationForm
 
-from django.template.loader import render_to_string
-from django.contrib.sites.shortcuts import get_current_site
-from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
-from django.utils.encoding import force_bytes, force_str
-from django.core.mail import EmailMessage
-from .tokens import account_activation_token
 
 from tutorapp.models import VideoModel
+from tutorapp.models import LikeVideo
 
 # Create your views here.
 
 def home_view(request):
     tutorials = VideoModel.objects.all()
+    # print('likes', likes, likes['video_id'])
     context = {'form':tutorials}
     
     return render(request, 'Home/Home.html', context)
@@ -40,6 +36,19 @@ def logout_view(request):
     auth_logout(request)
     messages.info(request, "You Logged out successfully!")
     return redirect('home-page')
+
+@login_required
+def like_video(request, video_id):
+    if request.method=='POST':
+       video = VideoModel.objects.get(id=video_id)
+       user = request.user
+       liked = LikeVideo.objects.filter(user=user, video=video)
+    if liked:
+        liked.delete()
+    else:
+        LikeVideo.objects.create(user=user, video=video)
+    return redirect('home-page')
+    
   
     
 def login_view(request):
