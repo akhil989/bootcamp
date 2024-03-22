@@ -1,5 +1,4 @@
 from datetime import timezone
-from site import USER_BASE
 from django.db import models
 from django.contrib.auth.models import User
 from django.http import request
@@ -26,6 +25,8 @@ class VideoModel(models.Model):
         return self.title
     def total_likes(self):
         return LikeVideo.objects.filter(video=self).count()
+    def liked_users(self):
+        return [like.user.id for like in self.likes.all()]
 class Course(models.Model):
     title = models.CharField(max_length=200)
     course = models.ForeignKey(VideoModel, on_delete=models.CASCADE, default=None)

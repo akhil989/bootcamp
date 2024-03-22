@@ -4,7 +4,7 @@
     
     {% for item in form  %}
     
-        {% comment %} {% for like in likes %} {% endcomment %}
+        
             
         
             
@@ -22,24 +22,10 @@
                 <p>Price: {{item.price}}</p>
                 <p>Description:  {{item.description}}</p>
                 <p>Likes: {{item.total_likes}}</p>
-                <p>New Likes: {{item.like}}</p>
-                
-                {% for like in likes %}
-                
-                {% if user.id in like %}
-                {{like.user.id}}, {{like.video.id}}
-                    
-                {% endif %}
-                    
-                    
-                {% endfor %}
-                    
-                
+                <p>New Likes: {{item.liked_users}}</p>
                 
                     
                 
-                
-                    
                 
                 {% if user.is_authenticated %}
                 <form> 
@@ -52,7 +38,7 @@
                     
             
                 {% if user.is_authenticated %}
-                {% if user.id in like.video.all %}
+                {% if user.id in item.liked_users %}
                     <form action="{% url 'like_video' item.id %}" method="post">
                         {% csrf_token %}
                         <button type="submit"><i class="fa-regular fa-thumbs-down  text-orange-600 w-8 h-8 "></i></button>
@@ -69,7 +55,7 @@
 
             </div>
         </ul>  
-        {% comment %} {% endfor %}   {% endcomment %}
+
     {% endfor %}
     
         
