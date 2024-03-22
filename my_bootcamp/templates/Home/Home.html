@@ -22,18 +22,28 @@
                 <p>Price: {{item.price}}</p>
                 <p>Description:  {{item.description}}</p>
                 <p>Likes: {{item.total_likes}}</p>
-                <p>New Likes: {{item.liked_users}}</p>
                 
                     
                 
                 
                 {% if user.is_authenticated %}
-                <form> 
-                    {% csrf_token %}  
-                <button type='submit' class=''>Add To Cart:<i class="fa-solid fa-cart-plus w-8 h-8 font-serif 
-                    items-center p-2  text-blue-200 hover:text-blue-700"  ></i></button>
-                <br>
-                </form>
+                {% if user.id in item.cart_users %}
+                    <form action="{% url 'cart-item' item.id %}" method="post"> 
+                        {% csrf_token %}  
+                    <button type='submit' class=''>Item carted:<i class="fa-solid fa-dolly w-8 h-8 font-serif 
+                        items-center p-2  text-slate-200 hover:text-orange-700"></i></button>
+                    <br>
+                    </form>
+                {% else %}
+                    <form action="{% url 'cart-item' item.id %}" method="post"> 
+                        {% csrf_token %}  
+                    <button type='submit' class=''>Add To Cart:<i class="fa-solid fa-dolly w-8 h-8 font-serif 
+                        items-center p-2  text-slate-200 hover:text-slate-200"></i></button>
+                    <br>
+                    </form>
+                {% endif %}
+                {% else %}
+                    <p>Please <a href="{% url 'login' %}">log in</a> to like this video.</p>
                 {% endif %}
                     
             
@@ -41,12 +51,12 @@
                 {% if user.id in item.liked_users %}
                     <form action="{% url 'like_video' item.id %}" method="post">
                         {% csrf_token %}
-                        <button type="submit"><i class="fa-regular fa-thumbs-down  text-orange-600 w-8 h-8 "></i></button>
+                        <button type="submit"><i class="fa-solid fa-heart  text-orange-600 w-8 h-8 "></i> you liked</button>
                     </form>
                 {% else %}
                     <form action="{% url 'like_video' item.id %}" method="post">
                         {% csrf_token %}
-                        <button type="submit" class=''><i class="fa-regular fa-thumbs-up  text-orange-600 w-8 h-8"></i>{{user.id}},{{item.user_like}}</button>
+                        <button type="submit" class=''><i class="fa-regular fa-heart  text-orange-600 w-8 h-8 "></i></i>add like</button>
                     </form>
                 {% endif %}
                 {% else %}

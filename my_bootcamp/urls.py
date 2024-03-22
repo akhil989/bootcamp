@@ -18,6 +18,8 @@ urlpatterns = [
     path('accounts/reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(template_name='PasswordResetConfirm/PasswordResetConfirm.html'), name='password_reset_confirm'),
     path('accounts/reset/done/', auth_views.PasswordResetCompleteView.as_view(template_name='PasswordResetComplete/PasswordResetComplete.html'), name='password_reset_complete'),
     path('like/<int:video_id>/', views.like_video, name='like_video'),
+    path('cart/<int:video_id>/', views.cart_item, name='cart-item'),
+    path('cart-page/', views.cart_page, name='cart-page'),
     
    
     # path('activate/<uidb64>/<token>', views.activate, name='activate'),

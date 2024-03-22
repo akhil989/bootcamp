@@ -27,6 +27,10 @@ class VideoModel(models.Model):
         return LikeVideo.objects.filter(video=self).count()
     def liked_users(self):
         return [like.user.id for like in self.likes.all()]
+    def total_cart(self):
+        return CartVideo.objects.filter(video=self).count()
+    def cart_users(self):
+        return [cart.user.id for cart in self.carts.all()]
 class Course(models.Model):
     title = models.CharField(max_length=200)
     course = models.ForeignKey(VideoModel, on_delete=models.CASCADE, default=None)
@@ -47,4 +51,4 @@ class LikeVideo(models.Model):
     
 class CartVideo(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    video = models.ForeignKey(VideoModel, on_delete=models.CASCADE)
+    video = models.ForeignKey(VideoModel, on_delete=models.CASCADE, related_name='carts')

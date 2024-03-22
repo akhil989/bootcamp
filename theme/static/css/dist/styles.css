@@ -1554,6 +1554,11 @@ select {
   color: rgb(226 232 240 / var(--tw-text-opacity));
 }
 
+.hover\:text-orange-700:hover {
+  --tw-text-opacity: 1;
+  color: rgb(194 65 12 / var(--tw-text-opacity));
+}
+
 @media (min-width: 320px) {
   .xs\:w-\[80\%\] {
     width: 80%;

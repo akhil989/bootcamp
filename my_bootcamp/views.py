@@ -21,6 +21,9 @@ from .forms import  UserRegistrationForm
 
 from tutorapp.models import VideoModel
 from tutorapp.models import LikeVideo
+from tutorapp.models import CartVideo
+
+from django.db.models import Count
 
 # Create your views here.
 
@@ -28,8 +31,25 @@ def home_view(request):
     tutorials = VideoModel.objects.all()
     likes = LikeVideo.objects.all()
     context = {'form':tutorials, 'likes':likes}
-    
     return render(request, 'Home/Home.html', context)
+
+@login_required
+def cart_page(request):
+    # users = User.objects.all()
+    # user_item_counts = {}
+    
+    # # Iterate through each user and count their items
+    # for user in users:
+    #     # Count items created by the user
+    #     item_count = VideoModel.objects.filter(instructor=user).count()
+    #     user_item_counts[user.username] = item_count
+    
+    # context = {'user_item_counts': user_item_counts}
+    tutorials = VideoModel.objects.all()
+    context = {'form':tutorials}
+    return render(request, 'CartPage/CartPage.html', context)
+
+
 
 @login_required
 def logout_view(request):
@@ -47,6 +67,17 @@ def like_video(request, video_id):
         liked.delete()
        else:
         LikeVideo.objects.create(user=user, video=video)
+    return redirect('home-page')
+@login_required
+def cart_item(request, video_id):
+    if request.method == 'POST':
+        video = VideoModel.objects.get(id=video_id)
+        user = request.user
+        cart = CartVideo.objects.filter(user=user, video=video)
+        if cart:
+            cart.delete()
+        else:
+            CartVideo.objects.create(user=user, video=video)
     return redirect('home-page')
     
   
