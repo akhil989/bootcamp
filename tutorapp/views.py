@@ -30,16 +30,14 @@ def tutor_signup_form(request):
             print('form_data', form.cleaned_data)
             try:
                 instance = form.save(commit=False)
-                instance.instructor=request.user.username
+                instance.instructor=request.user
                 instance.save()
                 print("SAMPLE form",form.cleaned_data)
                 
-                return redirect('tutor-home')
+                return redirect('tutor-profile')
             except Exception as e:
                 if e:
                     raise Http404("Error")
-            finally:
-                print('files uploaded')
         else:
             form = VideoFormModel()
     return render(request, 'TutorJoinForm/TutorJoinForm.html', {'form':form} )
