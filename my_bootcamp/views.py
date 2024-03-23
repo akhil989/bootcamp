@@ -35,18 +35,14 @@ def home_view(request):
 
 @login_required
 def cart_page(request):
-    # users = User.objects.all()
-    # user_item_counts = {}
-    
-    # # Iterate through each user and count their items
-    # for user in users:
-    #     # Count items created by the user
-    #     item_count = VideoModel.objects.filter(instructor=user).count()
-    #     user_item_counts[user.username] = item_count
-    
-    # context = {'user_item_counts': user_item_counts}
-    tutorials = VideoModel.objects.all()
-    context = {'form':tutorials}
+    pricelst=[]
+    tutorials = VideoModel.objects.filter(carts__user=request.user)
+    for item in tutorials:
+        price = round(item.price)
+        pricelst.append(price)
+    print('pricelst', pricelst, round(sum(pricelst)*1.2, 2))
+    total_price = round(sum(pricelst)*1.2, 2)
+    context = {'form':tutorials, 'total_price':total_price}
     return render(request, 'CartPage/CartPage.html', context)
 
 
@@ -79,6 +75,16 @@ def cart_item(request, video_id):
         else:
             CartVideo.objects.create(user=user, video=video)
     return redirect('home-page')
+@login_required
+def remove_cart_item(request, video_id):
+    if request.method == 'POST':
+        video = VideoModel.objects.get(id=video_id)
+        user = request.user
+        cart = CartVideo.objects.filter(user=user, video=video)
+        if cart:
+            cart.delete()
+            # messages('Item Already in your cart!')
+    return redirect('cart-page')
     
   
     

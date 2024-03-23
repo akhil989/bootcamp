@@ -4,23 +4,35 @@
     
     
     {% if user.is_authenticated %}
-    {% for item in form %}
-        {% if user.id in item.cart_users %}
-                    <h2>Items Carted by You:</h2>
-                    <ul class='my-2 border-b border-b-blue-700 p-4 flex flex-row'>
-                        <div class='text-justify overflow-x-scroll no-scrollbar '>
-                            <h3>Title: {{item.title}}</h3>
-                            <video controls autoplay-off class='w-[40%] xs:w-[90%] h-[80%] border border-purple-900 rounded-lg'>
-                                <source src="/media/{{item.video}}" type='video/mp4'>
-                            </video>
-                        
-                            <h3>Posted By : {{item.instructor.username}}</h3>
-                            <p>Published On : {{item.created_at}}</p>
-                            <p>Price: {{item.price}}</p>
-                        </div>
-                    </ul>  
-        {% endif %}
-    {% endfor %}
+        <h2>Items Carted by You:{{user}}</h2>
+        {% for item in form %}
+            {% if user.id in item.cart_users %}
+                {{item.cart_users}}
+                <ul class='my-2 border-b border-b-blue-700 p-4 flex flex-row'>
+                    <div class='text-justify overflow-x-scroll no-scrollbar '>
+                        <h3>Title: {{item.title}}</h3>
+                        <video controls autoplay-off class='w-[40%] xs:w-[90%] h-[80%] border border-purple-900 rounded-lg'>
+                            <source src="/media/{{item.video}}" type='video/mp4'>
+                        </video>
+                    
+                        <h3>Posted By : {{item.instructor.username}}</h3>
+                        <p>Published On : {{item.created_at}}</p>
+                        <p>Price: {{item.price}}</p>
+              
+                    <form action="{% url 'remove-cart-item' item.id %}" method="post"> 
+                        {% csrf_token %}  
+                    <button type='submit' class=''>Remove Item:<i class="fa-solid fa-dolly w-8 h-8 font-serif 
+                        items-center p-2  text-slate-200 hover:text-orange-700"></i></button>
+                    <br>
+                    </form>
+                    </div>
+                </ul>  
+            
+            {% endif %}
+        {% endfor %}
+        <p>Total Price: {{total_price}}</p>
+    {% else %}
+        <p>Please log in to view your cart.</p>
     {% endif %}
 
 

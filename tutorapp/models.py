@@ -1,4 +1,5 @@
 from datetime import timezone
+from decimal import Decimal
 from django.db import models
 from django.contrib.auth.models import User
 from django.http import request
@@ -31,6 +32,8 @@ class VideoModel(models.Model):
         return CartVideo.objects.filter(video=self).count()
     def cart_users(self):
         return [cart.user.id for cart in self.carts.all()]
+    def price_after_commission(self):
+        return round(self.price*Decimal(1.3),2)
 class Course(models.Model):
     title = models.CharField(max_length=200)
     course = models.ForeignKey(VideoModel, on_delete=models.CASCADE, default=None)

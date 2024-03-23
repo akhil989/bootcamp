@@ -20,6 +20,7 @@ urlpatterns = [
     path('like/<int:video_id>/', views.like_video, name='like_video'),
     path('cart/<int:video_id>/', views.cart_item, name='cart-item'),
     path('cart-page/', views.cart_page, name='cart-page'),
+    path('remove-cart/<int:video_id>/', views.remove_cart_item, name='remove-cart-item'),
     
    
     # path('activate/<uidb64>/<token>', views.activate, name='activate'),
