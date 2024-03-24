@@ -24,13 +24,30 @@ from tutorapp.models import LikeVideo
 from tutorapp.models import CartVideo
 
 from django.db.models import Count
+from django.contrib.auth.models import AnonymousUser 
 
 # Create your views here.
 
 def home_view(request):
-    tutorials = VideoModel.objects.all()
+    pricelst=[]
     likes = LikeVideo.objects.all()
-    context = {'form':tutorials, 'likes':likes}
+    print('user',request.user)
+    if 'search' in request.GET:
+        search_query = request.GET['search']
+        tutorials_vid = VideoModel.objects.filter(title__icontains=search_query)
+        print('search_query',search_query)
+    else:
+        tutorials_vid = VideoModel.objects.all()
+        
+    if not isinstance(request.user, AnonymousUser):
+        tutorials = VideoModel.objects.filter(carts__user=request.user)
+        for item in tutorials:
+            price = round(item.price)
+            pricelst.append(price)
+        total_cart = len(pricelst)
+    else:
+        total_cart = 0
+    context = {'form':tutorials_vid, 'likes':likes, 'total_cart': total_cart}
     return render(request, 'Home/Home.html', context)
 
 @login_required
@@ -42,9 +59,18 @@ def cart_page(request):
         pricelst.append(price)
     print('pricelst', pricelst, round(sum(pricelst)*1.2, 2))
     total_price = round(sum(pricelst)*1.2, 2)
-    context = {'form':tutorials, 'total_price':total_price}
+    context = {'form':tutorials, 'total_price':total_price, 'total_cart':len(pricelst)}
     return render(request, 'CartPage/CartPage.html', context)
 
+def cart_item_count(request):
+    pricelst=[]
+    tutorials = VideoModel.objects.filter(carts__user=request.user)
+    for item in tutorials:
+        price = round(item.price)
+        pricelst.append(price)
+    total_cart = len(pricelst)
+    messages.info(request, f'{total_cart}')
+    return render(request, 'NavBar/NavBar.html')
 
 
 @login_required

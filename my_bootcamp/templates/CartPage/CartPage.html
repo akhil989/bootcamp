@@ -8,6 +8,7 @@
         {% for item in form %}
             {% if user.id in item.cart_users %}
                 {{item.cart_users}}
+                {{total_cart}}
                 <ul class='my-2 border-b border-b-blue-700 p-4 flex flex-row'>
                     <div class='text-justify overflow-x-scroll no-scrollbar '>
                         <h3>Title: {{item.title}}</h3>
