@@ -22,6 +22,7 @@ from .forms import  UserRegistrationForm
 from tutorapp.models import VideoModel
 from tutorapp.models import LikeVideo
 from tutorapp.models import CartVideo
+from tutorapp.models import Category
 
 from django.db.models import Count
 from django.contrib.auth.models import AnonymousUser 
@@ -31,11 +32,14 @@ from django.contrib.auth.models import AnonymousUser
 def home_view(request):
     pricelst=[]
     likes = LikeVideo.objects.all()
-    print('user',request.user)
+    print('user',request.user, type(request.user))
     if 'search' in request.GET:
         search_query = request.GET['search']
         tutorials_vid = VideoModel.objects.filter(title__icontains=search_query)
         print('search_query',search_query)
+    if 'category' in request.GET:
+        category_name = request.GET['category']
+        tutorials_vid = VideoModel.objects.filter(category__name=category_name)
     else:
         tutorials_vid = VideoModel.objects.all()
         
@@ -47,7 +51,8 @@ def home_view(request):
         total_cart = len(pricelst)
     else:
         total_cart = 0
-    context = {'form':tutorials_vid, 'likes':likes, 'total_cart': total_cart}
+    category = Category.objects.all()
+    context = {'form':tutorials_vid, 'likes':likes, 'total_cart': total_cart, 'category':category}
     return render(request, 'Home/Home.html', context)
 
 @login_required
