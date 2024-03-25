@@ -56,6 +56,17 @@
 			  $("#sidebar_div").hide();
 			});
 		  });
+
+		  $(document).ready(function(){
+			$("#sidebar_category_arrow_down").click(function(){
+			  $("#sidebar_category_list").show();
+			});
+		  });
+		  $(document).ready(function(){
+			$("#sidebar_category_arrow_up").click(function(){
+			  $("#sidebar_category_list").hide();
+			});
+		  });
 		</script>
 		{% tailwind_css %}
 	</head>
