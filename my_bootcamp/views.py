@@ -32,20 +32,19 @@ from django.contrib.auth.models import AnonymousUser
 def home_view(request):
     pricelst=[]
     likes = LikeVideo.objects.all()
-    print('user',request.user, type(request.user))
     if 'search' in request.GET:
         search_query = request.GET['search']
-        tutorials_vid = VideoModel.objects.filter(title__istartswith=search_query)
+        tutorials_vid = VideoModel.objects.filter(title__icontains=search_query)
         print('search_query',search_query)
-    if 'search1' in request.GET:
+    elif 'search1' in request.GET:
         search_query = request.GET['search1']
-        tutorials_vid = VideoModel.objects.filter(title__contains=search_query)
+        tutorials_vid = VideoModel.objects.filter(title__icontains=search_query)
         print('search_query',search_query)
-    if 'category' in request.GET:
+    elif 'category' in request.GET:
         category_name = request.GET['category']
         tutorials_vid = VideoModel.objects.filter(category__name=category_name)
     else:
-        tutorials_vid = VideoModel.objects.all()
+        tutorials_vid = VideoModel.objects.all().order_by('-created_at')
         
     if not isinstance(request.user, AnonymousUser):
         tutorials = VideoModel.objects.filter(carts__user=request.user)
