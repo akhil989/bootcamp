@@ -35,7 +35,11 @@ def home_view(request):
     print('user',request.user, type(request.user))
     if 'search' in request.GET:
         search_query = request.GET['search']
-        tutorials_vid = VideoModel.objects.filter(title__icontains=search_query)
+        tutorials_vid = VideoModel.objects.filter(title__istartswith=search_query)
+        print('search_query',search_query)
+    if 'search1' in request.GET:
+        search_query = request.GET['search1']
+        tutorials_vid = VideoModel.objects.filter(title__contains=search_query)
         print('search_query',search_query)
     if 'category' in request.GET:
         category_name = request.GET['category']

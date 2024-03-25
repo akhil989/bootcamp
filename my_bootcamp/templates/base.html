@@ -40,6 +40,22 @@
 			  $("#category_div").hide();
 			});
 		  });
+
+		  $(document).ready(function(){
+			$("#sidebar_link").click(function(){
+			  $("#sidebar_div").slideDown();
+			});
+		  });
+		  $(document).ready(function(){
+			$("#sidebar_link_hide").click(function(){
+			  $("#sidebar_div").slideUp();
+			});
+		  });
+		  $(document).ready(function(){
+			$("#sidebar_item_hide").click(function(){
+			  $("#sidebar_div").hide();
+			});
+		  });
 		</script>
 		{% tailwind_css %}
 	</head>

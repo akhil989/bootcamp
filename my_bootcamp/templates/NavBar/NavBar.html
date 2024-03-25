@@ -62,7 +62,7 @@
             {% endif %}
                 
         </div> 
-        <div  class=' mx-2 sm:flex  md:flex lg:hidden xl:hidden 2xl:hidden py-3'>
+        <div  class=' mx-2 sm:flex  md:flex lg:hidden xl:hidden 2xl:hidden py-3' id='sidebar_link'>
             <a>
             <i class="fa-solid fa-bars w-8 h-8 font-serif 
             items-center p-2  text-blue-200 hover:text-blue-700"  ></i>
@@ -114,6 +114,34 @@
             items-center p-2  text-slate-900 hover:text-blue-700"></i></li>
         {% for items in category %}
         <li class='border-b border-violet-500' id='nav_category_item_hide'>
+            <form action="{% url "home-page" %}" method='get' class='flex '>
+            <button type='submit' name='category' value="{{items.name}}">
+            {{items.name}}
+            <button>
+            </form>
+        </li>
+        {% endfor %}
+            
+    </ul>
+</div>
+<div class='flex rounded-b-xl  bg-green-500 text-slate-800 font-serif font-bold h-full overflow-y-scroll no-scrollbar' >
+    
+    <ul id='sidebar_div' class='hidden p-4 w-full '>
+        <li class='text-right p-2 border-b border-violet-500' id='sidebar_link_hide'><i class="fa-solid fa-xmark w-8 h-8 font-serif 
+            items-center p-2  text-slate-900 hover:text-blue-700"></i></li>
+                   
+        <div  class=' mx-2  py-3  items-center justify-center text-2xl bg-clip-text text-transparent bg-gradient-to-r  from-orange-700 via-indigo-500 to-blue-500'>
+            <form action="{% url "home-page" %}" method='get' class='flex flex-col'>
+                <input class='flex rounded-lg w-full px-2 text-slate-800' placeholder='Search Here' type='text' name='search1'></input>
+                <button
+                    type="submit"
+                    class="my-1 w-32 text-center bg-green-700 rounded-lg text-slate-800 p-2 hover:bg-blue-700"
+                    >Search</button>
+            </form>
+        </div> 
+        <li class='text-left  border-b border-orange-500 text-lg'>Category</li>
+        {% for items in category %}
+        <li class='border-b border-violet-500' id='sidebar_item_hide'>
             <form action="{% url "home-page" %}" method='get' class='flex '>
             <button type='submit' name='category' value="{{items.name}}">
             {{items.name}}
