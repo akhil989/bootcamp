@@ -18,11 +18,29 @@
 		<link href= 
                 "https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css"
                           rel="stylesheet" /> 
-                <style> 
-                        .no-scrollbar::-webkit-scrollbar { 
-                            display: none; 
-                        } 
-                </style>
+		<style> 
+				.no-scrollbar::-webkit-scrollbar { 
+					display: none; 
+				} 
+		</style>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+		<script>
+		$(document).ready(function(){
+			$("#nav_category_link").click(function(){
+			  $("#category_div").show();
+			});
+		  });
+		  $(document).ready(function(){
+			$("#nav_category_link_hide").click(function(){
+			  $("#category_div").hide();
+			});
+		  });
+		  $(document).ready(function(){
+			$("#nav_category_item_hide").click(function(){
+			  $("#category_div").hide();
+			});
+		  });
+		</script>
 		{% tailwind_css %}
 	</head>
 
