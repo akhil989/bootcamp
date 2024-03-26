@@ -5,14 +5,14 @@
     {% for item in form  %}       
         <ul class='my-2 p-2'>
            
-            <div class='bg-slate-700 rounded-lg grid lg:grid-cols-2 gap-2  h-96'>
-                <div class='py-2 col-span-1'>
+            <div class='bg-slate-800 rounded-lg grid md:grid-cols-2 gap-2  pb-2 md:py-2'>
+                <div class='py-2 col-span-1 rounded-lg bg-black'>
                 <video controls autoplay-off class='w-full h-full'>
                     <source src="/media/{{item.video}}" type='video/mp4'>
                 </video>
                 </div>
-                <div class='p-2 col-span-1 overflow-y-scroll  no-scrollbar'>
-                <h3>Title: {{item.title}}</h3>
+                <div class='p-2 col-span-1 overflow-y-scroll  no-scrollbar py-2'>
+                <h3 class='font-bold text-lg text-gray-300'>{{item.title|capfirst}}</h3>
                 <h3>Posted By : {{item.instructor.username}}</h3>
                 <p>Published On : {{item.created_at}}</p>
                 <p>Price: {{item.price}}</p>
