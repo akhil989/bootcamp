@@ -67,10 +67,59 @@
                 <p>Rate:
                     <form action="{% url 'rate-video' item.id %}" method="post"> 
                         {% csrf_token %}  
-                    <button type='submit' class='' name='rating' value=5>Rate Video 5</button>
-                    <br>
+                    <button type='submit' class='w-full text-left' name='rating' value=5>
+                        <i class="fa-solid fa-star w-4 h-4"></i>
+                        <i class="fa-solid fa-star w-4 h-4"></i>
+                        <i class="fa-solid fa-star w-4 h-4"></i>
+                        <i class="fa-solid fa-star w-4 h-4"></i>
+                        <i class="fa-solid fa-star w-4 h-4"></i>
+                    </button><br>
+                    <button type='submit' class='w-full text-left' name='rating' value=4>
+                        <i class="fa-solid fa-star w-4 h-4"></i>
+                        <i class="fa-solid fa-star w-4 h-4"></i>
+                        <i class="fa-solid fa-star w-4 h-4"></i>
+                        <i class="fa-solid fa-star w-4 h-4"></i>
+                    </button><br>
+                    <button type='submit' class='w-full text-left' name='rating' value=3>
+                        <i class="fa-solid fa-star w-4 h-4"></i>
+                        <i class="fa-solid fa-star w-4 h-4"></i>
+                        <i class="fa-solid fa-star w-4 h-4"></i>
+                    </button><br>
+                    <button type='submit' class='w-full text-left' name='rating' value=2>
+                        <i class="fa-solid fa-star w-4 h-4"></i>
+                        <i class="fa-solid fa-star w-4 h-4"></i>
+                    </button><br>
+                    <button type='submit' class='w-full text-left' name='rating' value=1>
+                        <i class="fa-solid fa-star w-4 h-4"></i>
+                    </button><br>
                     </form>
                 </p>
+                <p class='text-left text-yellow-500'>
+                    {% if item.average_rating == 5 %}
+                        <i class="fa-solid fa-star w-4 h-4"></i>
+                        <i class="fa-solid fa-star w-4 h-4"></i>
+                        <i class="fa-solid fa-star w-4 h-4"></i>
+                        <i class="fa-solid fa-star w-4 h-4"></i>
+                        <i class="fa-solid fa-star w-4 h-4"></i>
+                    {% elif item.average_rating == 4 %}
+                        <i class="fa-solid fa-star w-4 h-4"></i>
+                        <i class="fa-solid fa-star w-4 h-4"></i>
+                        <i class="fa-solid fa-star w-4 h-4"></i>
+                        <i class="fa-solid fa-star w-4 h-4"></i>
+                    {% elif item.average_rating == 3 %}
+                        <i class="fa-solid fa-star w-4 h-4"></i>
+                        <i class="fa-solid fa-star w-4 h-4"></i>
+                        <i class="fa-solid fa-star w-4 h-4"></i>
+                    {% elif item.average_rating == 2 %}
+                        <i class="fa-solid fa-star w-4 h-4"></i>
+                        <i class="fa-solid fa-star w-4 h-4"></i>
+                    {% elif item.average_rating == 1 %}
+                        <i class="fa-solid fa-star w-4 h-4"></i> 
+                    {% endif %} {{item.total_rating}} users rated this video.
+                    
+                             
+                </p>
+                
                 
                 {% if user.is_authenticated %}
                 {% if user.id in item.cart_users %}

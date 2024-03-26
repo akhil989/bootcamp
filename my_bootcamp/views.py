@@ -56,7 +56,7 @@ def home_view(request):
     else:
         total_cart = 0
     category = Category.objects.all()
-    ratings = RateVideo.objects.select_related('user_rating').all()
+    ratings = RateVideo.objects.all()
     context = {'form':tutorials_vid, 'likes':likes, 'total_cart': total_cart, 'category':category, 'ratings':ratings}
     return render(request, 'Home/Home.html', context)
 

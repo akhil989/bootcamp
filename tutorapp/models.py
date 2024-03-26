@@ -3,6 +3,7 @@ from decimal import Decimal
 from django.db import models
 from django.contrib.auth.models import User
 from django.http import request
+from django.db.models import Avg
 # Create your models here.
 
 class Category(models.Model):
@@ -35,6 +36,12 @@ class VideoModel(models.Model):
         return [cart.user.id for cart in self.carts.all()]
     def price_after_commission(self):
         return round(self.price*Decimal(1.3),2)
+    def total_rating(self):
+        # Count the total number of ratings for this video
+        return RateVideo.objects.filter(video=self).count()
+    def average_rating(self):
+        # Calculate the average rating for this video
+        return RateVideo.objects.filter(video=self).aggregate(avg_rating=Avg('user_rating'))['avg_rating']
 class Course(models.Model):
     title = models.CharField(max_length=200)
     course = models.ForeignKey(VideoModel, on_delete=models.CASCADE, default=None)
@@ -63,4 +70,4 @@ class RateVideo(models.Model):
     user_rating = models.IntegerField(null=True)
     
     def __str__(self):
-        return self.user_rating
+        return str(self.user_rating)
