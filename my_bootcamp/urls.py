@@ -21,6 +21,7 @@ urlpatterns = [
     path('cart/<int:video_id>/', views.cart_item, name='cart-item'),
     path('cart-page/', views.cart_page, name='cart-page'),
     path('remove-cart/<int:video_id>/', views.remove_cart_item, name='remove-cart-item'),
+    path('rate-video/<int:video_id>/', views.rate_video, name='rate-video')
 
     
    

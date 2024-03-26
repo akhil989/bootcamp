@@ -127,15 +127,22 @@ def rate_video(request, video_id):
         video = get_object_or_404(VideoModel, id=video_id)
         user = request.user
         rating = request.POST.get('rating')  # Assuming your frontend sends the rating value
-        
+        rating = int(rating)
+        print('rating+++==>', rating, type(rating))
         # Check if the user has already rated this video, if so, update the rating
-        user_rating, created = RateVideo.objects.get_or_create(user=user, video=video)
-        user_rating.user_rating = rating
-        user_rating.save()
-        
-        return JsonResponse({'message': 'Rating saved successfully'})
+        if rating is not None:
+            try:
+                user_rating, created = RateVideo.objects.get_or_create(user=user, video=video)
+                user_rating.user_rating = rating
+                user_rating.save()
+                return JsonResponse({'message': 'Rating saved successfully'})
+            except Exception as e:
+                print('Rating error:', e)
+                return JsonResponse({'error': 'Failed to save rating'}, status=500)
+        else:
+            return JsonResponse({'error': 'Rating value is missing'}, status=400)
 
-    return JsonResponse({'error': 'Invalid request method'})
+    return  redirect('home-page')
     
 def login_view(request):
     if request.user.is_authenticated:

@@ -58,15 +58,9 @@ class CartVideo(models.Model):
     video = models.ForeignKey(VideoModel, on_delete=models.CASCADE, related_name='carts')
 
 class RateVideo(models.Model):
-    class RatingChoices(models.IntegerChoices):
-        ONE_STAR = 1, 'One Star'
-        TWO_STARS = 2, 'Two Stars'
-        THREE_STARS = 3, 'Three Stars'
-        FOUR_STARS = 4, 'Four Stars'
-        FIVE_STARS = 5, 'Five Stars'
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     video = models.ForeignKey(VideoModel, on_delete=models.CASCADE, related_name='rating')
-    user_rating = models.IntegerField(choices=RatingChoices.choices)
+    user_rating = models.IntegerField(null=True)
     
     def __str__(self):
         return self.user_rating

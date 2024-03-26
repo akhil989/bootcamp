@@ -64,6 +64,13 @@
                 <p>Price: {{item.price}}</p>
                 <p>Description:  {{item.description}}</p>
                 <p>Likes: {{item.total_likes}}</p>
+                <p>Rate:
+                    <form action="{% url 'rate-video' item.id %}" method="post"> 
+                        {% csrf_token %}  
+                    <button type='submit' class='' name='rating' value=5>Rate Video 5</button>
+                    <br>
+                    </form>
+                </p>
                 
                 {% if user.is_authenticated %}
                 {% if user.id in item.cart_users %}
