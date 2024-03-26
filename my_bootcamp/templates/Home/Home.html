@@ -1,15 +1,18 @@
 {% extends "base.html" %}
 {% block home %}
-<div clas='p-4'>
+<div class='w-full'>
     
     {% for item in form  %}       
-        <ul class='my-2 border-b border-b-blue-700 p-4 flex flex-row'>
-            <div class='text-justify overflow-x-scroll no-scrollbar '>
-                <h3>Title: {{item.title}}</h3>
-                <video controls autoplay-off class='w-[40%] xs:w-[90%] h-[80%] border border-purple-900 rounded-lg'>
+        <ul class='my-2 p-2'>
+           
+            <div class='bg-slate-700 rounded-lg grid lg:grid-cols-2 gap-2  h-96'>
+                <div class='py-2 col-span-1'>
+                <video controls autoplay-off class='w-full h-full'>
                     <source src="/media/{{item.video}}" type='video/mp4'>
                 </video>
-            
+                </div>
+                <div class='p-2 col-span-1 overflow-y-scroll  no-scrollbar'>
+                <h3>Title: {{item.title}}</h3>
                 <h3>Posted By : {{item.instructor.username}}</h3>
                 <p>Published On : {{item.created_at}}</p>
                 <p>Price: {{item.price}}</p>
@@ -52,6 +55,7 @@
                 {% else %}
                     <p>Please <a href="{% url 'login' %}">log in</a> to like this video.</p>
                 {% endif %}
+                </div>
 
             </div>
         </ul>  
