@@ -64,34 +64,38 @@
                 <p>Price: {{item.price}}</p>
                 <p>Description:  {{item.description}}</p>
                 <p>Likes: {{item.total_likes}}</p>
-                <p>Rate:
-                    <form action="{% url 'rate-video' item.id %}" method="post"> 
+                <p><button class='p-1 bg-blue-500 border border-blue-200' id='rate_video'>Rate This Video:</button>
+                    <form action="{% url 'rate-video' item.id %}" method="post" class=' border border-gray-400 bg-slate-400 p-4 m-2' id='rating_form'> 
                         {% csrf_token %}  
                     <button type='submit' class='w-full text-left' name='rating' value=5>
                         <i class="fa-solid fa-star w-4 h-4"></i>
                         <i class="fa-solid fa-star w-4 h-4"></i>
                         <i class="fa-solid fa-star w-4 h-4"></i>
                         <i class="fa-solid fa-star w-4 h-4"></i>
-                        <i class="fa-solid fa-star w-4 h-4"></i>
+                        <i class="fa-solid fa-star w-4 h-4"></i>Give Five Star!!!!
                     </button><br>
                     <button type='submit' class='w-full text-left' name='rating' value=4>
                         <i class="fa-solid fa-star w-4 h-4"></i>
                         <i class="fa-solid fa-star w-4 h-4"></i>
                         <i class="fa-solid fa-star w-4 h-4"></i>
-                        <i class="fa-solid fa-star w-4 h-4"></i>
+                        <i class="fa-solid fa-star w-4 h-4"></i>Give Four Star!!!!
                     </button><br>
                     <button type='submit' class='w-full text-left' name='rating' value=3>
                         <i class="fa-solid fa-star w-4 h-4"></i>
                         <i class="fa-solid fa-star w-4 h-4"></i>
-                        <i class="fa-solid fa-star w-4 h-4"></i>
+                        <i class="fa-solid fa-star w-4 h-4"></i>Give Three Star!!!!
                     </button><br>
                     <button type='submit' class='w-full text-left' name='rating' value=2>
                         <i class="fa-solid fa-star w-4 h-4"></i>
-                        <i class="fa-solid fa-star w-4 h-4"></i>
+                        <i class="fa-solid fa-star w-4 h-4"></i>Give Two Star!!!!
                     </button><br>
                     <button type='submit' class='w-full text-left' name='rating' value=1>
-                        <i class="fa-solid fa-star w-4 h-4"></i>
+                        <i class="fa-solid fa-star w-4 h-4"></i>Give One Star!!!!
                     </button><br>
+                    <button type='submit' class='w-full text-left'>
+                        cancel
+                    </button><br>
+
                     </form>
                 </p>
                 <p class='text-left text-yellow-500'>
