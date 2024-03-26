@@ -1055,6 +1055,10 @@ select {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
+.grid-cols-5 {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
 .flex-row {
   flex-direction: row;
 }
@@ -1133,6 +1137,10 @@ select {
 
 .rounded-sm {
   border-radius: 0.125rem;
+}
+
+.rounded {
+  border-radius: 0.25rem;
 }
 
 .rounded-b-xl {
@@ -1448,6 +1456,10 @@ select {
   padding-bottom: 0.5rem;
 }
 
+.pl-2 {
+  padding-left: 0.5rem;
+}
+
 .text-left {
   text-align: left;
 }
@@ -1708,6 +1720,10 @@ select {
 }
 
 @media (min-width: 320px) {
+  .xs\:hidden {
+    display: none;
+  }
+
   .xs\:w-\[80\%\] {
     width: 80%;
   }
@@ -1731,6 +1747,10 @@ select {
 }
 
 @media (min-width: 370px) {
+  .xm\:hidden {
+    display: none;
+  }
+
   .xm\:flex-col {
     flex-direction: column;
   }
@@ -1749,6 +1769,10 @@ select {
 
   .sm\:flex {
     display: flex;
+  }
+
+  .sm\:hidden {
+    display: none;
   }
 
   .sm\:flex-col {
