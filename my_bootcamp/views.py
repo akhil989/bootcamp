@@ -135,7 +135,7 @@ def rate_video(request, video_id):
                 user_rating, created = RateVideo.objects.get_or_create(user=user, video=video)
                 user_rating.user_rating = rating
                 user_rating.save()
-                return JsonResponse({'message': 'Rating saved successfully'})
+                return redirect('home-page')
             except Exception as e:
                 print('Rating error:', e)
                 return JsonResponse({'error': 'Failed to save rating'}, status=500)
