@@ -1,5 +1,5 @@
-from django.http import HttpResponse
-from django.shortcuts import redirect, render
+from django.http import HttpResponse, JsonResponse
+from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import  authenticate
 from django.contrib.auth import login as auth_login
@@ -23,6 +23,7 @@ from tutorapp.models import VideoModel
 from tutorapp.models import LikeVideo
 from tutorapp.models import CartVideo
 from tutorapp.models import Category
+from tutorapp.models import RateVideo
 
 from django.db.models import Count
 from django.contrib.auth.models import AnonymousUser 
@@ -55,7 +56,8 @@ def home_view(request):
     else:
         total_cart = 0
     category = Category.objects.all()
-    context = {'form':tutorials_vid, 'likes':likes, 'total_cart': total_cart, 'category':category}
+    ratings = RateVideo.objects.select_related('user_rating').all()
+    context = {'form':tutorials_vid, 'likes':likes, 'total_cart': total_cart, 'category':category, 'ratings':ratings}
     return render(request, 'Home/Home.html', context)
 
 @login_required
@@ -119,8 +121,21 @@ def remove_cart_item(request, video_id):
             cart.delete()
             # messages('Item Already in your cart!')
     return redirect('cart-page')
-    
-  
+@login_required
+def rate_video(request, video_id):
+    if request.method == 'POST':
+        video = get_object_or_404(VideoModel, id=video_id)
+        user = request.user
+        rating = request.POST.get('rating')  # Assuming your frontend sends the rating value
+        
+        # Check if the user has already rated this video, if so, update the rating
+        user_rating, created = RateVideo.objects.get_or_create(user=user, video=video)
+        user_rating.user_rating = rating
+        user_rating.save()
+        
+        return JsonResponse({'message': 'Rating saved successfully'})
+
+    return JsonResponse({'error': 'Invalid request method'})
     
 def login_view(request):
     if request.user.is_authenticated:

@@ -11,11 +11,7 @@ class Category(models.Model):
 
     def __str__(self)->str:
         return self.name
-class Ratings(models.Model):
-    rating = models.DecimalField(max_digits=2, decimal_places=1) 
-    
-    def __str__(self) -> str:
-        return self.rating
+
 class VideoModel(models.Model):
     title = models.CharField(max_length=200)
     thumbnail = models.ImageField(null=False, upload_to='thumbnails', default='')
@@ -25,7 +21,7 @@ class VideoModel(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2)
     description = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
-    rating = models.ForeignKey(Ratings, on_delete=models.CASCADE, null=True)
+   
 
     def __str__(self):
         return self.title
@@ -60,3 +56,17 @@ class LikeVideo(models.Model):
 class CartVideo(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     video = models.ForeignKey(VideoModel, on_delete=models.CASCADE, related_name='carts')
+
+class RateVideo(models.Model):
+    class RatingChoices(models.IntegerChoices):
+        ONE_STAR = 1, 'One Star'
+        TWO_STARS = 2, 'Two Stars'
+        THREE_STARS = 3, 'Three Stars'
+        FOUR_STARS = 4, 'Four Stars'
+        FIVE_STARS = 5, 'Five Stars'
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    video = models.ForeignKey(VideoModel, on_delete=models.CASCADE, related_name='rating')
+    user_rating = models.IntegerField(choices=RatingChoices.choices)
+    
+    def __str__(self):
+        return self.user_rating
