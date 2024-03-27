@@ -23,6 +23,24 @@
 					display: none; 
 				} 
 		</style>
+		<style>
+            .sup-scrollbar::-webkit-scrollbar {
+            width: 4px;
+            height:4px;             /* width of the entire scrollbar */
+			background: orange;
+            }
+
+            {% comment %} .sup-scrollbar::-webkit-scrollbar-track {
+            background: orange;        /* color of the tracking area */
+            }  {% endcomment %}
+            
+            .sup-scrollbar::-webkit-scrollbar-thumb {
+            background-color: #568CF7;    /* color of the scroll thumb */
+            
+            {% comment %} border-radius: 20px;       /* roundness of the scroll thumb */ {% endcomment %}
+            {% comment %} border: 3px solid orange;  /* creates padding around scroll thumb */ {% endcomment %}
+            } 
+    	</style>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 		<script>
 		$(document).ready(function(){

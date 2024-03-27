@@ -49,13 +49,19 @@ class VideoFormModel(forms.ModelForm):
         self.fields['description'].widget.attrs['placeholder'] = 'Describe About Your Tutorial Video'
         self.fields['description'].help_text = ''
         
+class CommentForm(forms.ModelForm):
+    comment = forms.CharField(
+        widget=forms.Textarea(attrs={'class': 'form-control rounded-md text-slate-800',
+                                      'placeholder': 'Write your feedback here (maximum 200 characters)',
+                                      'rows': 4})  # Set the number of rows for the text area
+    )
+    class Meta:
+        model = models.CommentTutorial
+        fields = ['comment']
+    def __init__(self, *args, **kwargs):
+        super(CommentForm, self).__init__(*args, **kwargs)
         
-# class FileUploadForm(forms.ModelForm):
-#     class Meta:
-#         model = models.FileModel
-#         fields = "__all__"
-#     def __init__(self, *args, **kwargs):
-#         super(FileUploadForm, self).__init__(*args, **kwargs)
-#         self.fields['file_name'].widget.attrs['style'] = 'width: 90%; border: 2px solid green; border-radius: 6px;' 
-#         # self.fields['file_data'].widget.attrs['style'] = 'width: 30%; border: 2px solid green; border-radius: 6px;'  
-#         self.fields['image_data'].widget.attrs['style'] = ''
+        self.fields['comment'].label = 'Comment'
+        self.fields['comment'].widget.attrs['class'] = 'form-control rounded-md text-slate-800 '
+        self.fields['comment'].widget.attrs['placeholder'] = 'Write your feedback here(maximum 200 characters)'
+        self.fields['comment'].help_text = ''

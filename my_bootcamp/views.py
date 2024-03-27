@@ -1,4 +1,4 @@
-from django.http import HttpResponse, JsonResponse
+from django.http import Http404, HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import  authenticate
@@ -17,6 +17,7 @@ from django.core.mail import EmailMessage, get_connection
 from django.conf import settings
 
 from .forms import  UserRegistrationForm
+from tutorapp.forms import CommentForm
 
 
 from tutorapp.models import VideoModel
@@ -24,6 +25,7 @@ from tutorapp.models import LikeVideo
 from tutorapp.models import CartVideo
 from tutorapp.models import Category
 from tutorapp.models import RateVideo
+from tutorapp.models import CommentTutorial
 
 from django.db.models import Count
 from django.contrib.auth.models import AnonymousUser 
@@ -135,14 +137,17 @@ def rate_video(request, video_id):
                 user_rating, created = RateVideo.objects.get_or_create(user=user, video=video)
                 user_rating.user_rating = rating
                 user_rating.save()
-                return redirect('home-page')
+                messages.success(request, 'You Have rated this item')
+                return redirect('item-details', video_id)
             except Exception as e:
                 print('Rating error:', e)
-                return JsonResponse({'error': 'Failed to save rating'}, status=500)
+                messages.error(request, 'Error')
+                return redirect('item-details',video_id)
         else:
-            return JsonResponse({'error': 'Rating value is missing'}, status=400)
+            messages.info(request, 'Rating value is missing')
+            return redirect('item-details')
 
-    return  redirect('home-page')
+    return  redirect('item-details')
     
 def login_view(request):
     if request.user.is_authenticated:
@@ -268,6 +273,26 @@ def password_reset(request):
     return render(request, 'PasswordReset/PasswordReset.html')
 
 def item_detail_page(request, id):
-    details = VideoModel.objects.get(pk=id)
+    details = get_object_or_404(VideoModel, pk=id)
+    if request.method == 'POST':
+        video = details
+        user = request.user
+        comment = request.POST.get('comment')  # Assuming your frontend sends the rating value
+        print('rating+++==>', comment, type(comment))
+        # Check if the user has already rated this video, if so, update the rating
+        if comment :
+            try:
+                # Create a new comment instance
+                comment = CommentTutorial.objects.get_or_create(user=user, video=video, comment=comment)
+                messages.success(request,'Your Comment Posted.')
+                return redirect('item-details', id=id)  
+            except Exception as e:
+                print('Comment error:', e)
+                messages.error(request,'Error Posing Comment')
+                return redirect('item-details', id=id)
+        else:
+            messages.info(request, 'Comment Missing')
+            return redirect('item-details', id=id)
     context = {'details':details}
+    print('comments',)
     return render(request, 'ItemDetailPage/ItemDetailPage.html', context)

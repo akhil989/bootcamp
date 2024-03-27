@@ -4,6 +4,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.http import request
 from django.db.models import Avg
+
 # Create your models here.
 
 class Category(models.Model):
@@ -44,6 +45,10 @@ class VideoModel(models.Model):
         return RateVideo.objects.filter(video=self).aggregate(avg_rating=Avg('user_rating'))['avg_rating']
     def rated_users(self):
         return [user_rating.user.id for user_rating in self.rating.all()]
+    def total_comments(self):
+        return CommentTutorial.objects.filter(video=self).count()
+    def user_comment(self):
+        return [user_comment.user.id for user_comment in self.comments.all()]
 class Course(models.Model):
     title = models.CharField(max_length=200)
     course = models.ForeignKey(VideoModel, on_delete=models.CASCADE, default=None)
@@ -73,3 +78,10 @@ class RateVideo(models.Model):
     
     def __str__(self):
         return str(self.user_rating)
+class CommentTutorial(models.Model):
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    video = models.ForeignKey(VideoModel, on_delete=models.CASCADE, related_name='comments')
+    comment = models.CharField(max_length=200) 
+    
+    def __str__(self):
+        return self.comment
