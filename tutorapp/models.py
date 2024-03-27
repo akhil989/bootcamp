@@ -42,6 +42,8 @@ class VideoModel(models.Model):
     def average_rating(self):
         # Calculate the average rating for this video
         return RateVideo.objects.filter(video=self).aggregate(avg_rating=Avg('user_rating'))['avg_rating']
+    def rated_users(self):
+        return [user_rating.user.id for user_rating in self.rating.all()]
 class Course(models.Model):
     title = models.CharField(max_length=200)
     course = models.ForeignKey(VideoModel, on_delete=models.CASCADE, default=None)

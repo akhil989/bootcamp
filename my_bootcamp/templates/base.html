@@ -69,7 +69,14 @@
 		  });
 		  $(document).ready(function(){
 			$("#rate_video").click(function(){
+			  $("#rating_form").show();
+			  $('#rating_hide').show();
+			});
+		  });
+		  $(document).ready(function(){
+			$("#rating_hide").click(function(){
 			  $("#rating_form").hide();
+			  $('#rating_hide').hide();
 			});
 		  });
 		</script>
@@ -106,6 +113,7 @@
 		{% block tutor_join_form %}{% endblock tutor_join_form %}
 		{% block tutor_profile_page %}{% endblock tutor_profile_page %}
 		{% block cart_block %}{% endblock cart_block %}
+		{% block item_detail %}{% endblock item_detail %}
 		
 		{% include "./Footer/Footer.html" %}
 	

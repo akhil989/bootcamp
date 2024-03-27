@@ -64,7 +64,7 @@
                 <p>Price: {{item.price}}</p>
                 <p>Description:  {{item.description}}</p>
                 <p>Likes: {{item.total_likes}}</p>
-                <p><button class='p-1 bg-blue-500 border border-blue-200 my-2' id='rate_video'>Rate This Video:</button>
+                <p><a href="{% url "item-details" item.id %}"><button class='p-1 bg-blue-500 border border-blue-200 my-2' id='rate_video'>Rate This Video:</button></a>
                     <form action="{% url 'rate-video' item.id %}" method="post" class='' id='rating_form'> 
                         {% csrf_token %}  
                     <button type='submit' class='w-full text-left text-yellow-500' name='rating' value=5>

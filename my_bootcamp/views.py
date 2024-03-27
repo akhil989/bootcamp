@@ -266,3 +266,8 @@ def password_reset(request):
             messages.error(request, 'Failed to change password')
     print(form)
     return render(request, 'PasswordReset/PasswordReset.html')
+
+def item_detail_page(request, id):
+    details = VideoModel.objects.get(pk=id)
+    context = {'details':details}
+    return render(request, 'ItemDetailPage/ItemDetailPage.html', context)
