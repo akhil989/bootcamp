@@ -64,39 +64,39 @@
                 <p>Price: {{item.price}}</p>
                 <p>Description:  {{item.description}}</p>
                 <p>Likes: {{item.total_likes}}</p>
-                <p><button class='p-1 bg-blue-500 border border-blue-200' id='rate_video'>Rate This Video:</button>
-                    <form action="{% url 'rate-video' item.id %}" method="post" class=' border border-gray-400 bg-slate-400 p-4 m-2' id='rating_form'> 
+                <p><button class='p-1 bg-blue-500 border border-blue-200 my-2' id='rate_video'>Rate This Video:</button>
+                    <form action="{% url 'rate-video' item.id %}" method="post" class='' id='rating_form'> 
                         {% csrf_token %}  
-                    <button type='submit' class='w-full text-left' name='rating' value=5>
+                    <button type='submit' class='w-full text-left text-yellow-500' name='rating' value=5>
                         <i class="fa-solid fa-star w-4 h-4"></i>
                         <i class="fa-solid fa-star w-4 h-4"></i>
                         <i class="fa-solid fa-star w-4 h-4"></i>
                         <i class="fa-solid fa-star w-4 h-4"></i>
-                        <i class="fa-solid fa-star w-4 h-4"></i>Give Five Star!!!!
+                        <i class="fa-solid fa-star w-4 h-4"></i><span class='text-slate-200 ml-2'>  Excellent!!!!</span>
                     </button><br>
-                    <button type='submit' class='w-full text-left' name='rating' value=4>
+                    <button type='submit' class='w-full text-left text-yellow-500' name='rating' value=4>
                         <i class="fa-solid fa-star w-4 h-4"></i>
                         <i class="fa-solid fa-star w-4 h-4"></i>
                         <i class="fa-solid fa-star w-4 h-4"></i>
-                        <i class="fa-solid fa-star w-4 h-4"></i>Give Four Star!!!!
+                        <i class="fa-solid fa-star w-4 h-4"></i><span class='text-slate-200 ml-3'>  Very Usefull!!!!</span>
                     </button><br>
-                    <button type='submit' class='w-full text-left' name='rating' value=3>
+                    <button type='submit' class='w-full text-left text-yellow-500' name='rating' value=3>
                         <i class="fa-solid fa-star w-4 h-4"></i>
                         <i class="fa-solid fa-star w-4 h-4"></i>
-                        <i class="fa-solid fa-star w-4 h-4"></i>Give Three Star!!!!
+                        <i class="fa-solid fa-star w-4 h-4"></i><span class='text-slate-200 ml-4'>  Usefull!!!!</span>
                     </button><br>
-                    <button type='submit' class='w-full text-left' name='rating' value=2>
+                    <button type='submit' class='w-full text-left text-yellow-500' name='rating' value=2>
                         <i class="fa-solid fa-star w-4 h-4"></i>
-                        <i class="fa-solid fa-star w-4 h-4"></i>Give Two Star!!!!
+                        <i class="fa-solid fa-star w-4 h-4"></i><span class='text-slate-200 ml-5'>  Bad Content!!!!</span>
                     </button><br>
-                    <button type='submit' class='w-full text-left' name='rating' value=1>
-                        <i class="fa-solid fa-star w-4 h-4"></i>Give One Star!!!!
+                    <button type='submit' class='w-full text-left text-yellow-500' name='rating' value=1>
+                        <i class="fa-solid fa-star w-4 h-4"></i><span class='text-slate-200 ml-6'>Time Wasting!!!!</span>
                     </button><br>
-                    <button type='submit' class='w-full text-left'>
-                        cancel
-                    </button><br>
-
-                    </form>
+                    
+                </form>
+                <p class='w-full text-right text-yellow-500 px-10 my-1'>
+                    <button class='p-1 bg-slate-700'>cancel</button>
+                </p>
                 </p>
                 <p class='text-left text-yellow-500'>
                     {% if item.average_rating == 5 %}
