@@ -33,7 +33,7 @@
             <div class='col-span-1'>
                 {% if user.is_authenticated %}
                 {% if user.id in details.cart_users %}
-                    <form action="{% url 'cart-item' item.id %}" method="post"> 
+                    <form action="{% url 'cart-item' details.id %}" method="post"> 
                         {% csrf_token %}  
                     <button type='submit' class='text-xs'><i class="fa-solid fa-cart-shopping w-6 h-6 font-serif 
                           text-orange-700 text-center"></i><br>Item carted</button>

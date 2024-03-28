@@ -112,7 +112,7 @@ def cart_item(request, video_id):
             cart.delete()
         else:
             CartVideo.objects.create(user=user, video=video)
-    return redirect('home-page')
+    return redirect('cart-page')
 @login_required
 def remove_cart_item(request, video_id):
     if request.method == 'POST':

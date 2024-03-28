@@ -64,86 +64,29 @@
                 <p>Price: {{item.price}}</p>
                 <p>Description:  {{item.description}}</p>
                 <p>Likes: {{item.total_likes}}</p>
-                <p><a href="{% url "item-details" item.id %}"><button class='p-1 bg-blue-500 border border-blue-200 my-2' id='rate_video'>Rate This Video:</button></a>
-                    <form action="{% url 'rate-video' item.id %}" method="post" class='' id='rating_form'> 
-                        {% csrf_token %}  
-                    <button type='submit' class='w-full text-left text-yellow-500' name='rating' value=5>
-                        <i class="fa-solid fa-star w-4 h-4"></i>
-                        <i class="fa-solid fa-star w-4 h-4"></i>
-                        <i class="fa-solid fa-star w-4 h-4"></i>
-                        <i class="fa-solid fa-star w-4 h-4"></i>
-                        <i class="fa-solid fa-star w-4 h-4"></i><span class='text-slate-200 ml-2'>  Excellent!!!!</span>
-                    </button><br>
-                    <button type='submit' class='w-full text-left text-yellow-500' name='rating' value=4>
-                        <i class="fa-solid fa-star w-4 h-4"></i>
-                        <i class="fa-solid fa-star w-4 h-4"></i>
-                        <i class="fa-solid fa-star w-4 h-4"></i>
-                        <i class="fa-solid fa-star w-4 h-4"></i><span class='text-slate-200 ml-3'>  Very Usefull!!!!</span>
-                    </button><br>
-                    <button type='submit' class='w-full text-left text-yellow-500' name='rating' value=3>
-                        <i class="fa-solid fa-star w-4 h-4"></i>
-                        <i class="fa-solid fa-star w-4 h-4"></i>
-                        <i class="fa-solid fa-star w-4 h-4"></i><span class='text-slate-200 ml-4'>  Usefull!!!!</span>
-                    </button><br>
-                    <button type='submit' class='w-full text-left text-yellow-500' name='rating' value=2>
-                        <i class="fa-solid fa-star w-4 h-4"></i>
-                        <i class="fa-solid fa-star w-4 h-4"></i><span class='text-slate-200 ml-5'>  Bad Content!!!!</span>
-                    </button><br>
-                    <button type='submit' class='w-full text-left text-yellow-500' name='rating' value=1>
-                        <i class="fa-solid fa-star w-4 h-4"></i><span class='text-slate-200 ml-6'>Time Wasting!!!!</span>
-                    </button><br>
-                    
-                </form>
-                <p class='w-full text-right text-yellow-500 px-10 my-1'>
-                    <button class='p-1 bg-slate-700'>cancel</button>
+                <p>
+                    <a href="{% url 'item-details' item.id %}"><button class='p-1 bg-blue-500 border border-blue-200 my-2' id='rate_video'>Rate This Video:</button></a>
                 </p>
-                </p>
-                <p class='text-left text-yellow-500'>
-                    {% if item.average_rating == 5 %}
-                        <i class="fa-solid fa-star w-4 h-4"></i>
-                        <i class="fa-solid fa-star w-4 h-4"></i>
-                        <i class="fa-solid fa-star w-4 h-4"></i>
-                        <i class="fa-solid fa-star w-4 h-4"></i>
-                        <i class="fa-solid fa-star w-4 h-4"></i>
-                    {% elif item.average_rating == 4 %}
-                        <i class="fa-solid fa-star w-4 h-4"></i>
-                        <i class="fa-solid fa-star w-4 h-4"></i>
-                        <i class="fa-solid fa-star w-4 h-4"></i>
-                        <i class="fa-solid fa-star w-4 h-4"></i>
-                    {% elif item.average_rating == 3 %}
-                        <i class="fa-solid fa-star w-4 h-4"></i>
-                        <i class="fa-solid fa-star w-4 h-4"></i>
-                        <i class="fa-solid fa-star w-4 h-4"></i>
-                    {% elif item.average_rating == 2 %}
-                        <i class="fa-solid fa-star w-4 h-4"></i>
-                        <i class="fa-solid fa-star w-4 h-4"></i>
-                    {% elif item.average_rating == 1 %}
-                        <i class="fa-solid fa-star w-4 h-4"></i> 
-                    {% endif %} {{item.total_rating}} users rated this video.
-                    
-                             
-                </p>
-                
-                
+            
                 {% if user.is_authenticated %}
                 {% if user.id in item.cart_users %}
                     <form action="{% url 'cart-item' item.id %}" method="post"> 
                         {% csrf_token %}  
-                    <button type='submit' class=''>Item carted:<i class="fa-solid fa-cart-shopping w-8 h-8 font-serif 
-                        items-center p-2  text-orange-700"></i></button>
+                    <button type='submit' class=''><i class="fa-solid fa-cart-shopping w-8 h-8 font-serif 
+                        text-center  text-orange-700"></i><br>Item carted</button>
                     <br>
                     </form>
                 {% else %}
                     <form action="{% url 'cart-item' item.id %}" method="post"> 
                         {% csrf_token %}  
-                    <button type='submit' class=''>Add To Cart:<i class="fa-solid fa-cart-shopping w-8 h-8 font-serif 
-                        items-center p-2  text-slate-200 hover:text-slate-200"></i></button>
+                    <button type='submit' class=''><i class="fa-solid fa-cart-shopping w-8 h-8 font-serif 
+                        text-center  text-slate-200 hover:text-slate-200"></i><br>Add Cart</button>
                     <br>
                     </form>
                 {% endif %}
                 {% else %}
-                    <a href="{% url 'login' %}"><button type='submit' class=''>Item carted:<i class="fa-solid fa-cart-shopping w-8 h-8 font-serif 
-                        items-center p-2  text-orange-700"></i></button></a> 
+                    <a href="{% url 'login' %}"><button type='submit' class=''><i class="fa-solid fa-cart-shopping w-8 h-8 font-serif 
+                        text-center  text-orange-700"></i></button><br>Item carted</a> 
                 {% endif %}
                     
             
@@ -151,16 +94,16 @@
                 {% if user.id in item.liked_users %}
                     <form action="{% url 'like_video' item.id %}" method="post">
                         {% csrf_token %}
-                        <button type="submit"><i class="fa-solid fa-heart  text-orange-600 w-8 h-8 "></i> you liked</button>
+                        <button type="submit" class=''><i class="fa-solid fa-heart  text-center text-orange-600 w-8 h-8 "></i></button><br> you liked
                     </form>
                 {% else %}
                     <form action="{% url 'like_video' item.id %}" method="post">
                         {% csrf_token %}
-                        <button type="submit" class=''><i class="fa-regular fa-heart  text-orange-600 w-8 h-8 "></i></i>add like</button>
+                        <button type="submit" class=''><i class="fa-regular fa-heart text-center   text-orange-600 w-8 h-8 "></i></button><br>add like
                     </form>
                 {% endif %}
                 {% else %}
-                   <a href="{% url 'login' %}"><button type="submit" class=''><i class="fa-regular fa-heart  text-orange-600 w-8 h-8 "></i></i>add like</button></a>
+                   <a href="{% url 'login' %}"><button type="submit" class=''><i class="fa-regular fa-heart text-center   text-orange-600 w-8 h-8 "></i></button><br>add like</a>
                 {% endif %}
                 </div>
 
@@ -170,5 +113,5 @@
     {% endfor %}
     
         
-</div>
+</div><br>
 {% endblock home %}
