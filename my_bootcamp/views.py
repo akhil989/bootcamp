@@ -46,6 +46,15 @@ def home_view(request):
     elif 'category' in request.GET:
         category_name = request.GET['category']
         tutorials_vid = VideoModel.objects.filter(category__name=category_name)
+    elif 'category_like' in request.GET:
+        category_name = request.GET['category_like']
+        tutorials_vid = VideoModel.objects.filter(likes__user=request.user)
+    elif 'category_cart' in request.GET:
+        category_name = request.GET['category_cart']
+        tutorials_vid = VideoModel.objects.filter(carts__user=request.user)
+    elif 'category_rated' in request.GET:
+        category_name = request.GET['category_rated']
+        tutorials_vid = VideoModel.objects.filter(rating__user=request.user)
     else:
         tutorials_vid = VideoModel.objects.all().order_by('-created_at')
         

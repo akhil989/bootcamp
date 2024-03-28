@@ -9,13 +9,13 @@
     {% if user.is_authenticated %}
         <div  class=' mx-2 flex  py-3'>
             <a>
-            <button class=' text-ellipsis text text-lg  overflow-x-hidden'><span class='bg-clip-text text-transparent bg-gradient-to-r  from-blue-700 via-indigo-500 to-orange-500'>Hello {{user}}!</span></button>
+            <button class=' text-ellipsis text text-lg  overflow-x-hidden' id='user_sidebar'><span class='bg-clip-text text-transparent bg-gradient-to-r  from-blue-700 via-indigo-500 to-orange-500'>Hello {{user}}!</span></button>
             </a>
         </div>  
     {% else %}
     <div  class=' mx-2 flex  py-3 xs:hidden xm:hidden sm:hidden  md:flex lg:flex xl:flex 2xl:flex'>
         <a>
-        <button class=' text-ellipsis text text-lg  overflow-x-hidden'><span class='bg-clip-text text-transparent bg-gradient-to-r  from-blue-700 via-indigo-500 to-orange-500'>Menu</span></button>
+        <button class=' text-ellipsis text text-lg  overflow-x-hidden' id='home_sidebar'><span class='bg-clip-text text-transparent bg-gradient-to-r  from-blue-700 via-indigo-500 to-orange-500'>Menu</span></button>
         </a>
     </div> 
     {% endif %}
@@ -126,7 +126,7 @@
             </form>
         </li>
         {% endfor %}
-            
+        
     </ul>
 </div>
 <div id='sidebar_div' class='hidden rounded-b-xl  text-slate-800 font-serif font-bold h-full' >
@@ -148,30 +148,53 @@
             <span  class='py-1  w-full'>
             <i  id='sidebar_category_arrow_down' class="fa-solid fa-chevron-down  font-serif 
             items-center   text-slate-900 hover:text-blue-700 "></i>
-               Category
+                Category
             </span>
         </p>
         <div id='sidebar_category_list' class='hidden'>
-        {% for items in category %}
-        <ul  class=''>
-            <li   class=' border-b border-violet-500' >
-                <form action="{% url "home-page" %}" method='get' class=''>
-                <button type='submit' name='category' value="{{items.name}}">
-                {{items.name}}
-                </button>
-                </form>
-            </li>
-        </ul>
-        {% endfor %}
-        <p class='text-center '><i id='sidebar_category_arrow_up' class="fa-solid fa-caret-up font-serif 
-            items-center  text-slate-900 hover:text-blue-700"></i></p>
-        <p class='text-center text-xs border-b-4 border-blue-500'>hide</p>
+            <ul  class=''>
+                {% for items in category %}
+                <li   class=' border-b border-violet-500' >
+                    <form action="{% url "home-page" %}" method='get' class=''>
+                    <button type='submit' name='category' value="{{items.name}}">
+                    {{items.name}}
+                    </button>
+                    </form>
+                </li>
+                {% endfor %}
+            </ul>
+            <p class='text-center '><button  id='sidebar_category_arrow_up' class=''><i  class="fa-solid fa-caret-up font-serif 
+                items-center  text-slate-900 hover:text-blue-700"></i></button></p>
+            <p class='text-center text-xs border-b-4 border-blue-500'>hide</p>
         </div>
+        {% if user.is_authenticated %}
+                <p class=' text-lg text-left text-violet-700 py-1 mt-2'>
+                    <form action="{% url "home-page" %}" method='get' class=''>
+                    <button type='submit' class='bg-slate-700 rounded-md p-2' name='category_like'>
+                    Liked Videos
+                    <button>
+                    </form>
+                </p><br>
+                <p class=' text-lg text-left text-violet-700 py-1 mt-2'>
+                    <form action="{% url "home-page" %}" method='get' class=''>
+                    <button type='submit' class='bg-slate-700 rounded-md p-2' name='category_cart'>
+                    Cart Items
+                    <button>
+                    </form>
+                </p><br>
+                <p class=' text-lg text-left text-violet-700 py-1 mt-2'>
+                    <form action="{% url "home-page" %}" method='get' class=''>
+                    <button type='submit' class='bg-slate-700 rounded-md p-2' name='category_rated'>
+                    Rated Items
+                    <button>
+                    </form>
+                </p><br>
+        {% endif %}
         <div class='grid grid-cols-2 gap-4 py-2 mt-4'>
-            <div>
+            <div class='text-center'>
                 <a href="{% url "login-page" %}" class='p-2 border border-blue-200 bg-blue-700 rounded-md text-center'>Sign In</a>
             </div>
-            <div>
+            <div class='text-center'>
                 <a href="{% url "signup-page" %}" class='p-2 border border-orange-200 bg-green-700 rounded-md text-center'>Sign Up</a>
             </div>
         </div>

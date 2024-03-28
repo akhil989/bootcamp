@@ -171,13 +171,16 @@
                 {% endif %}
             </p>
             <p>
-                Comments:
+                <span class='font-bold underline text-violet-700'>Comments</span>:
                 <ul class='p-2 h-44 overflow-y-scroll sup-scrollbar bg-gray-800 my-2 border-gray-400 rounded-lg'>
                 {% for comment in details.comments.all  %}
                         <li><span class='font-bold mr-2'>{{comment.user}}:</span>{{comment.comment}}</li>
                        
                 {% endfor %}
                 </ul>
+                <p class='text-right'>
+                    <a href="{% url 'login-page' %}"><button type='submit' class='bg-green-400 p-1 rounded-md'>Post Comment</button></a>
+                </p>
                 <div>
                     
                     {% if user.is_authenticated %}

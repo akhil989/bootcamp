@@ -31,6 +31,8 @@ class VideoModel(models.Model):
         return LikeVideo.objects.filter(video=self).count()
     def liked_users(self):
         return [like.user.id for like in self.likes.all()]
+    def liked_videos(self):
+        return [like.video.id for like in self.likes.all()]
     def total_cart(self):
         return CartVideo.objects.filter(video=self).count()
     def cart_users(self):
@@ -74,7 +76,7 @@ class CartVideo(models.Model):
 class RateVideo(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     video = models.ForeignKey(VideoModel, on_delete=models.CASCADE, related_name='rating')
-    user_rating = models.IntegerField(null=True)
+    user_rating = models.IntegerField(default=1)
     
     def __str__(self):
         return str(self.user_rating)
