@@ -59,7 +59,10 @@
                 </div>
                 </div>
                 <div class='p-2 col-span-1 overflow-y-scroll  no-scrollbar py-2'>
-                <h3>Posted By : {{item.instructor.username}}</h3>
+                <form class='' action="{% url "home-page" %}" method='get'>
+                    {% csrf_token %}
+                    <h3><button class='' type='submit' value="{{item.instructor_id}}" name="search_instructor">Posted By : <span class='text-purple-700 underline'>{{item.instructor.username}}</span></button></h3>
+                </form>
                 <p>Published On : {{item.created_at}}</p>
                 <p>Price: {{item.price}}</p>
                 <p>Description:  {{item.description}}</p>

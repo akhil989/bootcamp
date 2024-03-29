@@ -97,16 +97,21 @@
             </div> 
         {% endif %}
       
+         
+         {% if user.is_authenticated %}
+         {% else %}
             
-        <div  class='mx-2 hidden  lg:flex xl:flex 2xl:flex py-4'>
-            <a href="{% url "signup-page" %}">
-            <button class=' font-serif rounded-md
-            items-center h-12  px-8 
-            text-white hover:text-black hover:bg-slate-300  border border-violet-700 shadow-lg '>
-            <span class='bg-clip-text text-transparent bg-gradient-to-r  from-orange-700 via-indigo-500 to-blue-500'>SignUp</span>
-            </button>
-            </a>
-        </div>  
+         <div  class='mx-2 hidden  lg:flex xl:flex 2xl:flex py-4'>
+             <a href="{% url "signup-page" %}">
+             <button class=' font-serif rounded-md
+             items-center h-12  px-8 
+             text-white hover:text-black hover:bg-slate-300  border border-violet-700 shadow-lg '>
+             <span class='bg-clip-text text-transparent bg-gradient-to-r  from-orange-700 via-indigo-500 to-blue-500'>SignUp</span>
+             </button>
+             </a>
+         </div>  
+         {% endif %}
+               
         
 
     </div>
@@ -129,8 +134,8 @@
         
     </ul>
 </div>
-<div id='sidebar_div' class='hidden rounded-b-xl  text-slate-800 font-serif font-bold h-full' >
-    <div class='p-4 w-full  overflow-y-scroll rounded-b-xl  bg-yellow-500'>
+<div id='sidebar_div' class='hidden rounded-b-xl  text-slate-800 font-serif font-bold h-full ' >
+    <div class='p-4 w-full rounded-b-xl  bg-yellow-500 overflow-y-scroll sup-scrollbar'>
     
         <p class='text-right p-2 ' id='sidebar_link_hide'><i class="fa-solid fa-xmark w-8 h-8 font-serif 
             items-center p-2  text-slate-900 hover:text-blue-700"></i></p>
@@ -143,6 +148,46 @@
                     class="my-1 w-32 text-center bg-green-700 rounded-lg text-slate-800 p-2 hover:bg-blue-700"
                     >Search</button>
             </form>
+            {% if user.is_authenticated %}
+            <ul>
+                <li>
+                <p class=' text-lg text-left text-violet-700 py-1 my-2'>
+                    <form action="{% url "home-page" %}" method='get' class=''>
+                    <button type='submit' class=' p-2' name='category_like'>
+                    Liked Videos
+                    <button>
+                    </form>
+                </p>
+                </li>
+                <li>
+                <p class=' text-lg text-left text-violet-700 py-1 my-2'>
+                    <form action="{% url "home-page" %}" method='get' class=''>
+                    <button type='submit' class=' p-2' name='category_cart'>
+                    Cart Items
+                    <button>
+                    </form>
+                </p>
+                </li>
+                <li>
+                <p class=' text-lg text-left text-violet-700 py-1 my-2'>
+                    <form action="{% url "home-page" %}" method='get' class=''>
+                    <button type='submit' class=' p-2' name='category_rated'>
+                    Rated Items
+                    <button>
+                    </form>
+                </p>
+                </li>
+                <li>
+                    <p class=' text-lg text-left text-violet-700 py-1 my-2'>
+                        <form action="{% url "home-page" %}" method='get' class=''>
+                        <button type='submit' class=' p-2' name='category_purchased'>
+                        Tutorials
+                        <button>
+                        </form>
+                    </p>
+                </li>
+            </ul>
+        {% endif %}
         </div> 
         <p  class='text-left  border-b border-orange-500 text-lg'>
             <span  class='py-1  w-full'>
@@ -167,29 +212,17 @@
                 items-center  text-slate-900 hover:text-blue-700"></i></button></p>
             <p class='text-center text-xs border-b-4 border-blue-500'>hide</p>
         </div>
+        
         {% if user.is_authenticated %}
-                <p class=' text-lg text-left text-violet-700 py-1 mt-2'>
-                    <form action="{% url "home-page" %}" method='get' class=''>
-                    <button type='submit' class='bg-slate-700 rounded-md p-2' name='category_like'>
-                    Liked Videos
-                    <button>
-                    </form>
-                </p><br>
-                <p class=' text-lg text-left text-violet-700 py-1 mt-2'>
-                    <form action="{% url "home-page" %}" method='get' class=''>
-                    <button type='submit' class='bg-slate-700 rounded-md p-2' name='category_cart'>
-                    Cart Items
-                    <button>
-                    </form>
-                </p><br>
-                <p class=' text-lg text-left text-violet-700 py-1 mt-2'>
-                    <form action="{% url "home-page" %}" method='get' class=''>
-                    <button type='submit' class='bg-slate-700 rounded-md p-2' name='category_rated'>
-                    Rated Items
-                    <button>
-                    </form>
-                </p><br>
-        {% endif %}
+        <div class='grid grid-cols-2 gap-4 py-2 mt-4'>
+            <div class='text-center'>
+                <a href="{% url "logout-page" %}" class='p-2 border border-blue-200 bg-blue-700 rounded-md text-center'>Sign Out</a>
+            </div>
+            <div class='text-center'>
+                <a href="{% url "signup-page" %}" class='p-2 border border-orange-200 bg-green-700 rounded-md text-center'>Sign Up</a>
+            </div>
+        </div>
+        {% else %}
         <div class='grid grid-cols-2 gap-4 py-2 mt-4'>
             <div class='text-center'>
                 <a href="{% url "login-page" %}" class='p-2 border border-blue-200 bg-blue-700 rounded-md text-center'>Sign In</a>
@@ -198,6 +231,8 @@
                 <a href="{% url "signup-page" %}" class='p-2 border border-orange-200 bg-green-700 rounded-md text-center'>Sign Up</a>
             </div>
         </div>
+        {% endif %}
+            
             
     </div>
 </div>

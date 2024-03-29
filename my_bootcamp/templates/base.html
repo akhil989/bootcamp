@@ -24,22 +24,35 @@
 				} 
 		</style>
 		<style>
-            .sup-scrollbar::-webkit-scrollbar {
-            width: 4px;
-            height:4px;             /* width of the entire scrollbar */
-			background: orange;
-            }
+			/* Styles for the container with scrollbar */
+			.sup-scrollbar {
+				overflow-y: auto; /* Add vertical scrollbar */
+				scrollbar-width: thin; /* Firefox */
+				scrollbar-color: orange transparent; /* Firefox */
+			}
 
-            {% comment %} .sup-scrollbar::-webkit-scrollbar-track {
-            background: orange;        /* color of the tracking area */
-            }  {% endcomment %}
-            
-            .sup-scrollbar::-webkit-scrollbar-thumb {
-            background-color: #568CF7;    /* color of the scroll thumb */
-            
-            {% comment %} border-radius: 20px;       /* roundness of the scroll thumb */ {% endcomment %}
-            {% comment %} border: 3px solid orange;  /* creates padding around scroll thumb */ {% endcomment %}
-            } 
+			/* Styles for the scrollbar track */
+			.sup-scrollbar1::-webkit-scrollbar {
+				width: 12px; /* Width of the entire scrollbar */
+			}
+
+			/* Styles for the scrollbar thumb */
+			.sup-scrollbar2::-webkit-scrollbar-thumb {
+				background-color: orange; /* Color of the thumb */
+				border-radius: 6px; /* Roundness of the thumb */
+				border: 2px solid transparent; /* Border of the thumb */
+			}
+
+			/* Styles for the scrollbar track */
+			.sup-scrollbar3::-webkit-scrollbar-track {
+				background: transparent; /* Background of the track */
+			}
+
+			/* Styles for the scrollbar corner */
+			.sup-scrollbar4::-webkit-scrollbar-corner {
+				background: transparent; /* Background of the corner */
+			}
+
     	</style>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 		<script>
@@ -118,7 +131,7 @@
 		{% if messages %}
 			
 			{% for message in messages %}
-				<div class="alert alert-warning alert-dismissible fade show bg-blue-400 m-4 text-center" role="alert">
+				<div class="alert alert-warning alert-dismissible fade show bg-blue-400 m-4 text-center text-slate-200 font-serif font-semibold" role="alert">
 					{{message}}
 					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">x</button>
 				</div>

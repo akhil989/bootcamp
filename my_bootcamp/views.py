@@ -38,23 +38,29 @@ def home_view(request):
     if 'search' in request.GET:
         search_query = request.GET['search']
         tutorials_vid = VideoModel.objects.filter(title__icontains=search_query)
-        print('search_query',search_query)
     elif 'search1' in request.GET:
         search_query = request.GET['search1']
         tutorials_vid = VideoModel.objects.filter(title__icontains=search_query)
-        print('search_query',search_query)
+    elif 'search_instructor' in request.GET:
+        search_query = request.GET['search_instructor']
+        tutorials_vid = VideoModel.objects.filter(instructor_id=search_query)
+        instructor_data = get_object_or_404(User, id=int(search_query))
+        messages.info(request, f"Tutorials posted by {instructor_data}")
     elif 'category' in request.GET:
         category_name = request.GET['category']
         tutorials_vid = VideoModel.objects.filter(category__name=category_name)
     elif 'category_like' in request.GET:
         category_name = request.GET['category_like']
         tutorials_vid = VideoModel.objects.filter(likes__user=request.user)
+        messages.info(request, f"Tutorials liked by {request.user}")
     elif 'category_cart' in request.GET:
         category_name = request.GET['category_cart']
         tutorials_vid = VideoModel.objects.filter(carts__user=request.user)
+        messages.info(request, f"Tutorials carted by {request.user}")
     elif 'category_rated' in request.GET:
         category_name = request.GET['category_rated']
         tutorials_vid = VideoModel.objects.filter(rating__user=request.user)
+        messages.info(request, f"Tutorials rated by {request.user}")
     else:
         tutorials_vid = VideoModel.objects.all().order_by('-created_at')
         
