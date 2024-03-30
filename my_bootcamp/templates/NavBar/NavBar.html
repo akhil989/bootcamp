@@ -163,7 +163,7 @@
                 <p class=' text-lg text-left text-violet-700 py-1 my-2'>
                     <form action="{% url "home-page" %}" method='get' class=''>
                     <button type='submit' class=' p-2' name='category_cart'>
-                    Cart Items
+                    Cart Items 
                     <button>
                     </form>
                 </p>
@@ -181,36 +181,46 @@
                     <p class=' text-lg text-left text-violet-700 py-1 my-2'>
                         <form action="{% url "home-page" %}" method='get' class=''>
                         <button type='submit' class=' p-2' name='category_purchased'>
-                        Tutorials
+                        Enrolled Courses
                         <button>
                         </form>
                     </p>
                 </li>
+                <li>
+                    <p class=' text-lg text-left text-violet-700 py-1 my-2'>
+                        <form action="{% url "home-page" %}" method='get' class=''>
+                        <button type='submit' class=' p-2' name='category_posts'>
+                        Your Posts
+                        <button>
+                        </form>
+                    </p>
+                </li>
+
             </ul>
         {% endif %}
         </div> 
-        <p  class='text-left  border-b border-orange-500 text-lg'>
-            <span  class='py-1  w-full'>
-            <i  id='sidebar_category_arrow_down' class="fa-solid fa-chevron-down  font-serif 
-            items-center   text-slate-900 hover:text-blue-700 "></i>
+        <p  class='text-left  border-b border-orange-500 text-lg bg-slate-800' id='sidebar_category_arrow_down'>
+            <span  class='py-1  w-full text-blue-700 px-2'>
+            <i   class="fa-solid fa-chevron-down  font-serif 
+            items-center   text-violet-700 hover:text-blue-700 "></i>
                 Category
             </span>
         </p>
-        <div id='sidebar_category_list' class='hidden'>
-            <ul  class=''>
-                {% for items in category %}
-                <li   class=' border-b border-violet-500' >
-                    <form action="{% url "home-page" %}" method='get' class=''>
-                    <button type='submit' name='category' value="{{items.name}}">
-                    {{items.name}}
-                    </button>
-                    </form>
-                </li>
-                {% endfor %}
-            </ul>
-            <p class='text-center '><button  id='sidebar_category_arrow_up' class=''><i  class="fa-solid fa-caret-up font-serif 
-                items-center  text-slate-900 hover:text-blue-700"></i></button></p>
-            <p class='text-center text-xs border-b-4 border-blue-500'>hide</p>
+            <div id='sidebar_category_list' class='hidden'>
+                <ul  class=''>
+                    {% for items in category %}
+                    <li   class=' border-b border-violet-500' >
+                        <form action="{% url "home-page" %}" method='get' class=''>
+                        <button type='submit' name='category' value="{{items.name}}">
+                        {{items.name}}
+                        </button>
+                        </form>
+                    </li>
+                    {% endfor %}
+                </ul>
+                <p class='text-center bg-slate-800' id='sidebar_category_arrow_up'><button   class=''><i  class="fa-solid fa-caret-up font-serif 
+                    items-center  text-violet-700 hover:text-blue-700"></i></button></p>
+            </div>
         </div>
         
         {% if user.is_authenticated %}

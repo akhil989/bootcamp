@@ -61,6 +61,10 @@ def home_view(request):
         category_name = request.GET['category_rated']
         tutorials_vid = VideoModel.objects.filter(rating__user=request.user)
         messages.info(request, f"Tutorials rated by {request.user}")
+    elif 'category_posts' in request.GET:
+        category_name = request.GET['category_posts']
+        tutorials_vid = VideoModel.objects.filter(instructor=request.user)
+        messages.info(request, f"Tutorials posted by {request.user}")
     else:
         tutorials_vid = VideoModel.objects.all().order_by('-created_at')
         

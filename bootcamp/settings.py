@@ -148,25 +148,21 @@ DJOSER={
         "LOGIN_FIELD":"email",
     }
 
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# EMAIL_HOST = 'smtp.gmail.com'
-# EMAIL_FROM = 'webdevwithakhil@gmail.com'
-# EMAIL_HOST_USER = 'webdevwithakhil@gmail.com'
-# EMAIL_HOST_PASSWORD = 'buxv rtza ajak iiwi'
-# EMAIL_PORT = 587
-# EMAIL_USE_TLS = True
-# PASSWORD_RESET_TIMEOUT = 14400
 
 # SMTP configuration for sending emails
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'  # Example: 'smtp.gmail.com'
-EMAIL_PORT = 587  # Port for SMTP (587 for TLS)
-EMAIL_USE_TLS = True  # Enable TLS for secure connection
+EMAIL_BACKEND = os.getenv('EMAIL_BACKEND')
+EMAIL_HOST = os.getenv('EMAIL_HOST')
+EMAIL_PORT = os.getenv('EMAIL_PORT')
+EMAIL_USE_TLS = True  
 
 # Credentials for the email account used to send emails
-EMAIL_HOST_USER = 'webdevwithakhil989@gmail.com'  # Your email address
-EMAIL_HOST_PASSWORD = 'dknw qewi loat inhl'  # Your email password
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
 EMAIL_FILE_PATH = BASE_DIR / 'emails'
+
+# Stripe
+STRIPE_PUBLISHABLE_KEY = os.getenv('STRIPE_PUBLISHABLE_KEY')
+STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY')
