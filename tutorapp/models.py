@@ -86,6 +86,7 @@ class CommentTutorial(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     video = models.ForeignKey(VideoModel, on_delete=models.CASCADE, related_name='comments')
     comment = models.CharField(max_length=200) 
+    created_at = models.DateTimeField(auto_now_add=True, editable=False)
     
     def __str__(self):
         return self.comment

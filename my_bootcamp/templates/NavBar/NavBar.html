@@ -199,7 +199,7 @@
             </ul>
         {% endif %}
         </div> 
-        <p  class='text-left  border-b border-orange-500 text-lg bg-slate-800' id='sidebar_category_arrow_down'>
+        <p  class='text-left  border-b border-orange-500 text-lg bg-slate-800 rounded-b-2xl' id='sidebar_category_arrow_down'>
             <span  class='py-1  w-full text-blue-700 px-2'>
             <i   class="fa-solid fa-chevron-down  font-serif 
             items-center   text-violet-700 hover:text-blue-700 "></i>
@@ -221,27 +221,27 @@
                 <p class='text-center bg-slate-800' id='sidebar_category_arrow_up'><button   class=''><i  class="fa-solid fa-caret-up font-serif 
                     items-center  text-violet-700 hover:text-blue-700"></i></button></p>
             </div>
+            {% if user.is_authenticated %}
+            <div class='grid grid-cols-2 gap-4 py-2 mt-4'>
+                <div class='text-center'>
+                    <a href="{% url "logout-page" %}" class='p-2 border border-blue-200 bg-blue-700 rounded-md text-center'>Sign Out</a>
+                </div>
+                <div class='text-center'>
+                    <a href="{% url "signup-page" %}" class='p-2 border border-orange-200 bg-green-700 rounded-md text-center'>Sign Up</a>
+                </div>
+            </div>
+            {% else %}
+            <div class='grid grid-cols-2 gap-4 py-2 mt-4'>
+                <div class='text-center'>
+                    <a href="{% url "login-page" %}" class='p-2 border border-blue-200 bg-blue-700 rounded-md text-center'>Sign In</a>
+                </div>
+                <div class='text-center'>
+                    <a href="{% url "signup-page" %}" class='p-2 border border-orange-200 bg-green-700 rounded-md text-center'>Sign Up</a>
+                </div>
+            </div>
+            {% endif %}
         </div>
         
-        {% if user.is_authenticated %}
-        <div class='grid grid-cols-2 gap-4 py-2 mt-4'>
-            <div class='text-center'>
-                <a href="{% url "logout-page" %}" class='p-2 border border-blue-200 bg-blue-700 rounded-md text-center'>Sign Out</a>
-            </div>
-            <div class='text-center'>
-                <a href="{% url "signup-page" %}" class='p-2 border border-orange-200 bg-green-700 rounded-md text-center'>Sign Up</a>
-            </div>
-        </div>
-        {% else %}
-        <div class='grid grid-cols-2 gap-4 py-2 mt-4'>
-            <div class='text-center'>
-                <a href="{% url "login-page" %}" class='p-2 border border-blue-200 bg-blue-700 rounded-md text-center'>Sign In</a>
-            </div>
-            <div class='text-center'>
-                <a href="{% url "signup-page" %}" class='p-2 border border-orange-200 bg-green-700 rounded-md text-center'>Sign Up</a>
-            </div>
-        </div>
-        {% endif %}
             
             
     </div>

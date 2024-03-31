@@ -9,10 +9,22 @@
         <video controls autoplay-off class='w-full h-3/4'>
             <source src="/media/{{details.video}}" type='video/mp4'>
         </video>
-        <div class='grid grid-cols-5 text-right mb-4'>
+        <div class='grid grid-cols-5 text-right my-4'>
+            {% if user.is_authenticated and user.id == details.instructor_id %}
+            <div class=' col-span-1 bg-orange-500 p-1  text-center items-center py-2 px-2 rounded-md'>
+                delete
+            </div>
+            {% else %}
             <div class='col-span-1'></div>
+            {% endif %}
             <div class='col-span-1'></div>
+            {% if user.is_authenticated and user.id == details.instructor_id %}
+            <div class=' col-span-1 bg-green-500 p-1 text-center items-center py-2 px-2 rounded-md'>
+                edit
+            </div>
+            {% else %}
             <div class='col-span-1'></div>
+            {% endif %}
             <div class='col-span-1'>
                 {% if user.is_authenticated %}
                 {% if user.id in details.liked_users %}
@@ -52,6 +64,15 @@
                          text-orange-700 text-center"></i></button></a> 
                 {% endif %}
             </div>
+            
+        </div>
+        <div class='grid grid-col-4 text-center items-left gap-4 mb-4'>
+            <div class=' col-span-1'>
+            </div>
+            <div class=' col-span-1'>
+            </div>
+            
+          
         </div>
         </div>
         <div class='p-2 col-span-1  py-2 h-full'>
@@ -170,17 +191,17 @@
                 [--You have rated--]
                 {% endif %}
             </p>
+            
+            
+            
+                
             <p>
                 <span class='font-bold underline text-violet-700'>Comments</span>:
                 <ul class='p-2 h-44 overflow-y-scroll sup-scrollbar bg-gray-800 my-2 border-gray-400 rounded-lg'>
                 {% for comment in details.comments.all  %}
-                        <li><span class='font-bold mr-2'>{{comment.user}}:</span>{{comment.comment}}</li>
-                       
+                        <li><span class='font-bold mr-2'>{{comment.user}}/{{comment.created_at}}:</span>{{comment.comment}}</li>
                 {% endfor %}
                 </ul>
-                <p class='text-right'>
-                    <a href="{% url 'login-page' %}"><button type='submit' class='bg-green-400 p-1 rounded-md'>Post Comment</button></a>
-                </p>
                 <div>
                     
                     {% if user.is_authenticated %}
@@ -208,6 +229,7 @@
             
             </div>
             </div>
+            
 
     </div>
     
