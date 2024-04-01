@@ -1,18 +1,17 @@
 {% extends "base.html" %}
 {% block cart_block %}
-<div class='text-slate-200'>
+<div class='text-slate-200 p-4 font-mono'>
     
     
     {% if user.is_authenticated %}
-        <h2>Items Carted by You:{{user}}</h2>
+    <p class=' p-4 text-left font-semibold'>{{user}} you have {{total_cart}} item in your cart.</p>
+    <p class=' p-4 text-left font-semibold underline'>Items Carted by You</p>
         {% for item in form %}
             {% if user.id in item.cart_users %}
-                {{item.cart_users}}
-                {{total_cart}}
                 <ul class='my-2 border-b border-b-blue-700 p-4 flex flex-row'>
                     <div class='text-justify overflow-x-scroll no-scrollbar '>
                         <h3>Title: {{item.title}}</h3>
-                        <video controls autoplay-off class='w-[40%] xs:w-[90%] h-[80%] border border-purple-900 rounded-lg'>
+                        <video controls autoplay-off class='w-[40%] xs:w-[90%] h-[80%] border border-purple-900 rounded-lg my-2'>
                             <source src="/media/{{item.video}}" type='video/mp4'>
                         </video>
                     
@@ -31,9 +30,9 @@
             
             {% endif %}
         {% endfor %}
-        <p>Total Price: {{total_price}}</p>
+        <p class='p-4'>Total Price: {{total_price}}</p>
     {% else %}
-        <p>Please log in to view your cart.</p>
+        <p class='p-4'>Please log in to view your cart.</p>
     {% endif %}
 
 

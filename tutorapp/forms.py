@@ -1,3 +1,4 @@
+import decimal
 from django import forms
 from . import models
 
@@ -49,6 +50,12 @@ class VideoFormModel(forms.ModelForm):
         self.fields['description'].widget.attrs['placeholder'] = 'Describe About Your Tutorial Video'
         self.fields['description'].help_text = ''
         
+    def clean_price(self):
+        price = self.cleaned_data.get('price')
+        if price is not None:
+            price_decimal = decimal.Decimal(str(price))  # Convert float to string and then to Decimal
+            return price_decimal * decimal.Decimal('1.2')
+        return price
 class CommentForm(forms.ModelForm):
     comment = forms.CharField(
         widget=forms.Textarea(attrs={'class': 'form-control rounded-md text-slate-800',

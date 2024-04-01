@@ -88,8 +88,8 @@ def cart_page(request):
     for item in tutorials:
         price = round(item.price)
         pricelst.append(price)
-    print('pricelst', pricelst, round(sum(pricelst)*1.2, 2))
-    total_price = round(sum(pricelst)*1.2, 2)
+    print('pricelst', pricelst, round(sum(pricelst), 2))
+    total_price = round(sum(pricelst)*1, 2)
     context = {'form':tutorials, 'total_price':total_price, 'total_cart':len(pricelst)}
     return render(request, 'CartPage/CartPage.html', context)
 

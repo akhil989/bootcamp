@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'theme',
     'django_browser_reload',
     'fontawesomefree',
-    'tutorapp'
+    'tutorapp',
+    'razorpay',
     
 ]
 TAILWIND_APP_NAME = 'theme'
@@ -166,3 +167,7 @@ EMAIL_FILE_PATH = BASE_DIR / 'emails'
 # Stripe
 STRIPE_PUBLISHABLE_KEY = os.getenv('STRIPE_PUBLISHABLE_KEY')
 STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY')
+
+# Razorpay
+RAZORPAY_KEY_ID = os.getenv('RAZORPAY_KEY_ID')
+RAZORPAY_KEY_SECRETE = os.getenv('RAZORPAY_KEY_SECRETE')
