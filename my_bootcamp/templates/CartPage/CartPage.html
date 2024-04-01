@@ -9,7 +9,7 @@
         {% for item in form %}
             {% if user.id in item.cart_users %}
                 <ul class='my-2 border-b border-b-blue-700 p-4 flex flex-row'>
-                    <div class='text-justify overflow-x-scroll no-scrollbar '>
+                    <div class='text-justify flex-1'>
                         <h3>Title: {{item.title}}</h3>
                         <video controls autoplay-off class='w-[40%] xs:w-[90%] h-[80%] border border-purple-900 rounded-lg my-2'>
                             <source src="/media/{{item.video}}" type='video/mp4'>
@@ -21,8 +21,8 @@
               
                     <form action="{% url 'remove-cart-item' item.id %}" method="post"> 
                         {% csrf_token %}  
-                    <button type='submit' class=''>Remove Item:<i class="fa-solid fa-dolly w-8 h-8 font-serif 
-                        items-center p-2  text-slate-200 hover:text-orange-700"></i></button>
+                    <button type='submit' class='py-1'><span class='items-center justify-center'>Remove Item:<i class="fa-regular fa-trash-can w-6 h-6  font-serif 
+                        items-baseline   text-blue-200 hover:text-blue-700"></i></span></button>
                     <br>
                     </form>
                     </div>
