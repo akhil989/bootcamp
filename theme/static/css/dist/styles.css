@@ -993,6 +993,14 @@ select {
   height: 100vh;
 }
 
+.h-\[px\] {
+  height: px;
+}
+
+.h-\[200px\] {
+  height: 200px;
+}
+
 .w-12 {
   width: 3rem;
 }
@@ -1264,6 +1272,11 @@ select {
 .border-violet-700 {
   --tw-border-opacity: 1;
   border-color: rgb(109 40 217 / var(--tw-border-opacity));
+}
+
+.border-blue-500 {
+  --tw-border-opacity: 1;
+  border-color: rgb(59 130 246 / var(--tw-border-opacity));
 }
 
 .border-b-blue-700 {
@@ -1594,6 +1607,10 @@ select {
 
 .font-semibold {
   font-weight: 600;
+}
+
+.font-medium {
+  font-weight: 500;
 }
 
 .leading-normal {

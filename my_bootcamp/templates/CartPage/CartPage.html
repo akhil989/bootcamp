@@ -1,42 +1,36 @@
 {% extends "base.html" %}
 {% block cart_block %}
 <div class='text-slate-200 p-4 font-mono'>
-    
-    
     {% if user.is_authenticated %}
-    <p class=' p-4 text-left font-semibold'>{{user}} you have {{total_cart}} item in your cart.</p>
-    <p class=' p-4 text-left font-semibold underline'>Items Carted by You</p>
+    <p class=' p-2 text-left font-semibold'>{{user}} you have {{total_cart}} item in your cart.</p>
+    <p class=' p-2 text-left font-semibold underline'>Items Carted by You</p>
         {% for item in form %}
             {% if user.id in item.cart_users %}
-                <ul class='my-2 border-b border-b-blue-700 p-4 flex flex-row'>
-                    <div class='text-justify flex-1'>
+                <ul class='my-2   flex flex-row'>
+                <li class='border-b border-blue-500'>
+                    <div class='text-justify '>
+                        <img src="/media/{{item.thumbnail}}" alt='name' class='w-full h-[200px] py-2 my-1'/>
                         <h3>Title: {{item.title}}</h3>
-                        <video controls autoplay-off class='w-[40%] xs:w-[90%] h-[80%] border border-purple-900 rounded-lg my-2'>
-                            <source src="/media/{{item.video}}" type='video/mp4'>
-                        </video>
-                    
                         <h3>Posted By : {{item.instructor.username}}</h3>
                         <p>Published On : {{item.created_at}}</p>
                         <p>Price: {{item.price}}</p>
-              
-                    <form action="{% url 'remove-cart-item' item.id %}" method="post"> 
-                        {% csrf_token %}  
-                    <button type='submit' class='py-1'><span class='items-center justify-center'>Remove Item:<i class="fa-regular fa-trash-can w-6 h-6  font-serif 
-                        items-baseline   text-blue-200 hover:text-blue-700"></i></span></button>
-                    <br>
-                    </form>
+                
+                        <form action="{% url 'remove-cart-item' item.id %}" method="post"> 
+                            {% csrf_token %}  
+                            <button type='submit' class='py-1'><span class='items-center justify-center'>Remove Item:<i class="fa-regular fa-trash-can w-6 h-6  font-serif 
+                                items-baseline   text-blue-200 hover:text-blue-700"></i></span>
+                            </button>
+                        <br>    
+                        </form>
                     </div>
+                </li>
                 </ul>  
             
             {% endif %}
         {% endfor %}
-        <p class='p-4'>Total Price: {{total_price}}</p>
+        <p class='py-2 font-bold text-left'>Total Price: {{total_price}}</p>
     {% else %}
-        <p class='p-4'>Please log in to view your cart.</p>
-    {% endif %}
-
-
-    
-        
+        <p class='py-2 font-bold text-left'>Please log in to view your cart.</p>
+    {% endif %}      
 </div>
 {% endblock cart_block %}
