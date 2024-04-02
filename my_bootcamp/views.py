@@ -350,6 +350,8 @@ def item_purchase(request):
                     price=price / 100,  # Convert back to Decimal
                     order_id=order_id,
                 )
+                response_payment['name']=user_id
+                return render(request, 'CartPage/CartPage.html', {"payment":response_payment} )
 
         except Exception as e:
             # Log the error or provide a user-friendly message
