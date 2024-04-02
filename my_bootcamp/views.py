@@ -1,3 +1,4 @@
+import decimal
 from django.http import Http404, HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
@@ -26,9 +27,16 @@ from tutorapp.models import CartVideo
 from tutorapp.models import Category
 from tutorapp.models import RateVideo
 from tutorapp.models import CommentTutorial
+from .models import Enrollment
+from tutorapp.models import Order
+
 
 from django.db.models import Count
 from django.contrib.auth.models import AnonymousUser 
+
+import razorpay
+import os
+from dotenv import load_dotenv
 
 # Create your views here.
 
@@ -315,3 +323,38 @@ def item_detail_page(request, id):
     context = {'details':details}
     print('comments',)
     return render(request, 'ItemDetailPage/ItemDetailPage.html', context)
+
+
+# enrollments
+load_dotenv()
+@login_required
+def item_purchase(request):
+    if request.method == 'POST':
+        user_id = request.POST.get('user')
+        course_id = request.POST.get('course')
+        price = decimal.Decimal(request.POST.get('price')) * 100
+
+        razorpay_key = "rzp_test_kaz60tEn560E6V"
+        razorpay_secret = "JpovtSP6RXXSV5iB95SwcTDr"
+
+        try:
+            client = razorpay.Client(auth=(razorpay_key, razorpay_secret))
+            response_payment = client.order.create(dict(amount=int(price), currency='INR'))
+            print('payment', response_payment)
+            order_id = response_payment['id']
+            order_status = response_payment['status']
+            if order_status == 'created':
+                order = Order.objects.create(
+                    student_id=user_id,
+                    course_id=course_id,
+                    price=price / 100,  # Convert back to Decimal
+                    order_id=order_id,
+                )
+
+        except Exception as e:
+            # Log the error or provide a user-friendly message
+            print("Razorpay API request failed:", e)
+            # Optionally, redirect the user to an error page or display a message
+            return render(request, 'CartPage/CartPage.html', {'message': 'Razorpay API request failed. Please try again later.'})
+        print('payment', response_payment)
+    return redirect('cart-page')

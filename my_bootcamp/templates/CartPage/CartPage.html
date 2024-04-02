@@ -9,20 +9,29 @@
                 <ul class='my-2   flex flex-row'>
                 <li class='border-b border-blue-500'>
                     <div class='text-justify '>
-                        <img src="/media/{{item.thumbnail}}" alt='name' class='w-full h-[200px] py-2 my-1'/>
-                        <h3>Title: {{item.title}}</h3>
-                        <h3>Posted By : {{item.instructor.username}}</h3>
-                        <p>Published On : {{item.created_at}}</p>
-                        <p>Price: {{item.price}}</p>
-                
-                        <form action="{% url 'remove-cart-item' item.id %}" method="post"> 
-                            {% csrf_token %}  
-                            <button type='submit' class='py-1'><span class='items-center justify-center'>Remove Item:<i class="fa-regular fa-trash-can w-6 h-6  font-serif 
-                                items-baseline   text-blue-200 hover:text-blue-700"></i></span>
+                        <form action="{% url 'item-purchase' %}" method="post"> 
+                            {% csrf_token %}
+                            <input type="hidden" name="course" value="{{ item.id }}">
+                            <input type="hidden" name="user" value="{{ user.id }}">
+                            <input type="hidden" name="price" value="{{ item.price }}">
+                            <img src="/media/{{ item.thumbnail }}" alt="name" class="w-full h-[200px] py-2 my-1"/>
+                            <h3>Title: {{ item.title }}</h3>
+                            <h3>Posted By : {{ item.instructor.username }}</h3>
+                            <p>Published On : {{ item.created_at }}</p>
+                            <p>Price: {{ item.price }}</p>
+                            <button type="submit" class="py-1">
+                                <span class="items-center justify-center">Buy Now<i class="fa-solid fa-bag-shopping w-6 h-6 font-serif items-baseline text-blue-200 hover:text-blue-700"></i></span>
                             </button>
-                        <br>    
-                        </form>
+                            <br>    
+                        </form>                        
                     </div>
+                    <form action="{% url 'remove-cart-item' item.id %}" method="post"> 
+                        {% csrf_token %}  
+                        <button type='submit' class='py-1'><span class='items-center justify-center'>Remove Item:<i class="fa-regular fa-trash-can w-6 h-6  font-serif 
+                            items-baseline   text-blue-200 hover:text-blue-700"></i></span>
+                        </button>
+                    <br>    
+                    </form>
                 </li>
                 </ul>  
             

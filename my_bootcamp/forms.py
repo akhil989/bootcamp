@@ -3,6 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
+from .models import Enrollment
 
 class UserRegistrationForm(UserCreationForm):
     email = forms.EmailField(help_text='A valid email address, please.', required=True)
@@ -52,27 +53,9 @@ class UserRegistrationForm(UserCreationForm):
         self.fields['password2'].label = ''
         self.fields['password2'].help_text = '<span class="form-text text-muted text-slate-200"><small>Enter the same password as before, for verification.</small></span>'
         
-# class PasswordChange(PasswordChangeForm):
-#     class Meta:
-#         model = User
-#         fields = ['old_password', 'new_password1', 'new_password2']
-#     def __init__(self, *args, **kwargs):
-#         super(PasswordChange, self).__init__(*args, **kwargs)
-
-        
-#         self.fields['old_password'].widget.attrs['class'] = 'form-control mb-4 w-full text-slate-900'
-#         self.fields['old_password'].widget.attrs['placeholder'] = 'Password'
-#         self.fields['old_password'].label = ''
-#         self.fields['old_password'].help_text = ''
-        
-#         self.fields['new_password1'].widget.attrs['class'] = 'form-control mb-4 w-full'
-#         self.fields['new_password1'].widget.attrs['placeholder'] = 'Password'
-#         self.fields['new_password1'].label = ''
-#         self.fields['new_password1'].help_text = ''
-        
-#         self.fields['new_password2'].widget.attrs['class'] = 'form-control mb-4 w-full'
-#         self.fields['new_password2'].widget.attrs['placeholder'] = 'Password'
-#         self.fields['new_password2'].label = ''
-#         self.fields['new_password2'].help_text = ''
+class PurchaseForm(forms.ModelForm):
+    class Meta:
+        model = Enrollment
+        fields = '__all__'
         
     

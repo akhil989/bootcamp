@@ -23,6 +23,7 @@ urlpatterns = [
     path('remove-cart/<int:video_id>/', views.remove_cart_item, name='remove-cart-item'),
     path('rate-video/<int:video_id>/', views.rate_video, name='rate-video'),
     path('item-details/<int:id>/', views.item_detail_page, name='item-details'),
+    path('item-purchase/', views.item_purchase, name='item-purchase')
 
     
    

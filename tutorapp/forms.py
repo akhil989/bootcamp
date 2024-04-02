@@ -72,3 +72,8 @@ class CommentForm(forms.ModelForm):
         self.fields['comment'].widget.attrs['class'] = 'form-control rounded-md text-slate-800 '
         self.fields['comment'].widget.attrs['placeholder'] = 'Write your feedback here(maximum 200 characters)'
         self.fields['comment'].help_text = ''
+        
+class OrderForm(forms.ModelForm):
+    class Meta:
+        model = models.Order
+        fields = '__all__'
