@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block item_delete %}
+<div>
+    <div class='bg-slate-800  grid md:grid-cols-2 gap-2 p-2 h-full '>
+        <div class='px-2 col-span-1 rounded-lg bg-black h-full py-8'>
+        <div class='py-2'>
+        <h3 class='font-bold text-lg text-gray-300 text-ellipsis overflow-x-scroll no-scrollbar'>{{item.title|capfirst}}</h3>
+        </div>
+        <video controls autoplay-off class='w-full h-3/4'>
+            <source src="/media/{{item.video}}" type='video/mp4'>
+        </video>
+        <div class='grid grid-cols-4 text-right my-4'>
+            <div class='col-span-3 '>
+                <span class='text-right text-lg text-red-600 font-semibold'>Are You Sure To Delete This Post?, Then Click The Delete Button :</span>
+            </div>
+            {% if user.is_authenticated and user.id == item.instructor_id %}
+                <div class=' col-span-1 px-2 text-left'>
+                    <form action="" method='post' enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <a href="{% url "delete-file" item.id %}"><button type="submit"name='delete' value={{item.id}} class='text-center text-xs'><i class="fa-regular fa-trash-can  text-blue-300 w-6 h-6 "></i><br>Delete Your Post</button></a>
+                    </form>
+                </div>
+            {% else %}
+                <div class='col-span-1'></div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock item_delete %}

@@ -3,7 +3,6 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
-from .models import Enrollment
 
 class UserRegistrationForm(UserCreationForm):
     email = forms.EmailField(help_text='A valid email address, please.', required=True)
@@ -53,9 +52,5 @@ class UserRegistrationForm(UserCreationForm):
         self.fields['password2'].label = ''
         self.fields['password2'].help_text = '<span class="form-text text-muted text-slate-200"><small>Enter the same password as before, for verification.</small></span>'
         
-class PurchaseForm(forms.ModelForm):
-    class Meta:
-        model = Enrollment
-        fields = '__all__'
         
     

@@ -9,21 +9,20 @@
         <video controls autoplay-off class='w-full h-3/4'>
             <source src="/media/{{details.video}}" type='video/mp4'>
         </video>
-        <div class='grid grid-cols-5 text-right my-4'>
+        <div class='grid grid-cols-4 text-right my-4'>
             {% if user.is_authenticated and user.id == details.instructor_id %}
-            <div class=' col-span-1 bg-orange-500 p-1  text-center items-center py-2 px-2 rounded-md'>
-                delete
-            </div>
+                <div class=' col-span-1'>
+                    <a href="{% url 'item-delete-page' details.id %}"><button type="submit" class='text-center text-xs'><i class="fa-regular fa-trash-can  text-blue-300 w-6 h-6 "></i><br>Delete Your Post</button></a>
+                </div>
             {% else %}
-            <div class='col-span-1'></div>
+                <div class='col-span-1'></div>
             {% endif %}
-            <div class='col-span-1'></div>
             {% if user.is_authenticated and user.id == details.instructor_id %}
-            <div class=' col-span-1 bg-green-500 p-1 text-center items-center py-2 px-2 rounded-md'>
-                edit
-            </div>
+                <div class=' col-span-1'>
+                    <a href=""><button type="submit" class='text-center text-xs'><i class="fa-regular fa-pen-to-square  text-blue-300 w-6 h-6 "></i><br>Edit Your Post</button></a>
+                </div>
             {% else %}
-            <div class='col-span-1'></div>
+                <div class='col-span-1'></div>
             {% endif %}
             <div class='col-span-1'>
                 {% if user.is_authenticated %}
@@ -39,11 +38,11 @@
                     </form>
                 {% endif %}
                 {% else %}
-                <a href="{% url 'login' %}"><button type="submit" class='text-xs'><i class="fa-regular fa-heart  text-orange-600 w-6 h-6 "></i></i><br>add like</button></a>
+                     <a href="{% url 'login' %}"><button type="submit" class='text-xs'><i class="fa-regular fa-heart  text-orange-600 w-6 h-6 "></i></i><br>add like</button></a>
                 {% endif %}
             </div>
             <div class='col-span-1'>
-                {% if user.is_authenticated %}
+            {% if user.is_authenticated %}
                 {% if user.id in details.cart_users %}
                     <form action="{% url 'cart-item' details.id %}" method="post"> 
                         {% csrf_token %}  
@@ -71,8 +70,6 @@
             </div>
             <div class=' col-span-1'>
             </div>
-            
-          
         </div>
         </div>
         <div class='p-2 col-span-1  py-2 h-full'>

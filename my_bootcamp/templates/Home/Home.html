@@ -16,7 +16,15 @@
                 <div class='grid grid-cols-5 text-right'>
                     <div class='col-span-1'></div>
                     <div class='col-span-1'></div>
-                    <div class='col-span-1'></div>
+                    <div class='col-span-1'>
+                        
+                        {% if user.is_authenticated %}
+                            {% if user.id == item.instructor_id %}
+                            <a href="{% url 'item-details' item.id %}"><button type="submit" class='text-center'><i class="fa-regular fa-pen-to-square  text-blue-300 w-6 h-6 "></i><br>Edit Your Post</button></a>
+                            {% endif %}
+                        {% endif %}
+                            
+                    </div>
                     <div class='col-span-1'>
                         {% if user.is_authenticated %}
                         {% if user.id in item.liked_users %}

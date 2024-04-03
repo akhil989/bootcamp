@@ -23,7 +23,11 @@ urlpatterns = [
     path('remove-cart/<int:video_id>/', views.remove_cart_item, name='remove-cart-item'),
     path('rate-video/<int:video_id>/', views.rate_video, name='rate-video'),
     path('item-details/<int:id>/', views.item_detail_page, name='item-details'),
-    path('item-purchase/', views.item_purchase, name='item-purchase')
+    path('item-purchase/', views.item_purchase, name='item-purchase'),
+    path('item-purchase/payment/<order_id>/', views.razorpay_page, name='payment'),
+    path('item-purchase/payment/<order_id>/success/', views.razorpay_success, name='razorpay-success'),
+    path('item-delete-page/<int:id>/', views.item_delete_page, name='item-delete-page'),
+    path('item-delete/<int:id>/', views.delete_file, name='delete-file')
 
     
    

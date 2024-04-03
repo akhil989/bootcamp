@@ -1,5 +1,5 @@
 import decimal
-from django.http import Http404, HttpResponse, JsonResponse
+from django.http import Http404, HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import  authenticate
@@ -7,6 +7,7 @@ from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
 from django.contrib import messages
 from django.contrib.auth import get_user_model
+from django.urls import reverse
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.decorators import permission_classes
 from django.contrib.auth.models import User
@@ -27,7 +28,6 @@ from tutorapp.models import CartVideo
 from tutorapp.models import Category
 from tutorapp.models import RateVideo
 from tutorapp.models import CommentTutorial
-from .models import Enrollment
 from tutorapp.models import Order
 
 
@@ -324,6 +324,39 @@ def item_detail_page(request, id):
     print('comments',)
     return render(request, 'ItemDetailPage/ItemDetailPage.html', context)
 
+# delete page
+@login_required
+def item_delete_page(request, id):
+    item = get_object_or_404(VideoModel, pk=id)
+    context = {'item':item}
+    if request.method == 'POST':
+        if 'delete' in request.POST:
+            return redirect('delete-file', id=id)
+    return render(request, 'ItemDelete/ItemDelete.html', context)
+# delete function
+@login_required
+def delete_file(request,id):
+    try:
+        f = get_object_or_404(VideoModel, pk=id)
+        image = str(f.thumbnail)  # Convert the image field to a string
+        image_path = f.thumbnail.path  # Get the absolute path of the image
+        video_path = f.video.path
+        f.delete()
+
+        if os.path.exists(image_path):
+            os.remove(image_path)
+            print('File deleted from folder')
+        else:
+            print('Path does not exist')
+        if os.path.exists(video_path):
+            os.remove(video_path)
+            print('File deleted from folder')
+        else:
+            print('Path does not exist')
+    except VideoModel.DoesNotExist:
+        print('File not found') 
+    return redirect('http://localhost:8000/?category_posts=category_posts/')
+
 
 # enrollments
 load_dotenv()
@@ -350,14 +383,24 @@ def item_purchase(request):
                     price=price / 100,  # Convert back to Decimal
                     order_id=order_id,
                 )
-                context = {'order_id':order.order_id, 'data_amount':order.price}
-                print('context', order.order_id, order.price)
-                return render(request, 'CartPage/CartPage.html', context )
+                orderid = order.order_id
+                return redirect('payment', order_id)
 
         except Exception as e:
             # Log the error or provide a user-friendly message
             print("Razorpay API request failed:", e)
             # Optionally, redirect the user to an error page or display a message
-            return render(request, 'CartPage/CartPage.html', {'message': 'Razorpay API request failed. Please try again later.'})
+            return redirect('cart-page', {'message': 'Razorpay API request failed. Please try again later.'})
         print('payment', response_payment)
     return redirect('cart-page')
+
+def razorpay_page(request, order_id):
+    order = Order.objects.get(order_id=order_id)
+    context = {'order': order}
+    print('jjf',order.order_id, order.student_id)
+    return render(request, 'Razorpay/Razorpay.html', context)
+
+def razorpay_success(request):
+    response = request.POST
+    print(response)
+    return render(request, 'PaymentSuccess/PaymentSuccess.html')
