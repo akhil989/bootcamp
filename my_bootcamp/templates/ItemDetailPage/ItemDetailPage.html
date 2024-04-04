@@ -19,7 +19,7 @@
             {% endif %}
             {% if user.is_authenticated and user.id == details.instructor_id %}
                 <div class=' col-span-1'>
-                    <a href=""><button type="submit" class='text-center text-xs'><i class="fa-regular fa-pen-to-square  text-blue-300 w-6 h-6 "></i><br>Edit Your Post</button></a>
+                    <a href="{% url 'item-update-page' details.id %}"><button type="submit" class='text-center text-xs'><i class="fa-regular fa-pen-to-square  text-blue-300 w-6 h-6 "></i><br>Edit Your Post</button></a>
                 </div>
             {% else %}
                 <div class='col-span-1'></div>

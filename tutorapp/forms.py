@@ -13,6 +13,7 @@ class VideoFormModel(forms.ModelForm):
 
         
         self.fields['title'].widget.attrs['class'] = 'form-control rounded-md text-slate-800'
+        self.fields['video'].widget.attrs.update({'style': 'background-color: #059862;'})
         self.fields['title'].label = 'Title'
         self.fields['title'].widget.attrs['placeholder'] = 'Title'
         self.fields['title'].help_text = ''

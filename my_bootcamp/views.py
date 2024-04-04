@@ -1,4 +1,5 @@
 import decimal
+import http
 from django.http import Http404, HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
@@ -13,12 +14,14 @@ from rest_framework.decorators import permission_classes
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import PasswordChangeForm, PasswordResetForm
 from django.contrib.auth import update_session_auth_hash
+from django.utils.html import format_html
 
 from django.core.mail import send_mail
 from django.core.mail import EmailMessage, get_connection
 from django.conf import settings
 
 from .forms import  UserRegistrationForm
+from tutorapp.forms import VideoFormModel
 from tutorapp.forms import CommentForm
 
 
@@ -46,9 +49,13 @@ def home_view(request):
     if 'search' in request.GET:
         search_query = request.GET['search']
         tutorials_vid = VideoModel.objects.filter(title__icontains=search_query)
+        if len(tutorials_vid) == 0:
+            messages.info(request, f"{request.user}, There is no post of your search term, Try another search")
     elif 'search1' in request.GET:
         search_query = request.GET['search1']
         tutorials_vid = VideoModel.objects.filter(title__icontains=search_query)
+        if len(tutorials_vid) == 0:
+            messages.info(request, f"{request.user}, There is no post of your search term, Try another search")
     elif 'search_instructor' in request.GET:
         search_query = request.GET['search_instructor']
         tutorials_vid = VideoModel.objects.filter(instructor_id=search_query)
@@ -60,19 +67,32 @@ def home_view(request):
     elif 'category_like' in request.GET:
         category_name = request.GET['category_like']
         tutorials_vid = VideoModel.objects.filter(likes__user=request.user)
-        messages.info(request, f"Tutorials liked by {request.user}")
+        if len(tutorials_vid) == 0:
+            messages.info(request, f"{request.user}, You have no liked posts to display")
+        else:
+            messages.info(request, f"Tutorials liked by {request.user}")
     elif 'category_cart' in request.GET:
         category_name = request.GET['category_cart']
         tutorials_vid = VideoModel.objects.filter(carts__user=request.user)
-        messages.info(request, f"Tutorials carted by {request.user}")
+        if len(tutorials_vid) == 0:
+            messages.info(request, f"{request.user}, You have no cart items to display")
+        else:
+            messages.info(request, f"Tutorials carted by {request.user}")
     elif 'category_rated' in request.GET:
         category_name = request.GET['category_rated']
         tutorials_vid = VideoModel.objects.filter(rating__user=request.user)
-        messages.info(request, f"Tutorials rated by {request.user}")
+        if len(tutorials_vid) == 0:
+            messages.info(request, f"{request.user}, You have no rated posts to display")
+        else:
+            messages.info(request, f"Tutorials rated by {request.user}")
     elif 'category_posts' in request.GET:
         category_name = request.GET['category_posts']
         tutorials_vid = VideoModel.objects.filter(instructor=request.user)
-        messages.info(request, f"Tutorials posted by {request.user}")
+        print('len',len(tutorials_vid))
+        if len(tutorials_vid) == 0:
+           messages.info(request, format_html("{} You have not posted yet, start tutoring here <a href='{}' class='underline text-violet-700'>Post Your Tutorial</a>", request.user, "http://localhost:8000/tutor/join-now/"))
+        else:
+            messages.info(request, f"Tutorials posted by {request.user}")
     else:
         tutorials_vid = VideoModel.objects.all().order_by('-created_at')
         
@@ -333,6 +353,28 @@ def item_delete_page(request, id):
         if 'delete' in request.POST:
             return redirect('delete-file', id=id)
     return render(request, 'ItemDelete/ItemDelete.html', context)
+
+# update post
+@login_required
+def item_update_page(request, id):
+    item = get_object_or_404(VideoModel, pk=id)
+    update_form = VideoFormModel(instance=item )
+    context = {'item':item, 'form':update_form}
+    if request.method == 'POST':
+        if 'update' in request.POST:
+            update_form = VideoFormModel(request.POST, instance=item )
+            if update_form.is_valid():
+                print("update:",update_form.cleaned_data)
+                update_form.save()
+                messages.success(request, 'Successfully Updated Your Post')
+                return redirect('http://localhost:8000/?category_posts=category_posts/')
+            else:
+                messages.error(request, 'Error updating post...')
+                update_form = VideoFormModel()
+            return render(request, 'ItemUpdate/ItemUpdate.html', context)
+    return render(request, 'ItemUpdate/ItemUpdate.html', context)
+
+
 # delete function
 @login_required
 def delete_file(request,id):

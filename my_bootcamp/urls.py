@@ -27,7 +27,8 @@ urlpatterns = [
     path('item-purchase/payment/<order_id>/', views.razorpay_page, name='payment'),
     path('item-purchase/payment/<order_id>/success/', views.razorpay_success, name='razorpay-success'),
     path('item-delete-page/<int:id>/', views.item_delete_page, name='item-delete-page'),
-    path('item-delete/<int:id>/', views.delete_file, name='delete-file')
+    path('item-delete/<int:id>/', views.delete_file, name='delete-file'),
+    path('item-update-page/<int:id>/', views.item_update_page, name='item-update-page')
 
     
    

@@ -131,7 +131,7 @@
 		{% if messages %}
 			
 			{% for message in messages %}
-				<div class="alert alert-warning alert-dismissible fade show bg-blue-400 m-4 text-center text-slate-200 font-serif font-semibold" role="alert">
+				<div class="alert alert-warning alert-dismissible fade show bg-blue-400 my-2 xs:mx-8 xm:mx-8 sm:mx-8 md:mx-16 lg:mx-24 xl:mx-28 2xl:mx-96 text-center text-slate-200 font-serif font-semibold" role="alert">
 					{{message}}
 					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">x</button>
 				</div>
@@ -158,6 +158,7 @@
 		{% block razorpay_widget %}{% endblock razorpay_widget %}
 		{% block razorpay_success %}{% endblock razorpay_success %}
 		{% block item_delete %}{% endblock item_delete %}
+		{% block item_update %}{% endblock item_update %}
 		
 		{% include "./Footer/Footer.html" %}
 	
