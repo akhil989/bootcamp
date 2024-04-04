@@ -399,6 +399,7 @@ def delete_file(request,id):
     except VideoModel.DoesNotExist:
         print('File not found') 
     return redirect('http://localhost:8000/?category_posts=category_posts/')
+
 # update function
 @login_required
 def update_file(request, id):
@@ -415,6 +416,37 @@ def update_file(request, id):
                     messages.error(request, 'Error updating post...')
                     update_form = VideoFormModel()
                     return redirect('http://localhost:8000/?category_posts=category_posts/')
+                
+# Comment Delete
+
+@login_required
+def delete_comment(request, id):
+    try:
+        item = CommentTutorial.objects.all()
+        comment = get_object_or_404(CommentTutorial, pk=id)
+        print('comment', item, comment)
+        comment.delete()
+        messages.success(request, "Your Comment Deleted Successfully")
+        return redirect('home-page')
+    except Exception as e:
+        print(e)
+        messages.error(request, 'Error Deleting Comment...')
+        return redirect('home-page')
+
+@login_required
+def delete_comment_item_details(request, id):
+    try:
+        item = CommentTutorial.objects.all()
+        comment = get_object_or_404(CommentTutorial, pk=id)
+        print('comment', item, comment)
+        comment.delete()
+        messages.success(request, "Your Comment Deleted Successfully")
+        return redirect('home-page')
+    except Exception as e:
+        print(e)
+        messages.error(request, 'Error Deleting Comment...')
+        return redirect('home-page')
+    
 
 # enrollments
 load_dotenv()

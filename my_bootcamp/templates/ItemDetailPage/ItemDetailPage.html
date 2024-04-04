@@ -188,15 +188,17 @@
                 [--You have rated--]
                 {% endif %}
             </p>
-            
-            
-            
-                
             <p>
                 <span class='font-bold underline text-violet-700'>Comments</span>:
                 <ul class='p-2 h-44 overflow-y-scroll sup-scrollbar bg-gray-800 my-2 border-gray-400 rounded-lg'>
                 {% for comment in details.comments.all  %}
-                        <li><span class='font-bold mr-2'>{{comment.user}}/{{comment.created_at}}:</span>{{comment.comment}}</li>
+                <li>
+                    <span class='font-bold mr-2'>{{comment.user}}:</span>{{comment.comment}}
+            
+                    {% if comment.user.id == user.id %}
+                    <a href="{% url 'comment-delete-details' comment.id %}"><button type="submit" class='text-right text-xs pl-10'><i class="fa-regular fa-trash-can  text-blue-300 w-4 h-4 "></i><br></button></a>
+                    {% endif %} 
+                </li>
                 {% endfor %}
                 </ul>
                 <div>

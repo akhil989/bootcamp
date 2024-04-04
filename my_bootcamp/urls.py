@@ -30,8 +30,11 @@ urlpatterns = [
     path('item-delete/<int:id>/', views.delete_file, name='delete-file'),
     path('item-update-page/<int:id>/', views.item_update_page, name='item-update-page'),
     path('item-update/<int:id>/', views.update_file, name='update-file'),
+    path('comments/<int:id>/', views.delete_comment, name='comment-delete'),
+    path('item-details-comments/<int:id>/', views.delete_comment_item_details, name='comment-delete-details'),
+    
+    
 
     
-   
     # path('activate/<uidb64>/<token>', views.activate, name='activate'),
 ]
