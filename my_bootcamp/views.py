@@ -362,6 +362,7 @@ def item_update_page(request, id):
     context = {'item':item, 'form':update_form}
     if request.method == 'POST':
         if 'update' in request.POST:
+            # return redirect('update-file', id=id)
             update_form = VideoFormModel(request.POST, instance=item )
             if update_form.is_valid():
                 print("update:",update_form.cleaned_data)
@@ -398,7 +399,22 @@ def delete_file(request,id):
     except VideoModel.DoesNotExist:
         print('File not found') 
     return redirect('http://localhost:8000/?category_posts=category_posts/')
-
+# update function
+@login_required
+def update_file(request, id):
+    item = get_object_or_404(VideoModel, pk=id)
+    if request.method == 'POST':
+        update_form = VideoFormModel(request.POST, instance=item )
+        if update_form.is_valid():
+            try:
+                    print("update:",update_form.cleaned_data)
+                    update_form.save()
+                    messages.success(request, 'Successfully Updated Your Post')
+                    return redirect('http://localhost:8000/?category_posts=category_posts/')
+            except:
+                    messages.error(request, 'Error updating post...')
+                    update_form = VideoFormModel()
+                    return redirect('http://localhost:8000/?category_posts=category_posts/')
 
 # enrollments
 load_dotenv()
