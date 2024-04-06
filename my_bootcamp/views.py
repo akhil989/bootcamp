@@ -448,49 +448,11 @@ def delete_comment_item_details(request, id):
         return redirect('home-page')
     
 
+# razorpay
+def payment_order(request,id):
+    item = get_object_or_404(VideoModel, pk=id)
+    context = {'item':item}
+    return render(request, 'PaymentItem/PaymentItem.html', context)
+
 # enrollments
-load_dotenv()
-@login_required
-def item_purchase(request):
-    if request.method == 'POST':
-        user_id = request.POST.get('user')
-        course_id = request.POST.get('course')
-        price = decimal.Decimal(request.POST.get('price')) * 100
 
-        razorpay_key = "rzp_test_kaz60tEn560E6V"
-        razorpay_secret = "JpovtSP6RXXSV5iB95SwcTDr"
-
-        try:
-            client = razorpay.Client(auth=(razorpay_key, razorpay_secret))
-            response_payment = client.order.create(dict(amount=int(price), currency='INR'))
-            print('payment', response_payment)
-            order_id = response_payment['id']
-            order_status = response_payment['status']
-            if order_status == 'created':
-                order = Order.objects.create(
-                    student_id=user_id,
-                    course_id=course_id,
-                    price=price / 100,  # Convert back to Decimal
-                    order_id=order_id,
-                )
-                orderid = order.order_id
-                return redirect('payment', order_id)
-
-        except Exception as e:
-            # Log the error or provide a user-friendly message
-            print("Razorpay API request failed:", e)
-            # Optionally, redirect the user to an error page or display a message
-            return redirect('cart-page', {'message': 'Razorpay API request failed. Please try again later.'})
-        print('payment', response_payment)
-    return redirect('cart-page')
-
-def razorpay_page(request, order_id):
-    order = Order.objects.get(order_id=order_id)
-    context = {'order': order}
-    print('jjf',order.order_id, order.student_id)
-    return render(request, 'Razorpay/Razorpay.html', context)
-
-def razorpay_success(request):
-    response = request.POST
-    print(response)
-    return render(request, 'PaymentSuccess/PaymentSuccess.html')

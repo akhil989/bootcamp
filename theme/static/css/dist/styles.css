@@ -870,6 +870,36 @@ select {
   margin-bottom: 15%;
 }
 
+.mx-\[\] {
+  margin-left: ;
+  margin-right: ;
+}
+
+.mx-\[25\] {
+  margin-left: 25;
+  margin-right: 25;
+}
+
+.mx-\[25\%\] {
+  margin-left: 25%;
+  margin-right: 25%;
+}
+
+.mx-\[\%\] {
+  margin-left: %;
+  margin-right: %;
+}
+
+.mx-\[50\%\] {
+  margin-left: 50%;
+  margin-right: 50%;
+}
+
+.mx-\[40\%\] {
+  margin-left: 40%;
+  margin-right: 40%;
+}
+
 .mb-2 {
   margin-bottom: 0.5rem;
 }
@@ -1054,6 +1084,18 @@ select {
   width: 100%;
 }
 
+.w-\[\] {
+  width: ;
+}
+
+.w-\[400\] {
+  width: 400;
+}
+
+.w-\[400px\] {
+  width: 400px;
+}
+
 .flex-1 {
   flex: 1 1 0%;
 }
@@ -1108,12 +1150,20 @@ select {
   grid-template-columns: repeat(5, minmax(0, 1fr));
 }
 
+.grid-rows-2 {
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+}
+
 .flex-row {
   flex-direction: row;
 }
 
 .flex-col {
   flex-direction: column;
+}
+
+.items-end {
+  align-items: flex-end;
 }
 
 .items-center {
@@ -1130,6 +1180,10 @@ select {
 
 .justify-between {
   justify-content: space-between;
+}
+
+.justify-evenly {
+  justify-content: space-evenly;
 }
 
 .gap-2 {
@@ -1184,6 +1238,10 @@ select {
   border-radius: 0.125rem;
 }
 
+.rounded {
+  border-radius: 0.25rem;
+}
+
 .rounded-b-2xl {
   border-bottom-right-radius: 1rem;
   border-bottom-left-radius: 1rem;
@@ -1202,6 +1260,16 @@ select {
 .rounded-r-lg {
   border-top-right-radius: 0.5rem;
   border-bottom-right-radius: 0.5rem;
+}
+
+.rounded-t {
+  border-top-left-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
+}
+
+.rounded-t-lg {
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
 }
 
 .border {
@@ -1536,6 +1604,10 @@ select {
   vertical-align: middle;
 }
 
+.align-bottom {
+  vertical-align: bottom;
+}
+
 .font-mono {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
@@ -1762,8 +1834,24 @@ select {
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
+.shadow {
+  --tw-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --tw-shadow-colored: 0 1px 3px 0 var(--tw-shadow-color), 0 1px 2px -1px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
 .shadow-slate-800 {
   --tw-shadow-color: #1e293b;
+  --tw-shadow: var(--tw-shadow-colored);
+}
+
+.shadow-gray-300 {
+  --tw-shadow-color: #d1d5db;
+  --tw-shadow: var(--tw-shadow-colored);
+}
+
+.shadow-gray-50 {
+  --tw-shadow-color: #f9fafb;
   --tw-shadow: var(--tw-shadow-colored);
 }
 
@@ -1798,6 +1886,11 @@ select {
     margin-right: 2rem;
   }
 
+  .xs\:mx-1 {
+    margin-left: 0.25rem;
+    margin-right: 0.25rem;
+  }
+
   .xs\:hidden {
     display: none;
   }
@@ -1815,6 +1908,11 @@ select {
   .xm\:mx-8 {
     margin-left: 2rem;
     margin-right: 2rem;
+  }
+
+  .xm\:mx-1 {
+    margin-left: 0.25rem;
+    margin-right: 0.25rem;
   }
 
   .xm\:hidden {
@@ -1835,6 +1933,31 @@ select {
   .sm\:mx-8 {
     margin-left: 2rem;
     margin-right: 2rem;
+  }
+
+  .sm\:mx-\[40\%\] {
+    margin-left: 40%;
+    margin-right: 40%;
+  }
+
+  .sm\:mx-\[300\%\] {
+    margin-left: 300%;
+    margin-right: 300%;
+  }
+
+  .sm\:mx-\[30\%\] {
+    margin-left: 30%;
+    margin-right: 30%;
+  }
+
+  .sm\:mx-\[25\%\] {
+    margin-left: 25%;
+    margin-right: 25%;
+  }
+
+  .sm\:mx-1 {
+    margin-left: 0.25rem;
+    margin-right: 0.25rem;
   }
 
   .sm\:flex {
@@ -1866,6 +1989,16 @@ select {
     margin-right: 1rem;
   }
 
+  .md\:mx-\[40\%\] {
+    margin-left: 40%;
+    margin-right: 40%;
+  }
+
+  .md\:mx-\[25\%\] {
+    margin-left: 25%;
+    margin-right: 25%;
+  }
+
   .md\:flex {
     display: flex;
   }
@@ -1876,6 +2009,14 @@ select {
 
   .md\:w-96 {
     width: 24rem;
+  }
+
+  .md\:w-\[\] {
+    width: ;
+  }
+
+  .md\:w-\[400px\] {
+    width: 400px;
   }
 
   .md\:grid-cols-2 {
@@ -1901,6 +2042,31 @@ select {
   .lg\:mx-24 {
     margin-left: 6rem;
     margin-right: 6rem;
+  }
+
+  .lg\:mx-\[40\] {
+    margin-left: 40;
+    margin-right: 40;
+  }
+
+  .lg\:mx-\[40\%\] {
+    margin-left: 40%;
+    margin-right: 40%;
+  }
+
+  .lg\:mx-\[\] {
+    margin-left: ;
+    margin-right: ;
+  }
+
+  .lg\:mx-\[30\] {
+    margin-left: 30;
+    margin-right: 30;
+  }
+
+  .lg\:mx-\[30\%\] {
+    margin-left: 30%;
+    margin-right: 30%;
   }
 
   .lg\:flex {
@@ -1944,6 +2110,46 @@ select {
     margin-right: 8rem;
   }
 
+  .xl\:mx-\[\] {
+    margin-left: ;
+    margin-right: ;
+  }
+
+  .xl\:mx-\[35\] {
+    margin-left: 35;
+    margin-right: 35;
+  }
+
+  .xl\:mx-\[35\%\] {
+    margin-left: 35%;
+    margin-right: 35%;
+  }
+
+  .xl\:mx-\[37\.5\%\] {
+    margin-left: 37.5%;
+    margin-right: 37.5%;
+  }
+
+  .xl\:mx-\[3\%\] {
+    margin-left: 3%;
+    margin-right: 3%;
+  }
+
+  .xl\:mx-\[38\%\] {
+    margin-left: 38%;
+    margin-right: 38%;
+  }
+
+  .xl\:mx-\[39\%\] {
+    margin-left: 39%;
+    margin-right: 39%;
+  }
+
+  .xl\:mx-\[40\%\] {
+    margin-left: 40%;
+    margin-right: 40%;
+  }
+
   .xl\:flex {
     display: flex;
   }
@@ -1961,6 +2167,36 @@ select {
   .\32xl\:mx-96 {
     margin-left: 24rem;
     margin-right: 24rem;
+  }
+
+  .\32xl\:mx-\[40\] {
+    margin-left: 40;
+    margin-right: 40;
+  }
+
+  .\32xl\:mx-\[40\%\] {
+    margin-left: 40%;
+    margin-right: 40%;
+  }
+
+  .\32xl\:mx-\[50\%\] {
+    margin-left: 50%;
+    margin-right: 50%;
+  }
+
+  .\32xl\:mx-\[45\%\] {
+    margin-left: 45%;
+    margin-right: 45%;
+  }
+
+  .\32xl\:mx-\[4\%\] {
+    margin-left: 4%;
+    margin-right: 4%;
+  }
+
+  .\32xl\:mx-\[42\.5\%\] {
+    margin-left: 42.5%;
+    margin-right: 42.5%;
   }
 
   .\32xl\:flex {

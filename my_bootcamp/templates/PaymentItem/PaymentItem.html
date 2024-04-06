@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block payment_item %}
+<div class='p-2'>
+<div class='text-center xs:mx-1 xm:mx-1 sm:mx-1 md:mx-[25%] lg:mx-[30%] xl:mx-[40%] 2xl:mx-[42.5%] bg-gray-800 my-20 w-full md:w-[400px] rounded-lg shadow-lg shadow-gray-50'>
+    <form action="" method="post"> 
+        {% csrf_token %}
+        <div class='grid grid-rows-2'>
+            <div class='row-span-1'>
+                <input type="hidden" name="course" value="{{ item.id }}">
+                <input type="hidden" name="user" value="{{ user.id }}">
+                <input type="hidden" name="price" value="{{ item.price }}">
+                <img src="/media/{{ item.thumbnail }}" alt="name" class="w-full  rounded-t-lg"/>
+            </div>
+            <div class='row-span-1 p-2 font-mono text-left'>
+                <h3 class='py-1'>Title: {{ item.title }}</h3>
+                <h3 class='py-1'>Posted By : {{ item.instructor.username }}</h3>
+                <p class='py-1'>Published On : {{ item.created_at }}</p>
+                <p class='py-1'>Price: {{ item.price }}</p>
+                <p class='text-right'>
+                <a href="{% url "cart-page" %}" class='py-1'>
+                    <button type='button' class='p-2 bg-green-500 rounded-sm  '><span class='items-center justify-center '>
+                        Cancel
+                    </button>
+                </a>
+                </p>
+                <p class='text-right my-1'>
+                    <a href="{% url "cart-page" %}" class='py-1'>
+                        <button type='button' class='p-2 bg-yellow-500 rounded-sm '><span class='items-center justify-center text-slate-800'>
+                            Pay Now
+                        </button>
+                    </a>
+                </p>
+            </div>
+        </div>   
+    </form>                              
+
+</div>
+</div>
+{% endblock payment_item %}
