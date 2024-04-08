@@ -29,7 +29,8 @@ urlpatterns = [
     path('item-update/<int:id>/', views.update_file, name='update-file'),
     path('comments/<int:id>/', views.delete_comment, name='comment-delete'),
     path('item-details-comments/<int:id>/', views.delete_comment_item_details, name='comment-delete-details'),
-    path('payment/<id>/', views.payment_order, name='payment-order')
+    path('payment/<id>/', views.razor_payment, name='payment-order'),
+    path('payment-success/', views.razorpay_success, name='payment-success'),
     
     
 

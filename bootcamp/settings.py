@@ -46,8 +46,10 @@ INSTALLED_APPS = [
     'fontawesomefree',
     'tutorapp',
     'razorpay',
+    'corsheaders',
     
 ]
+SECURE_CROSS_ORIGIN_OPENER_POLICY = "same-origin-allow-popups"
 TAILWIND_APP_NAME = 'theme'
 INTERNAL_IPS = [
     "127.0.0.1",

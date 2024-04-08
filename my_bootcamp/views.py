@@ -21,7 +21,7 @@ from django.core.mail import EmailMessage, get_connection
 from django.conf import settings
 
 from .forms import  UserRegistrationForm
-from tutorapp.forms import VideoFormModel
+from tutorapp.forms import OrderForm, VideoFormModel
 from tutorapp.forms import CommentForm
 
 
@@ -449,10 +449,126 @@ def delete_comment_item_details(request, id):
     
 
 # razorpay
-def payment_order(request,id):
+from django.http import HttpResponseBadRequest
+
+def payment_order(request, id):
     item = get_object_or_404(VideoModel, pk=id)
-    context = {'item':item}
+    response_payment = None
+
+    if request.method == 'POST':
+        user_id = request.POST.get('user')
+        course_id = request.POST.get('course')
+        price = request.POST.get('price')
+        phone_number = request.POST.get('phone_number')
+        price_decimal = decimal.Decimal(price) * 100
+        if price is None:
+            return HttpResponseBadRequest("Price is missing in the request.")
+        try:
+            price_decimal = decimal.Decimal(price) * 100
+        except decimal.InvalidOperation:
+            return HttpResponseBadRequest("Invalid price format.")
+        print('res-payment', user_id, course_id, price, phone_number, price_decimal)
+
+        razorpay_key = "rzp_test_kaz60tEn560E6V"
+        razorpay_secret = "JpovtSP6RXXSV5iB95SwcTDr"
+        
+        client = razorpay.Client(auth=(razorpay_key, razorpay_secret))
+        try:
+            response_payment = client.order.create(dict(amount=int(price_decimal), currency='INR'))
+            print('payment', response_payment)
+            order_id = response_payment['id']
+            order_status = response_payment['status']
+            if order_status == 'created':
+                order = Order.objects.create(
+                    student_id=user_id,
+                    course_id=course_id,
+                    price=price_decimal / 100,  # Convert back to Decimal
+                    order_id=order_id,
+                )
+            orderid = order.order_id
+        except Exception as e:
+            print("Error occurred while creating order:", e)
+            # Handle the error, such as logging or displaying a message to the user
+            # You can set response_payment to None or another default value if needed
+
+    context = {'item': item, 'payment': response_payment}
     return render(request, 'PaymentItem/PaymentItem.html', context)
+# quick integration
+razorpay_key = "rzp_test_kaz60tEn560E6V"
+razorpay_secret = "JpovtSP6RXXSV5iB95SwcTDr"
+
+@login_required
+def razor_payment(request, id):
+    item = get_object_or_404(VideoModel, pk=id)
+    response_payment = None
+    
+    if request.method == 'POST':
+        user_id = request.POST.get('user')
+        course_id = request.POST.get('course')
+        price = request.POST.get('price')
+        if price is None:
+            return HttpResponseBadRequest("Price is missing in the request.")
+        try:
+            price_decimal = decimal.Decimal(price) * 100
+        except decimal.InvalidOperation:
+            return HttpResponseBadRequest("Invalid price format.")
+        phone_number = request.POST.get('phone_number')
+        price_decimal = decimal.Decimal(price) * 100
+        print(price, user_id, course_id)
+        # create client
+        client = razorpay.Client(auth=(razorpay_key, razorpay_secret))
+        DATA = {
+            "amount": int(price_decimal),
+            "currency": "INR",
+            "receipt": "receipt#1",
+            "notes": {
+                "key1": "value3",
+                "key2": "value2"
+            }
+        }
+        # create order
+        response_payment = client.order.create(data=DATA)
+        order_id = response_payment['id']
+        order_status = response_payment['status']
+        if order_status == 'created':
+            enroll = Order.objects.create(
+                student_id=user_id,
+                course_id=course_id,
+                price=price_decimal,  # Convert back to Decimal
+                order_id=order_id,
+            )
+            form = {'user_id':user_id, 'course_id':course_id, 'price':price, }
+            print('response payment', response_payment)
+            return render(request, 'RazorPayment/RazorPayment.html', {'form':form, 'item':item, 'payment':response_payment})
+        
+        
+    
+    context = {'item':item}
+    return render(request, 'RazorPayment/RazorPayment.html', context)
+
+@login_required
+def razorpay_success(request):
+    response = request.POST
+    params_dict = {
+        'razorpay_order_id': response['razorpay_order_id'],
+        'razorpay_payment_id': response['razorpay_payment_id'],
+        'razorpay_signature': response['razorpay_signature']
+    }
+
+    # client instance
+    client = razorpay.Client(auth=(razorpay_key, razorpay_secret))
+    try:
+        status = client.utility.verify_payment_signature(params_dict)
+        enroll = Order.objects.get(order_id=response['razorpay_order_id'])
+        enroll.razorpay_payment_id = response['razorpay_payment_id']
+        enroll.paid = True
+        enroll.save()
+        return render(request, 'PaymentSuccess/PaymentSuccess.html', {'status': True})
+    except:
+        return render(request, 'PaymentSuccess/PaymentSuccess.html', {'status': False})
+
+    
+
 
 # enrollments
 

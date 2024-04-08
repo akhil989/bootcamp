@@ -1,14 +1,11 @@
 {% extends "base.html" %}
 {% block payment_item %}
 <div class='p-2'>
+    {{payment}}
 <div class='text-center xs:mx-1 xm:mx-1 sm:mx-1 md:mx-[25%] lg:mx-[30%] xl:mx-[40%] 2xl:mx-[42.5%] bg-gray-800 my-20 w-full md:w-[400px] rounded-lg shadow-lg shadow-gray-50'>
-    <form action="" method="post"> 
-        {% csrf_token %}
         <div class='grid grid-rows-2'>
             <div class='row-span-1'>
-                <input type="hidden" name="course" value="{{ item.id }}">
-                <input type="hidden" name="user" value="{{ user.id }}">
-                <input type="hidden" name="price" value="{{ item.price }}">
+                
                 <img src="/media/{{ item.thumbnail }}" alt="name" class="w-full  rounded-t-lg"/>
             </div>
             <div class='row-span-1 p-2 font-mono text-left'>
@@ -16,24 +13,81 @@
                 <h3 class='py-1'>Posted By : {{ item.instructor.username }}</h3>
                 <p class='py-1'>Published On : {{ item.created_at }}</p>
                 <p class='py-1'>Price: {{ item.price }}</p>
-                <p class='text-right'>
+                <form action="" method="post" class='text-right my-1'>
+                    {% csrf_token %}
+                    <input type="hidden" name="user" value="{{ user.id }}">
+                    <input type="hidden" name="course" value="{{ item.id }}">
+                    <input type="hidden" name="price" value="{{ item.price }}">
+                    <input class='col-span-3' type="text" name="phone_number" id="phone_number" placeholder="Enter Your Phone Number" maxlength='10'>
+                    <button type='submit' class='p-2 bg-green-500 rounded-sm  col-span-1'><span class='items-center justify-center '>
+                        Confirm
+                    </button>
+
+                </form>
+                <p class='text-left'>
                 <a href="{% url "cart-page" %}" class='py-1'>
                     <button type='button' class='p-2 bg-green-500 rounded-sm  '><span class='items-center justify-center '>
                         Cancel
                     </button>
                 </a>
                 </p>
+                
+                {% if payment %}
                 <p class='text-right my-1'>
-                    <a href="{% url "cart-page" %}" class='py-1'>
-                        <button type='button' class='p-2 bg-yellow-500 rounded-sm '><span class='items-center justify-center text-slate-800'>
-                            Pay Now
-                        </button>
-                    </a>
+                    <form action="{% url "payment-success" %}" method="POST">
+                        {% csrf_token %}
+                        <button id="rzp-button1">Pay</button>
+    
+                        <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+                        <script>
+                            var options = {
+                                "key": "rzp_test_kaz60tEn560E6V", // Enter the Key ID generated from the Dashboard
+                                "amount": {{payment.amount}}, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+                                "currency": "INR",
+                                "name": "Acme Corp", //your business name
+                                "description": "Test Transaction",
+                                "image": "https://example.com/your_logo",
+                                "order_id": {{payment.id}}, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+                                "handler": function (response){
+                                    alert(response.razorpay_payment_id);
+                                    alert(response.razorpay_order_id);
+                                    alert(response.razorpay_signature)
+                                },
+                                "prefill": { //We recommend using the prefill parameter to auto-fill customer's contact information, especially their phone number
+                                    "name": {{user}}, //your customer's name
+                                    "email": {{user.email}}, 
+                                     //Provide the customer's phone number for better conversion rates 
+                                },
+                                "notes": {
+                                    "address": "Razorpay Corporate Office"
+                                },
+                                "theme": {
+                                    "color": "#3399cc"
+                                }
+                            };
+                            var rzp1 = new Razorpay(options);
+                            rzp1.on('payment.failed', function (response){
+                                    alert(response.error.code);
+                                    alert(response.error.description);
+                                    alert(response.error.source);
+                                    alert(response.error.step);
+                                    alert(response.error.reason);
+                                    alert(response.error.metadata.order_id);
+                                    alert(response.error.metadata.payment_id);
+                            });
+                            document.getElementById('rzp-button1').onclick = function(e){
+                                rzp1.open();
+                                e.preventDefault();
+                            }
+                            </script>
+                    </form>
                 </p>
+                {% endif %}
+                    
             </div>
-        </div>   
-    </form>                              
+        </div>                               
+</div>
+</div>
 
-</div>
-</div>
+
 {% endblock payment_item %}
