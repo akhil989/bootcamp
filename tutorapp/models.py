@@ -53,6 +53,8 @@ class VideoModel(models.Model):
         return [user_comment.user.id for user_comment in self.comments.all()]
     def instructor_list(self):
         return [instructor.user.id for instructor in self.instructors.all()]
+    def enrolled_users(self):
+        return [order.video.id for order in self.enrolled_video.all()]
 class Course(models.Model):
     title = models.CharField(max_length=200)
     course = models.ForeignKey(VideoModel, on_delete=models.CASCADE, default=None)
@@ -74,6 +76,7 @@ class LikeVideo(models.Model):
 class CartVideo(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     video = models.ForeignKey(VideoModel, on_delete=models.CASCADE, related_name='carts')
+    purchased = models.BooleanField(default=False)
 
 class RateVideo(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)
@@ -93,7 +96,7 @@ class CommentTutorial(models.Model):
     
 class Order(models.Model):
     student = models.ForeignKey(User, on_delete=models.CASCADE)
-    course = models.ForeignKey(VideoModel, on_delete=models.CASCADE)
+    course = models.ForeignKey(VideoModel, on_delete=models.CASCADE, related_name='enrolled_video')
     price = models.DecimalField(max_digits=10, decimal_places=2)
     order_id = models.CharField(max_length=100, blank=True)
     razorpay_payment_id = models.CharField(max_length = 100, blank=True)

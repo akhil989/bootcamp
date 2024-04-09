@@ -2,9 +2,8 @@
 {% block home %}
 <div class='w-full'>
     
-    {% for item in form  %}    
-        
-        {% if item %}
+    {% for item in form  %}   
+    {% if item %}
             
         {% endif %}
         <ul class='my-2 p-2'>
@@ -48,21 +47,25 @@
                     </div>
                     <div class='col-span-1'>
                         {% if user.is_authenticated %}
-                        {% if user.id in item.cart_users %}
-                            <form action="{% url 'cart-item' item.id %}" method="post"> 
-                                {% csrf_token %}  
-                            <button type='submit' class=''><i class="fa-solid fa-cart-shopping w-6 h-6 font-serif 
-                                items-center   text-orange-700"></i><br>Item carted</button>
-                            <br>
-                            </form>
-                        {% else %}
-                            <form action="{% url 'cart-item' item.id %}" method="post"> 
-                                {% csrf_token %}  
-                            <button type='submit' class=''><i class="fa-solid fa-cart-shopping w-6 h-6 font-serif 
-                                items-center   text-slate-200 hover:text-slate-200"></i><br>Add Cart</button>
-                            <br>
-                            </form>
-                        {% endif %}
+                            {% if user.id in item.cart_users %}
+                                <form action="{% url 'cart-item' item.id %}" method="post"> 
+                                    {% csrf_token %}  
+                                <button type='submit' class=''><i class="fa-solid fa-cart-shopping w-6 h-6 font-serif 
+                                    items-center   text-orange-700"></i><br>Item carted</button>
+                                <br>
+                                </form>
+                            {% elif user.id in item.enrolled_video.all %}
+                                <button type='button' class=''><i class="fa-solid fa-check-double w-6 h-6 font-serif 
+                                    items-center   text-green-700"></i><br>Item Purchased
+                                </button>
+                            {% else %}
+                                <form action="{% url 'cart-item' item.id %}" method="post"> 
+                                    {% csrf_token %}  
+                                <button type='submit' class=''><i class="fa-solid fa-cart-shopping w-6 h-6 font-serif 
+                                    items-center   text-slate-200 hover:text-slate-200"></i><br>Add Cart</button>
+                                <br>
+                                </form>
+                            {% endif %}
                         {% else %}
                             <a href="{% url 'login' %}"><button type='submit' class=''><i class="fa-solid fa-cart-shopping w-6 h-6 font-serif 
                                 items-center   text-orange-700"></i></button></a> 

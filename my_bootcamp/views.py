@@ -1,5 +1,7 @@
+from datetime import datetime
 import decimal
 import http
+import uuid
 from django.http import Http404, HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
@@ -93,6 +95,18 @@ def home_view(request):
            messages.info(request, format_html("{} You have not posted yet, start tutoring here <a href='{}' class='underline text-violet-700'>Post Your Tutorial</a>", request.user, "http://localhost:8000/tutor/join-now/"))
         else:
             messages.info(request, f"Tutorials posted by {request.user}")
+    elif 'category_purchased' in request.GET:
+        category_name = request.GET['category_purchased']
+        tutorials_vid = VideoModel.objects.filter(enrolled_video__student_id=request.user.id,enrolled_video__paid=1)
+        for item in tutorials_vid:
+            print('hfdsf',item.enrolled_video.all())
+            for i in item.enrolled_video.all():
+                if request.user.id == i.student_id:
+                    print(request.user, i.course_id)
+        if not tutorials_vid.exists():
+            messages.info(request, format_html("You have not enrolled for any course"))
+        else:
+            messages.info(request, f"Tutorials enrolled by {request.user}")
     else:
         tutorials_vid = VideoModel.objects.all().order_by('-created_at')
         
@@ -105,7 +119,7 @@ def home_view(request):
     else:
         total_cart = 0
     category = Category.objects.all()
-    ratings = RateVideo.objects.all()
+    ratings = RateVideo.objects.all()    
     context = {'form':tutorials_vid, 'likes':likes, 'total_cart': total_cart, 'category':category, 'ratings':ratings}
     return render(request, 'Home/Home.html', context)
 
@@ -155,6 +169,7 @@ def cart_item(request, video_id):
         video = VideoModel.objects.get(id=video_id)
         user = request.user
         cart = CartVideo.objects.filter(user=user, video=video)
+        purchased=Order.objects.filter(student_id=user.id, course_id=video_id)
         if cart:
             cart.delete()
         else:
@@ -450,7 +465,7 @@ def delete_comment_item_details(request, id):
 
 # razorpay
 from django.http import HttpResponseBadRequest
-
+@login_required
 def payment_order(request, id):
     item = get_object_or_404(VideoModel, pk=id)
     response_payment = None
@@ -469,27 +484,38 @@ def payment_order(request, id):
             return HttpResponseBadRequest("Invalid price format.")
         print('res-payment', user_id, course_id, price, phone_number, price_decimal)
 
-        razorpay_key = "rzp_test_kaz60tEn560E6V"
-        razorpay_secret = "JpovtSP6RXXSV5iB95SwcTDr"
-        
-        client = razorpay.Client(auth=(razorpay_key, razorpay_secret))
+        order_list = Order.objects.filter(paid=1, course_id=request.POST.get('course'), student_id=user_id)
+        print(order_list)
         try:
-            response_payment = client.order.create(dict(amount=int(price_decimal), currency='INR'))
-            print('payment', response_payment)
-            order_id = response_payment['id']
-            order_status = response_payment['status']
-            if order_status == 'created':
-                order = Order.objects.create(
-                    student_id=user_id,
-                    course_id=course_id,
-                    price=price_decimal / 100,  # Convert back to Decimal
-                    order_id=order_id,
-                )
-            orderid = order.order_id
-        except Exception as e:
-            print("Error occurred while creating order:", e)
-            # Handle the error, such as logging or displaying a message to the user
-            # You can set response_payment to None or another default value if needed
+            if order_list is not None:
+                messages(request, 'This item is already purchased. Try another one.')
+            else:
+                razorpay_key = "rzp_test_kaz60tEn560E6V"
+                razorpay_secret = "JpovtSP6RXXSV5iB95SwcTDr"
+                
+                client = razorpay.Client(auth=(razorpay_key, razorpay_secret))
+                try:
+                    response_payment = client.order.create(dict(amount=int(price_decimal), currency='INR'))
+                    print('payment', response_payment)
+                    order_id = response_payment['id']
+                    order_status = response_payment['status']
+                    if order_status == 'created':
+                        order = Order.objects.create(
+                            student_id=user_id,
+                            course_id=course_id,
+                            price=price_decimal / 100,  # Convert back to Decimal
+                            order_id=order_id,
+                        )
+                    orderid = order.order_id
+                except Exception as e:
+                    print("Error occurred while creating order:", e)
+                    # Handle the error, such as logging or displaying a message to the user
+                    # You can set response_payment to None or another default value if needed
+        except Exception as E:
+            print('E', E)
+            
+        
+        
 
     context = {'item': item, 'payment': response_payment}
     return render(request, 'PaymentItem/PaymentItem.html', context)
@@ -514,32 +540,43 @@ def razor_payment(request, id):
             return HttpResponseBadRequest("Invalid price format.")
         phone_number = request.POST.get('phone_number')
         price_decimal = decimal.Decimal(price) * 100
+        receipt_number = f"{int(datetime.now().timestamp())}-{uuid.uuid4().hex}"
+        receipt_number = receipt_number[:10]
         print(price, user_id, course_id)
-        # create client
-        client = razorpay.Client(auth=(razorpay_key, razorpay_secret))
-        DATA = {
-            "amount": int(price_decimal),
-            "currency": "INR",
-            "receipt": "receipt#1",
-            "notes": {
-                "key1": "value3",
-                "key2": "value2"
+        order_list = Order.objects.filter(paid=1, course_id=request.POST.get('course'), student_id=user_id)
+        print(len(order_list), order_list)
+    
+        if len(order_list)>=1:
+            print('true')
+            # messages(request, 'This item is already purchased. Try another one.')
+            return redirect('cart-page')
+        else:
+            # create client
+            client = razorpay.Client(auth=(razorpay_key, razorpay_secret))
+            DATA = {
+                "amount": int(price_decimal),
+                "currency": "INR",
+                "receipt": receipt_number,
+                "notes": {
+                    "key1": "value3",
+                    "key2": "value2"
+                }
             }
-        }
-        # create order
-        response_payment = client.order.create(data=DATA)
-        order_id = response_payment['id']
-        order_status = response_payment['status']
-        if order_status == 'created':
-            enroll = Order.objects.create(
-                student_id=user_id,
-                course_id=course_id,
-                price=price_decimal,  # Convert back to Decimal
-                order_id=order_id,
-            )
-            form = {'user_id':user_id, 'course_id':course_id, 'price':price, }
-            print('response payment', response_payment)
-            return render(request, 'RazorPayment/RazorPayment.html', {'form':form, 'item':item, 'payment':response_payment})
+            # create order
+            response_payment = client.order.create(data=DATA)
+            order_id = response_payment['id']
+            order_status = response_payment['status']
+            if order_status == 'created':
+                enroll = Order.objects.create(
+                    student_id=user_id,
+                    course_id=course_id,
+                    price=price_decimal,  # Convert back to Decimal
+                    order_id=order_id,
+                )
+                form = {'user_id':user_id, 'course_id':course_id, 'price':price, }
+                print('response payment', response_payment)
+                return render(request, 'RazorPayment/RazorPayment.html', {'form':form, 'item':item, 'payment':response_payment})
+    
         
         
     
@@ -549,6 +586,7 @@ def razor_payment(request, id):
 @login_required
 def razorpay_success(request):
     response = request.POST
+    print('response',response)
     params_dict = {
         'razorpay_order_id': response['razorpay_order_id'],
         'razorpay_payment_id': response['razorpay_payment_id'],
@@ -559,11 +597,19 @@ def razorpay_success(request):
     client = razorpay.Client(auth=(razorpay_key, razorpay_secret))
     try:
         status = client.utility.verify_payment_signature(params_dict)
-        enroll = Order.objects.get(order_id=response['razorpay_order_id'])
-        enroll.razorpay_payment_id = response['razorpay_payment_id']
-        enroll.paid = True
-        enroll.save()
-        return render(request, 'PaymentSuccess/PaymentSuccess.html', {'status': True})
+        if status:
+            enroll = Order.objects.get(order_id=response['razorpay_order_id'])
+            enroll.razorpay_payment_id = response['razorpay_payment_id']
+            enroll.paid = True
+            enroll.save()
+            cart = CartVideo.objects.filter(user=enroll.student_id, video=enroll.course_id)
+            cart.delete()
+            return render(request, 'PaymentSuccess/PaymentSuccess.html', {'status': True})
+        else:
+            enroll = Order.objects.get(order_id=response['razorpay_order_id'])
+            enroll.delete()
+            return render(request, 'PaymentSuccess/PaymentSuccess.html', {'status': False})
+            
     except:
         return render(request, 'PaymentSuccess/PaymentSuccess.html', {'status': False})
 
