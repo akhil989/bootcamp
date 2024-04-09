@@ -54,7 +54,7 @@ class VideoModel(models.Model):
     def instructor_list(self):
         return [instructor.user.id for instructor in self.instructors.all()]
     def enrolled_users(self):
-        return [order.video.id for order in self.enrolled_video.all()]
+        return [order.course.id for order in self.enrolled_video.all()]
 class Course(models.Model):
     title = models.CharField(max_length=200)
     course = models.ForeignKey(VideoModel, on_delete=models.CASCADE, default=None)

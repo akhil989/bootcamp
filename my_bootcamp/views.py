@@ -47,21 +47,43 @@ from dotenv import load_dotenv
 
 def home_view(request):
     pricelst=[]
+    purchase_bag=[]
     likes = LikeVideo.objects.all()
     if 'search' in request.GET:
         search_query = request.GET['search']
         tutorials_vid = VideoModel.objects.filter(title__icontains=search_query)
+        for item in tutorials_vid:
+            print('hfdsf',item.enrolled_video.all())
+            for i in item.enrolled_video.all():
+                if request.user.id == i.student_id and i.paid==True:
+                    print(request.user, i.course_id, i.paid)
+                    purchase_bag.append(i.course_id)
+        print('purchase_bag', purchase_bag)
         if len(tutorials_vid) == 0:
             messages.info(request, f"{request.user}, There is no post of your search term, Try another search")
     elif 'search1' in request.GET:
         search_query = request.GET['search1']
         tutorials_vid = VideoModel.objects.filter(title__icontains=search_query)
+        for item in tutorials_vid:
+            print('hfdsf',item.enrolled_video.all())
+            for i in item.enrolled_video.all():
+                if request.user.id == i.student_id and i.paid==True:
+                    print(request.user, i.course_id, i.paid)
+                    purchase_bag.append(i.course_id)
+        print('purchase_bag', purchase_bag)
         if len(tutorials_vid) == 0:
             messages.info(request, f"{request.user}, There is no post of your search term, Try another search")
     elif 'search_instructor' in request.GET:
         search_query = request.GET['search_instructor']
         tutorials_vid = VideoModel.objects.filter(instructor_id=search_query)
         instructor_data = get_object_or_404(User, id=int(search_query))
+        for item in tutorials_vid:
+            print('hfdsf',item.enrolled_video.all())
+            for i in item.enrolled_video.all():
+                if request.user.id == i.student_id and i.paid==True:
+                    print(request.user, i.course_id, i.paid)
+                    purchase_bag.append(i.course_id)
+        print('purchase_bag', purchase_bag)
         messages.info(request, f"Tutorials posted by {instructor_data}")
     elif 'category' in request.GET:
         category_name = request.GET['category']
@@ -69,6 +91,13 @@ def home_view(request):
     elif 'category_like' in request.GET:
         category_name = request.GET['category_like']
         tutorials_vid = VideoModel.objects.filter(likes__user=request.user)
+        for item in tutorials_vid:
+            print('hfdsf',item.enrolled_video.all())
+            for i in item.enrolled_video.all():
+                if request.user.id == i.student_id and i.paid==True:
+                    print(request.user, i.course_id, i.paid)
+                    purchase_bag.append(i.course_id)
+        print('purchase_bag', purchase_bag)
         if len(tutorials_vid) == 0:
             messages.info(request, f"{request.user}, You have no liked posts to display")
         else:
@@ -83,6 +112,13 @@ def home_view(request):
     elif 'category_rated' in request.GET:
         category_name = request.GET['category_rated']
         tutorials_vid = VideoModel.objects.filter(rating__user=request.user)
+        for item in tutorials_vid:
+            print('hfdsf',item.enrolled_video.all())
+            for i in item.enrolled_video.all():
+                if request.user.id == i.student_id and i.paid==True:
+                    print(request.user, i.course_id, i.paid)
+                    purchase_bag.append(i.course_id)
+        print('purchase_bag', purchase_bag)
         if len(tutorials_vid) == 0:
             messages.info(request, f"{request.user}, You have no rated posts to display")
         else:
@@ -90,6 +126,13 @@ def home_view(request):
     elif 'category_posts' in request.GET:
         category_name = request.GET['category_posts']
         tutorials_vid = VideoModel.objects.filter(instructor=request.user)
+        for item in tutorials_vid:
+            print('hfdsf',item.enrolled_video.all())
+            for i in item.enrolled_video.all():
+                if request.user.id == i.student_id and i.paid==True:
+                    print(request.user, i.course_id, i.paid)
+                    purchase_bag.append(i.course_id)
+        print('purchase_bag', purchase_bag)
         print('len',len(tutorials_vid))
         if len(tutorials_vid) == 0:
            messages.info(request, format_html("{} You have not posted yet, start tutoring here <a href='{}' class='underline text-violet-700'>Post Your Tutorial</a>", request.user, "http://localhost:8000/tutor/join-now/"))
@@ -101,14 +144,23 @@ def home_view(request):
         for item in tutorials_vid:
             print('hfdsf',item.enrolled_video.all())
             for i in item.enrolled_video.all():
-                if request.user.id == i.student_id:
-                    print(request.user, i.course_id)
+                if request.user.id == i.student_id and i.paid==True:
+                    print(request.user, i.course_id, i.paid)
+                    purchase_bag.append(i.course_id)
+        print('purchase_bag', purchase_bag)
         if not tutorials_vid.exists():
             messages.info(request, format_html("You have not enrolled for any course"))
         else:
             messages.info(request, f"Tutorials enrolled by {request.user}")
     else:
         tutorials_vid = VideoModel.objects.all().order_by('-created_at')
+        for item in tutorials_vid:
+            print('hfdsf',item.enrolled_video.all())
+            for i in item.enrolled_video.all():
+                if request.user.id == i.student_id and i.paid==True:
+                    print(request.user, i.course_id, i.paid)
+                    purchase_bag.append(i.course_id)
+        print('purchase_bag', purchase_bag)
         
     if not isinstance(request.user, AnonymousUser):
         tutorials = VideoModel.objects.filter(carts__user=request.user)
@@ -120,7 +172,7 @@ def home_view(request):
         total_cart = 0
     category = Category.objects.all()
     ratings = RateVideo.objects.all()    
-    context = {'form':tutorials_vid, 'likes':likes, 'total_cart': total_cart, 'category':category, 'ratings':ratings}
+    context = {'form':tutorials_vid, 'likes':likes, 'total_cart': total_cart, 'category':category, 'ratings':ratings, 'purchase_bag':purchase_bag}
     return render(request, 'Home/Home.html', context)
 
 @login_required
@@ -513,10 +565,6 @@ def payment_order(request, id):
                     # You can set response_payment to None or another default value if needed
         except Exception as E:
             print('E', E)
-            
-        
-        
-
     context = {'item': item, 'payment': response_payment}
     return render(request, 'PaymentItem/PaymentItem.html', context)
 # quick integration

@@ -3,6 +3,16 @@
 <div class='w-full'>
     
     {% for item in form  %}   
+    
+    {% if purchase_bag %}
+    
+    {% for i in purchase_bag %}
+        {{i.id}}
+    {% endfor %}
+        
+        {{purchase_bag}}
+    {% endif %}
+        
     {% if item %}
             
         {% endif %}
@@ -54,9 +64,9 @@
                                     items-center   text-orange-700"></i><br>Item carted</button>
                                 <br>
                                 </form>
-                            {% elif user.id in item.enrolled_video.all %}
+                            {% elif item.id in purchase_bag %}
                                 <button type='button' class=''><i class="fa-solid fa-check-double w-6 h-6 font-serif 
-                                    items-center   text-green-700"></i><br>Item Purchased
+                                    items-center   text-green-700"></i><br>Item Purchased{{item.id}}
                                 </button>
                             {% else %}
                                 <form action="{% url 'cart-item' item.id %}" method="post"> 
