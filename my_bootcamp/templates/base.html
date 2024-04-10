@@ -129,15 +129,33 @@
 		
 		{% include "./NavBar/NavBar.html" %}
 		{% if messages %}
-			
 			{% for message in messages %}
-				<div class="alert alert-info alert-dismissible fade show bg-slate-700 my-2 xs:mx-8 xm:mx-8 sm:mx-8 md:mx-16 lg:mx-24 xl:mx-28 2xl:mx-96 text-center text-slate-200 font-mono font-semibold" role="alert">
-					{{message}}
-					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">x</button>
-				</div>
+				{% if message.tags %}
+					{% if message.tags == 'error' %}
+						<div class="alert alert-danger alert-dismissible fade show bg-red-500 my-2 xs:mx-8 xm:mx-8 sm:mx-8 md:mx-16 lg:mx-24 xl:mx-28 2xl:mx-96 text-center text-white font-mono font-semibold" role="alert">
+							{{ message }}
+							<button type="button" class="btn-close py-2" data-bs-dismiss="alert" aria-label="Close"><i class="fa-regular fa-rectangle-xmark w-4 h-4 text-gray-200 py-2"></i></button>
+						</div>
+					{% elif message.tags == 'info' %}
+						<div class="alert alert-info alert-dismissible fade show bg-blue-500 my-2 xs:mx-8 xm:mx-8 sm:mx-8 md:mx-16 lg:mx-24 xl:mx-28 2xl:mx-96 text-center text-white font-mono font-semibold" role="alert">
+							{{ message }}
+							<button type="button" class="btn-close py-2" data-bs-dismiss="alert" aria-label="Close"><i class="fa-regular fa-rectangle-xmark w-4 h-4 text-gray-200 py-2"></i></button>
+						</div>
+					{% elif message.tags == 'warning' %}
+						<div class="alert alert-warning alert-dismissible fade show bg-yellow-500 my-2 xs:mx-8 xm:mx-8 sm:mx-8 md:mx-16 lg:mx-24 xl:mx-28 2xl:mx-96 text-center text-black font-mono font-semibold" role="alert">
+							{{ message }}
+							<button type="button" class="btn-close py-2" data-bs-dismiss="alert" aria-label="Close"><i class="fa-regular fa-rectangle-xmark w-4 h-4 text-gray-200 py-2"></i></button>
+						</div>
+					{% else %}
+						<div class="alert alert-secondary alert-dismissible fade show bg-gray-500 my-2 xs:mx-8 xm:mx-8 sm:mx-8 md:mx-16 lg:mx-24 xl:mx-28 2xl:mx-96 text-center text-white font-mono font-semibold" role="alert">
+							{{ message }}
+							<button type="button" class="btn-close py-2" data-bs-dismiss="alert" aria-label="Close"><i class="fa-regular fa-rectangle-xmark w-4 h-4 text-gray-200 py-2"></i></button>
+						</div>
+					{% endif %}
+				{% endif %}
 			{% endfor %}
-				
 		{% endif %}
+
 		{% block loginpage %}{% endblock loginpage %}
 		{% block logout %}{% endblock logout %}
 		{% block forgotpassword %}{% endblock forgotpassword %}
@@ -161,6 +179,7 @@
 		{% block item_update %}{% endblock item_update %}
 		{% block payment_item %}{% endblock payment_item %}
 		{% block razor_payment %}{% endblock razor_payment %}
+		{% block manager %}{% endblock manager %}
 		
 		
 		{% block comment %}{% endblock comment %}

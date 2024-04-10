@@ -195,9 +195,11 @@
                         </form>
                     </p>
                 </li>
+                
 
             </ul>
         {% endif %}
+
         </div> 
         <p  class='text-left  border-b border-orange-500 text-lg bg-slate-800 rounded-b-2xl' id='sidebar_category_arrow_down'>
             <span  class='py-1  w-full text-blue-700 px-2'>
@@ -223,9 +225,11 @@
             </div>
             {% if user.is_authenticated %}
             <div class='grid grid-cols-2 gap-4 py-2 mt-4 text-right'>
-                <div></div>
                 <div class='text-right'>
-                    <a href="{% url "logout-page" %}" class='p-2 border border-blue-200 bg-blue-700 rounded-md text-center'>Sign Out</a>
+                    <a href="{% url "tutor-profile" %}" class='p-2 border border-blue-200 bg-purple-700 text-slate-200 rounded-md text-center'>Your Profile</a>
+                </div>
+                <div class='text-right'>
+                    <a href="{% url "logout-page" %}" class='p-2 border border-blue-200 bg-blue-700  text-slate-200 rounded-md text-center'>Sign Out</a>
                 </div>
             </div>
             {% else %}

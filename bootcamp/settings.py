@@ -45,8 +45,10 @@ INSTALLED_APPS = [
     'django_browser_reload',
     'fontawesomefree',
     'tutorapp',
+    'manager',
     'razorpay',
     'corsheaders',
+    
     
 ]
 SECURE_CROSS_ORIGIN_OPENER_POLICY = "same-origin-allow-popups"
@@ -71,7 +73,8 @@ ROOT_URLCONF = 'bootcamp.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, '../my_bootcamp/templates'),],
+        'DIRS': [os.path.join(BASE_DIR, '../my_bootcamp/templates'),
+                 os.path.join(BASE_DIR, '../manager/templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

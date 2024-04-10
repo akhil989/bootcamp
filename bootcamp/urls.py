@@ -27,6 +27,7 @@ urlpatterns = [
     path('auth/', include('djoser.urls.authtoken')),
     path('accounts/', include('django.contrib.auth.urls')),
     path('tutor/', include('tutorapp.urls')),
+    path('manager/', include('manager.urls')),
 ]
 if settings.DEBUG: 
     urlpatterns += static(settings.MEDIA_URL,
