@@ -77,6 +77,7 @@ class CartVideo(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     video = models.ForeignKey(VideoModel, on_delete=models.CASCADE, related_name='carts')
     purchased = models.BooleanField(default=False)
+    carted_at = models.DateTimeField(auto_now_add=True, editable=False)
 
 class RateVideo(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)

@@ -17,7 +17,9 @@ from tutorapp.models import CartVideo
 # Create your views here.
 @login_required
 def manager_dashboard(request):
-    posts = VideoModel.objects.all()
-    cart = CartVideo.objects.all()
-    order = Order.objects.all()
-    return render(request, 'Manager/Manager.html')
+    posts = VideoModel.objects.all().order_by('-created_at')
+    cart = CartVideo.objects.all().order_by('-carted_at')
+    order = Order.objects.all().order_by('-enrolled_at')
+    users = User.objects.all().order_by('-date_joined')
+    context = {'posts':posts, 'cart':cart, 'order':order,'users':users }
+    return render(request, 'Manager/Manager.html', context)

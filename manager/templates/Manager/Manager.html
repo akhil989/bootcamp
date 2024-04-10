@@ -1,4 +1,25 @@
 {% extends "base.html" %}
 {% block manager %}
-<div>Manager</div>
+<div class='grid grid-cols-7 h-screen '>
+    <div class='col-span-2 p-2 bg-slate-800 m-2 rounded-lg'>
+        <div class='p-2 m-2 bg-yellow-700 text-slate-800 text-left rounded-lg border border-yellow-100'>
+            Posts
+        </div>
+        <div class='p-2 m-2 bg-yellow-700 text-slate-800 text-left rounded-lg border border-yellow-100'>
+            Cart List
+        </div>
+        <div class='p-2 m-2 bg-yellow-700 text-slate-800 text-left rounded-lg border border-yellow-100'>
+            Users List
+        </div>
+        <div class='p-2 m-2 bg-yellow-700 text-slate-800 text-left rounded-lg border border-yellow-100'>
+            Order List
+        </div>
+    </div>
+    <div class='col-span-5 text-left p-2 bg-gray-900 m-2 rounded-lg'>
+    {% include "Manager/Posts.html" %}
+    {% include "Manager/Orders.html" %}
+    {% include "Manager/User.html" %}
+    {% include "Manager/Cart.html" %}
+    </div>
+</div>
 {% endblock manager %}
