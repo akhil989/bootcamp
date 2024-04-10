@@ -179,12 +179,13 @@ def home_view(request):
 def cart_page(request):
     pricelst=[]
     tutorials = VideoModel.objects.filter(carts__user=request.user)
+    order_details = Order.objects.filter(student_id=request.user.id, paid=1)
     for item in tutorials:
         price = round(item.price)
         pricelst.append(price)
     print('pricelst', pricelst, round(sum(pricelst), 2))
     total_price = round(sum(pricelst)*1, 2)
-    context = {'form':tutorials, 'total_price':total_price, 'total_cart':len(pricelst)}
+    context = {'form':tutorials, 'total_price':total_price, 'total_cart':len(pricelst), 'order_details':order_details}
     return render(request, 'CartPage/CartPage.html', context)
 
 def cart_item_count(request):

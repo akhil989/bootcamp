@@ -38,4 +38,40 @@
         <p class='py-2 font-bold text-left'>Please log in to view your cart.</p>
     {% endif %}      
 </div>
+<div class='text-slate-200 p-4 font-mono'>
+{% if user.is_authenticated %}
+    <p class=' p-2 text-left font-semibold underline'>Payment Reciepts History</p>
+    
+    {% for item in order_details %}
+    <ol class='my-2 border border-slate-200 p-2 rounded-lg xs:w-full xm:w-full sm:w-full md:w-full w-1/3 '>
+        <li>
+        Purchase ItemId: {{item.id}}
+        </li>
+        <li>
+        Pusrchase User Name: {{user}}
+        </li>
+        <li>
+        Purchase Order Id: {{item.order_id}}
+        </li>
+        <li>
+        Purchase Id: {{item.rzorpay_payment_id}}
+        </li>
+        <li>
+        Purchased Date: {{item.enrolled_at}}
+        </li>
+        <li>
+        Purchased Course Id: {{item.course_id}}
+        </li>
+        <li>
+        {% if item.paid %}
+            Payment Status: Paid
+        {% endif %}
+            
+        </li>
+    </ol>
+    {% endfor %}
+        
+
+{% endif %}
+</div>
 {% endblock cart_block %}

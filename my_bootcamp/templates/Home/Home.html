@@ -3,16 +3,7 @@
 <div class='w-full'>
     
     {% for item in form  %}   
-    
-    {% if purchase_bag %}
-    
-    {% for i in purchase_bag %}
-        {{i.id}}
-    {% endfor %}
-        
-        {{purchase_bag}}
-    {% endif %}
-        
+       
     {% if item %}
             
         {% endif %}
@@ -66,7 +57,7 @@
                                 </form>
                             {% elif item.id in purchase_bag %}
                                 <button type='button' class=''><i class="fa-solid fa-check-double w-6 h-6 font-serif 
-                                    items-center   text-green-700"></i><br>Item Purchased{{item.id}}
+                                    items-center   text-green-700"></i><br>Item Purchased
                                 </button>
                             {% else %}
                                 <form action="{% url 'cart-item' item.id %}" method="post"> 
