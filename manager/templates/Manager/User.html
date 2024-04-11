@@ -1,7 +1,7 @@
 <div id='usertemplate' class='hidden'>
     <div class='bg-green-500 p-2 text-lg font-mono font-bold rounded-lg text-center'>Users Details</div>
     <div class='py-2 my-2'>
-        <table class='bg-blue-100 w-full'>
+        <table class='bg-blue-100 w-full '>
             <tr class=' text-center'>
                 <th class='p-6 bg-gray-400 border border-slate-50'>id</th>
                 <th class='p-6 bg-gray-400 border border-slate-50'>Last Seen</th>
@@ -11,7 +11,7 @@
                 <th class='p-6 bg-gray-400 border border-slate-50'>Email</th>
                 <th class='p-6 bg-gray-400 border border-slate-50'>Acive</th>
                 <th class='p-6 bg-gray-400 border border-slate-50'>Date Joined</th>
-                <th class='p-6 bg-gray-400 border border-slate-50'></th>
+                {% comment %} <th class='p-6 bg-gray-400 border border-slate-50'></th> {% endcomment %}
             </tr>
             {% for i in users %}
             <tr>
@@ -23,8 +23,8 @@
                 <td class='p-2 border border-slate-50 text-slate-800'>{{i.email}}</td>
                 <td class='p-2 border border-slate-50 text-slate-800'>{{i.is_active}}</td>
                 <td class='p-2 border border-slate-50 text-slate-800'>{{i.date_joined}}</td>
-                <td class='p-2 border border-slate-50 bg-red-500 rounded-lg text-center'>
-                </td>
+                {% comment %} <td class='p-2 border border-slate-50 bg-red-500 rounded-lg text-center'>
+                </td> {% endcomment %}
             </tr>
             {% endfor %}
         </table>

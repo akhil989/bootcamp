@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 {% block razor_payment %}
 <div class='p-2'>
-    {{payment}}
         
 <div class='text-center xs:mx-1 xm:mx-1 sm:mx-1 md:mx-[25%] lg:mx-[30%] xl:mx-[40%] 2xl:mx-[42.5%] bg-gray-800 my-20 w-full md:w-[400px] rounded-lg shadow-lg shadow-gray-50'>
         <div class='grid grid-rows-2'>
@@ -18,7 +17,7 @@
                     <input type="hidden" name="user" value="{{ user.id }}">
                     <input type="hidden" name="course" value="{{ item.id }}">
                     <input type="hidden" name="price" value="{{ item.price }}">
-                    <input class='col-span-3' type="text" name="phone_number" id="phone_number" placeholder="Enter Your Phone Number" maxlength='10'>
+                    <input class='col-span-3 text-slate-800' type="text" name="phone_number" id="phone_number" placeholder="Enter Your Phone Number" maxlength='10'>
                     <button type='submit' class='p-2 bg-green-500 rounded-sm  col-span-1'><span class='items-center justify-center '>
                         Confirm
                     </button>
