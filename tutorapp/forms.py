@@ -6,7 +6,7 @@ from . import models
 class VideoFormModel(forms.ModelForm):
     class Meta:
         model = models.VideoModel
-        fields = ['title','thumbnail','video','price','category','description']
+        fields = ['title','thumbnail','video','price','category','description','free_course']
         
     def __init__(self, *args, **kwargs):
         super(VideoFormModel, self).__init__(*args, **kwargs)
@@ -50,6 +50,9 @@ class VideoFormModel(forms.ModelForm):
         self.fields['description'].widget.attrs['class'] = 'form-control rounded-md text-slate-800'
         self.fields['description'].widget.attrs['placeholder'] = 'Describe About Your Tutorial Video'
         self.fields['description'].help_text = ''
+        
+        self.fields['free_course'].label = 'Free Corse? [Unselect field for ur paid videos]'
+        self.fields['free_course'].widget.attrs['class'] = 'form-control rounded-md text-slate-800 w-6 h-6 border border-green-500'
         
     def clean_price(self):
         price = self.cleaned_data.get('price')

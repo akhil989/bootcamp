@@ -218,7 +218,7 @@ def like_video(request, video_id):
         liked.delete()
        else:
         LikeVideo.objects.create(user=user, video=video)
-    return redirect('home-page')
+    return redirect('http://localhost:8000/?category_like=category_like')
 @login_required
 def cart_item(request, video_id):
     if request.method == 'POST':
