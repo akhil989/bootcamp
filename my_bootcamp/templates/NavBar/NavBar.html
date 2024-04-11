@@ -1,5 +1,5 @@
 
-<nav class='flex h-24 lg:h-20 justify-between bg-slate-900 items-center  shadow-xl shadow-slate-800 w-full'>
+<nav class='flex  h-24 lg:h-20 justify-between bg-slate-900 items-center  shadow-xl shadow-slate-800 w-full'>
         
     <a href="{% url "home-page" %}"  class='font-serif text-lg lg:text-4xl font-extrabold mx-2' >
         <span class=" bg-clip-text text-transparent bg-gradient-to-r  from-orange-700 via-indigo-500 to-blue-500  align-middle ">
@@ -21,9 +21,9 @@
     {% endif %}
         <div class='flex text-teal-900 align-middle py-0.5 px-4 '>
         <div  class='mx-2  hidden lg:flex xl:flex 2xl:flex  hover:text-slate-200 items-center justify-center text-2xl bg-clip-text text-transparent bg-gradient-to-r  from-orange-700 via-indigo-500 to-blue-500' id='nav_category_link'>
-            
+            <button id='category_button'>
             Categories
-            
+            </button>
         </div> 
         <div  class=' mx-2 py-3 hidden xl:flex 2xl:flex items-center justify-center text-2xl bg-clip-text text-transparent bg-gradient-to-r  from-orange-700 via-indigo-500 to-blue-500'>
            <form action="{% url "home-page" %}" method='get' class='flex '>
@@ -117,7 +117,7 @@
     </div>
     
 </nav>
-<div class='flex rounded-b-xl  bg-yellow-500 text-blue-500 font-serif font-bold' >
+<div class='flex rounded-b-xl  bg-yellow-500 text-blue-500 font-serif font-bold ' >
     <ul id='category_div' class='hidden p-4 w-full'>
         
         <li class='text-right p-2 border-b border-violet-500' id='nav_category_link_hide'><i class="fa-solid fa-xmark w-8 h-8 font-serif 

@@ -48,7 +48,7 @@ class VideoFormModel(forms.ModelForm):
         
         self.fields['description'].label = 'Description'
         self.fields['description'].widget.attrs['class'] = 'form-control rounded-md text-slate-800'
-        self.fields['description'].widget.attrs['placeholder'] = 'Describe About Your Tutorial Video'
+        self.fields['description'].widget.attrs['placeholder'] = 'Describe About Your Tutorial Video, Maximum 200 characters'
         self.fields['description'].help_text = ''
         
         self.fields['free_course'].label = 'Free Corse? [Unselect field for ur paid videos]'

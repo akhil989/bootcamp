@@ -5,19 +5,13 @@
     
     {% for item in data %}
     <ul class='my-2 border-b border-b-blue-700 py-4'>
-        <div class='text-justify overflow-x-scroll no-scrollbar '>
-            <h3>Instructor: {{user_name}}</h3>
-            <h3>Title: {{item.title}}</h3>
-            <p>Price: {{item.price}}</p>
-            <div class='flex xs:flex-col xm:flex-col sm:flex-col md:flex-col lg:flex-row xl:flex-row 2xl:flex-row  gap-2 items-center'>
-            <img src="/media/{{item.thumbnail}}" alt='name' class='w-[250px] h-[400px] flex-1'>
+        <div class='text-justify overflow-x-scroll .sup-scrollbar '>
+            <div class='flex xs:flex-col xm:flex-col sm:flex-col md:flex-col lg:flex-col xl:flex-col 2xl:flex-col  gap-2 items-center'>
+            <img src="/media/{{item.thumbnail}}" alt='name' class='w-[20%] xs:w-[80%] h-[10%]  flex-1'>
             <video controls autoplay-off class='w-[20%] xs:w-[80%] h-[10%] flex-1'>
                 <source src="/media/{{item.video}}" type='video/mp4'>
             </video>
             </div>
-            <br>
-            {{item.video}}
-            <br>
         </div>
         <div class='text-right mt-4 '>
             <div class=''>

@@ -111,6 +111,21 @@
 			});
 		  });
 		  $(document).ready(function(){
+			$("#category_button").click(function(){
+			  $("#sidebar_div").hide();
+			});
+		  });
+		  $(document).ready(function(){
+			$("#user_sidebar").click(function(){
+			  $("#category_div").hide();
+			});
+		  });
+		  $(document).ready(function(){
+			$("#home_sidebar").click(function(){
+			  $("#category_div").hide();
+			});
+		  });
+		  $(document).ready(function(){
 			$("#home_sidebar").click(function(){
 			  $("#sidebar_div").slideDown();
 			});
@@ -159,7 +174,7 @@
 		{% tailwind_css %}
 	</head>
 
-	<body class=" font-serif leading-normal tracking-normal bg-slate-900 items-center justify-center text-slate-200">
+	<body class=" font-serif leading-normal tracking-normal bg-slate-900 items-center justify-center text-slate-200 ">
 		
 		
 		{% include "./NavBar/NavBar.html" %}
@@ -190,7 +205,7 @@
 				{% endif %}
 			{% endfor %}
 		{% endif %}
-
+	
 		{% block loginpage %}{% endblock loginpage %}
 		{% block logout %}{% endblock logout %}
 		{% block forgotpassword %}{% endblock forgotpassword %}
@@ -221,7 +236,7 @@
 		{% include "./Footer/Footer.html" %}
 	
 
-
+	
 
 		{% comment %} Bootstrap {% endcomment %}
 		<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" 

@@ -25,19 +25,19 @@
                     
                 <div class='grid grid-cols-5 text-right'>
                     <div class='col-span-1'></div>
-                    <div class='col-span-1 text-center py-4'>
-                        
-                        {% if not item.free_course %}
-                            purchase to watch video
-                        {% endif %}
-                            
-                    </div>
                     <div class='col-span-1'>
                         
                         {% if user.is_authenticated %}
                             {% if user.id == item.instructor_id %}
-                            <a href="{% url 'item-details' item.id %}"><button type="submit" class='text-center'><i class="fa-regular fa-pen-to-square  text-blue-300 w-6 h-6 "></i><br>Edit Your Post</button></a>
+                            <a href="{% url 'item-details' item.id %}"><button type="submit" class='text-center py-4'><i class="fa-regular fa-pen-to-square  text-blue-300 w-6 h-6 "></i><br>Edit Your Post</button></a>
                             {% endif %}
+                        {% endif %}
+                            
+                    </div>
+                    <div class='col-span-1 text-right'>
+                        
+                        {% if not item.free_course %}
+                        <button type="button" class='text-center py-4'><i class="fa-regular fa-credit-card  text-blue-300 w-6 h-6 "></i><br>Buy</button>
                         {% endif %}
                             
                     </div>
@@ -46,16 +46,16 @@
                         {% if user.id in item.liked_users %}
                             <form action="{% url 'like_video' item.id %}" method="post">
                                 {% csrf_token %}
-                                <button type="submit" class='text-center'><i class="fa-solid fa-heart  text-orange-600 w-6 h-6 "></i><br> you liked</button>
+                                <button type="submit" class='text-center py-4'><i class="fa-solid fa-heart  text-orange-600 w-6 h-6 "></i><br> you liked</button>
                             </form>
                         {% else %}
                             <form action="{% url 'like_video' item.id %}" method="post">
                                 {% csrf_token %}
-                                <button type="submit" class='text-center'><i class="fa-regular fa-heart  text-orange-600 w-6 h-6 "></i><br>add like</button>
+                                <button type="submit" class='text-center py-4'><i class="fa-regular fa-heart  text-orange-600 w-6 h-6 "></i><br>add like</button>
                             </form>
                         {% endif %}
                         {% else %}
-                        <a href="{% url 'login' %}"><button type="submit" class='text-center'><i class="fa-regular fa-heart  text-orange-600 w-6 h-6 "></i><br>add like</button></a>
+                        <a href="{% url 'login' %}"><button type="submit" class='text-center py-4'><i class="fa-regular fa-heart  text-orange-600 w-6 h-6 "></i><br>add like</button></a>
                         {% endif %}
                     </div>
                     <div class='col-span-1'>
@@ -63,24 +63,24 @@
                             {% if user.id in item.cart_users %}
                                 <form action="{% url 'cart-item' item.id %}" method="post"> 
                                     {% csrf_token %}  
-                                <button type='submit' class=''><i class="fa-solid fa-cart-shopping w-6 h-6 font-serif 
+                                <button type='submit' class='py-4'><i class="fa-solid fa-cart-shopping w-6 h-6 font-serif 
                                     items-center   text-orange-700"></i><br>Item carted</button>
                                 <br>
                                 </form>
                             {% elif item.id in purchase_bag %}
-                                <button type='button' class=''><i class="fa-solid fa-check-double w-6 h-6 font-serif 
+                                <button type='button' class='py-4'><i class="fa-solid fa-check-double w-6 h-6 font-serif 
                                     items-center   text-green-700"></i><br>Item Purchased
                                 </button>
                             {% else %}
                                 <form action="{% url 'cart-item' item.id %}" method="post"> 
                                     {% csrf_token %}  
-                                <button type='submit' class=''><i class="fa-solid fa-cart-shopping w-6 h-6 font-serif 
+                                <button type='submit' class='py-4'><i class="fa-solid fa-cart-shopping w-6 h-6 font-serif 
                                     items-center   text-slate-200 hover:text-slate-200"></i><br>Add Cart</button>
                                 <br>
                                 </form>
                             {% endif %}
                         {% else %}
-                            <a href="{% url 'login' %}"><button type='submit' class=''><i class="fa-solid fa-cart-shopping w-6 h-6 font-serif 
+                            <a href="{% url 'login' %}"><button type='submit' class='py-4'><i class="fa-solid fa-cart-shopping w-6 h-6 font-serif 
                                 items-center   text-orange-700"></i></button></a> 
                         {% endif %}
                     </div>
@@ -89,18 +89,18 @@
                 <div class='p-2 col-span-1 overflow-y-scroll  no-scrollbar py-2'>
                 <form class='' action="{% url "home-page" %}" method='get'>
                     {% csrf_token %}
-                    <h3><button class='' type='submit' value="{{item.instructor_id}}" name="search_instructor">Posted By : <span class='text-purple-700 underline'>{{item.instructor.username}}</span></button></h3>
+                    <h3><button class='' type='submit' value="{{item.instructor_id}}" name="search_instructor"><span class='text-lg font-mono font-bold'>Posted By :</span> <span class='text-purple-700 underline'>{{item.instructor.username}}</span></button></h3>
                 </form>
-                <p>Published On : {{item.created_at}}</p>
-                <p>Price: {{item.price}}</p>
-                <p>Description:  {{item.description}}</p>
-                <p>Likes: {{item.total_likes}}</p>
-                <p>Rating: {{item.average_rating}}</p>
+                <p><span class='text-lg font-mono font-bold'>Published On :</span> {{item.created_at}}</p>
+                <p><span class='text-lg font-mono font-bold'>Price:</span> {{item.price}}</p>
+                <p class='text-pretty overflow-y-scroll sup-scrollbar1 h-72'><span class='text-lg font-mono font-bold'>Description:</span>  <span class='p-2'>{{item.description}}</span></p>
+                <p><span class='text-lg font-mono font-bold'>Likes:</span> {{item.total_likes}}</p>
+                <p><span class='text-lg font-mono font-bold'>Rating:</span> {{item.average_rating}}</p>
                 <p>
                     <a href="{% url 'item-details' item.id %}"><button class='p-1 bg-blue-500 border border-blue-200 my-2' id='rate_video'>Rate This Video:</button></a>
                 </p>
                 <p>
-                    <span class='font-bold underline text-violet-700'>Comments:-</span>
+                    <span class='font-bold underline text-violet-700 text-lg font-mono '>Comments:-</span>
                     <ul class='p-2 h-44 overflow-y-scroll sup-scrollbar bg-gray-800 my-2 border-gray-400 rounded-lg'>
                     {% for comment in item.comments.all  %}
                             <li>
