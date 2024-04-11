@@ -1,7 +1,30 @@
-<div>
-    
-    {% for order in order %}
-        {{order.id}}
-    {% endfor %}
+<div id='orderstemplate' class='hidden'>
+    <div class='bg-green-500 p-2 text-lg font-mono font-bold rounded-lg text-center'>Order Details</div>
+    <div class='py-2 my-2'>
+        <table class='bg-blue-100 w-full'>
+            <tr class=' text-center'>
+                <th class='p-6 bg-gray-400 border border-slate-50'>id</th>
+                <th class='p-6 bg-gray-400 border border-slate-50'>Price</th>
+                <th class='p-6 bg-gray-400 border border-slate-50'>Order_Id</th>
+                <th class='p-6 bg-gray-400 border border-slate-50'>PaymentId</th>
+                <th class='p-6 bg-gray-400 border border-slate-50'>Order Date</th>
+                <th class='p-6 bg-gray-400 border border-slate-50'>Status</th>
+                <th class='p-6 bg-gray-400 border border-slate-50'>CourseID</th>
+                <th class='p-6 bg-gray-400 border border-slate-50'>UserId</th>
+            </tr>
+            {% for i in order %}
+            <tr>
+                <td class='p-2 border border-slate-50 text-slate-800'>{{i.id}}</td>
+                <td class='p-2 border border-slate- text-slate-800'>{{i.price}}</td>
+                <td class='p-2 border border-slate-50 text-slate-800'>{{i.order_id}}</td>
+                <td class='p-2 border border-slate-50 text-slate-800'>{{i.razorpay_payment_id}}</td>
+                <td class='p-2 border border-slate-50 text-slate-800'>{{i.enrolled_at}}</td>
+                <td class='p-2 border border-slate-50 text-slate-800'>{{i.paid}}</td>
+                <td class='p-2 border border-slate-50 text-slate-800'>{{i.course_id}}</td>
+                <td class='p-2 border border-slate-50 text-slate-800'>{{i.student_id}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
         
 </div>

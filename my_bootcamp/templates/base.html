@@ -120,6 +120,41 @@
 			  $("#sidebar_div").slideDown();
 			});
 		  });
+		  $(document).ready(function(){
+			  $("#poststemplate").show();
+		  });
+		  $(document).ready(function(){
+			$("#posts").click(function(){
+			  $("#poststemplate").fadeIn();
+			  $("#carttemplate").hide();
+			  $("#orderstemplate").hide();
+			  $("#usertemplate").hide();
+			});
+		  });
+		  $(document).ready(function(){
+			$("#cartlist").click(function(){
+			  $("#carttemplate").fadeIn();
+			  $("#poststemplate").hide();
+			  $("#orderstemplate").hide();
+			  $("#usertemplate").hide();
+			});
+		  });
+		  $(document).ready(function(){
+			$("#orderlist").click(function(){
+			  $("#orderstemplate").fadeIn();
+			  $("#carttemplate").hide();
+			  $("#poststemplate").hide();
+			  $("#usertemplate").hide();
+			});
+		  });
+		  $(document).ready(function(){
+			$("#userslist").click(function(){
+			  $("#usertemplate").fadeIn();
+			  $("#orderstemplate").hide();
+			  $("#carttemplate").hide();
+			  $("#poststemplate").hide();
+			});
+		  });
 		</script>
 		{% tailwind_css %}
 	</head>

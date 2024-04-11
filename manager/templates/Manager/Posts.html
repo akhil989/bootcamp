@@ -1,7 +1,36 @@
-<div>
-    
-    {% for post in posts %}
-        {{post.id}}
-    {% endfor %}
+<div id='poststemplate' class='hidden h-full overflow-y-scroll sup-scrollbar'>
+    <div class='bg-green-500 p-2 text-lg font-mono font-bold rounded-lg text-center'>Posts</div>
+    <div class='py-2 my-2'>
+        <table class='bg-blue-100 w-full'>
+            <tr class=' text-center'>
+                <th class='p-6 bg-gray-400 border border-slate-50'>id</th>
+                <th class='p-6 bg-gray-400 border border-slate-50'>Title</th>
+                <th class='p-6 bg-gray-400 border border-slate-50'>Price</th>
+                <th class='p-6 bg-gray-400 border border-slate-50'>Created_at</th>
+                <th class='p-6 bg-gray-400 border border-slate-50'>CategoryId</th>
+                <th class='p-6 bg-gray-400 border border-slate-50'>InstructorId</th>
+                <th class='p-6 bg-gray-400 border border-slate-50'>Tumbnail</th>
+                <th class='p-6 bg-gray-400 border border-slate-50'>Video</th>
+                <th class='p-6 bg-gray-400 border border-slate-50'>Delete</th>
+            </tr>
+            {% for i in posts %}
+            <tr>
+                <td class='p-2 border border-slate-50 text-slate-800'>{{i.id}}</td>
+                <td class='p-2 border border-slate-50 text-slate-800'>{{i.title}}</td>
+                <td class='p-2 border border-slate- text-slate-800'>{{i.price}}</td>
+                <td class='p-2 border border-slate-50 text-slate-800'>{{i.created_at}}</td>
+                <td class='p-2 border border-slate-50 text-slate-800'>{{i.category_id}}</td>
+                <td class='p-2 border border-slate-50 text-slate-800'>{{i.instructor_id}}</td>
+                <td class='p-2 border border-slate-50 text-slate-800'>{{i.thumbnail}}</td>
+                <td class='p-2 border border-slate-50 text-slate-800'>{{i.video}}</td>
+
+                
+                <td class='p-2 border border-slate-50 bg-red-500 rounded-lg text-center'>
+                   <a href="{% url 'item-delete-page' i.id %}">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
         
 </div>
