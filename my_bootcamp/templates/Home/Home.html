@@ -14,12 +14,24 @@
                 <div>
                 <h3 class='font-bold text-lg text-gray-300 text-ellipsis overflow-x-scroll no-scrollbar'>{{item.title|capfirst}}</h3>
                 </div>
+                
+                {% if item.free_course or item.id in purchase_bag %}
                 <video controls autoplay-off class='w-full'>
                     <source src="/media/{{item.video}}" type='video/mp4'>
                 </video>
+                {% else %}
+                <img src="/media/{{ item.thumbnail }}" alt="name" class="w-full h-[550px]"></img>
+                {% endif %}
+                    
                 <div class='grid grid-cols-5 text-right'>
                     <div class='col-span-1'></div>
-                    <div class='col-span-1'></div>
+                    <div class='col-span-1 text-center py-4'>
+                        
+                        {% if not item.free_course %}
+                            purchase to watch video
+                        {% endif %}
+                            
+                    </div>
                     <div class='col-span-1'>
                         
                         {% if user.is_authenticated %}
