@@ -19,7 +19,15 @@
                 <td class='p-2 border border-slate-50 text-slate-800'>{{i.order_id}}</td>
                 <td class='p-2 border border-slate-50 text-slate-800'>{{i.razorpay_payment_id}}</td>
                 <td class='p-2 border border-slate-50 text-slate-800'>{{i.enrolled_at}}</td>
-                <td class='p-2 border border-slate-50 text-slate-800'>{{i.paid}}</td>
+                <td class='p-2 border border-slate-50 text-slate-800'>
+                    
+                    {% if i.paid is True %}
+                        Transaction done
+                        {% else %}
+                        Transaction Failed
+                    {% endif %}
+                        
+                </td>
                 <td class='p-2 border border-slate-50 text-slate-800'>{{i.course_id}}</td>
                 <td class='p-2 border border-slate-50 text-slate-800'>{{i.student_id}}</td>
             </tr>

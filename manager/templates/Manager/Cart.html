@@ -6,7 +6,7 @@
                 <th class='p-6 bg-gray-400 border border-slate-50'>id</th>
                 <th class='p-6 bg-gray-400 border border-slate-50'>UserId</th>
                 <th class='p-6 bg-gray-400 border border-slate-50'>VideoId</th>
-                <th class='p-6 bg-gray-400 border border-slate-50'>Purchased</th>
+                {% comment %} <th class='p-6 bg-gray-400 border border-slate-50'>Purchased</th> {% endcomment %}
                 <th class='p-6 bg-gray-400 border border-slate-50'>Carted Date</th>
             </tr>
             {% for i in cart %}
@@ -14,7 +14,7 @@
                 <td class='p-2 border border-slate-50 text-slate-800'>{{i.id}}</td>
                 <td class='p-2 border border-slate-50 text-slate-800'>{{i.user_id}}</td>
                 <td class='p-2 border border-slate- text-slate-800'>{{i.video_id}}</td>
-                <td class='p-2 border border-slate-50 text-slate-800'>{{i.purchased}}</td>
+                {% comment %} <td class='p-2 border border-slate-50 text-slate-800'>{{i.purchased}}</td> {% endcomment %}
                 <td class='p-2 border border-slate-50 text-slate-800'>{{i.carted_at}}</td>
             </tr>
             {% endfor %}

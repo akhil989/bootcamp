@@ -3,13 +3,13 @@
 <div>
     <div class='bg-slate-800  grid md:grid-cols-2 gap-2 p-2 h-full '>
         <div class='px-2 col-span-1 rounded-lg bg-black h-full py-8'>
-        <div class='py-2'>
+        <div class='py-2 my-1 h-12'>
         <h3 class='font-bold text-lg text-gray-300 text-ellipsis overflow-x-scroll no-scrollbar'>{{details.title|capfirst}}</h3>
         </div>
-        <video controls autoplay-off class='w-full h-3/4'>
+        <video controls autoplay-off class='w-full my-[0%]'>
             <source src="/media/{{details.video}}" type='video/mp4'>
         </video>
-        <div class='grid grid-cols-4 text-right my-4'>
+        <div class='grid grid-cols-4 text-right my-4 rounded-lg bg-green-950  p-2 gap-1'>
             {% if user.is_authenticated and user.id == details.instructor_id %}
                 <div class=' col-span-1'>
                     <a href="{% url 'item-delete-page' details.id %}"><button type="submit" class='text-center text-xs'><i class="fa-regular fa-trash-can  text-blue-300 w-6 h-6 "></i><br>Delete Your Post</button></a>
@@ -72,13 +72,13 @@
             </div>
         </div>
         </div>
-        <div class='p-2 col-span-1  py-2 h-full'>
+        <div class='p-2 col-span-1  py-2 h-full bg-blue-950 rounded-lg font-mono'>
             <div class=''>
-            <h3>Posted By : {{details.instructor.username}}</h3>
-            <p>Published On : {{details.created_at}}</p>
-            <p>Price: {{details.price}}</p>
-            <p>Description:  {{details.description}}</p>
-            <p>Likes: {{details.total_likes}}</p>
+            <h3><span class='text-lg font-bold'>Posted By :</span> {{details.instructor.username}}</h3>
+            <p><span class='text-lg font-bold'>Published On :</span> {{details.created_at}}</p>
+            <p><span class='text-lg font-bold'>Price:</span> {{details.price}}/Rs</p>
+            <p><span class='text-lg font-bold'>Description:</span>  {{details.description}}</p>
+            <p><span class='text-lg font-bold'>Likes:</span> {{details.total_likes}}</p>
             <p>    
             {% if user.is_authenticated %}
             {% if user.id in details.cart_users %}
@@ -122,7 +122,7 @@
             
             {% if user.is_authenticated %}
                 
-            <p><a><button class='p-1 bg-blue-500 border border-blue-200 my-2' id='rate_video'>Rate This Video:</button></a>
+            <p><a><button class='p-1 bg-blue-500 border border-blue-200 my-2 rounded-lg' id='rate_video'>Rate This Video:</button></a>
                 <form action="{% url 'rate-video' details.id %}" method="post" class='hidden' id='rating_form'> 
                     {% csrf_token %}  
                 <button type='submit' class='w-full text-left text-yellow-500' name='rating' value=5>
@@ -189,7 +189,7 @@
                 {% endif %}
             </p>
             <p>
-                <span class='font-bold underline text-violet-700'>Comments</span>:
+                <span class='font-bold underline text-violet-700'><span class='text-lg font-bold'>Comments</span>:
                 <ul class='p-2 h-44 overflow-y-scroll sup-scrollbar bg-gray-800 my-2 border-gray-400 rounded-lg'>
                 {% for comment in details.comments.all  %}
                 <li>

@@ -124,7 +124,7 @@
             items-center p-2  text-slate-900 hover:text-blue-700"></i></li>
         {% for items in category %}
         <li class='border-b border-violet-500' id='nav_category_item_hide'>
-            <form action="{% url "home-page" %}" method='get' class='flex '>
+            <form action="{% url "home-page" %}" method='get' class='flex text-slate-800'>
             <button type='submit' name='category' value="{{items.name}}">
             {{items.name}}
             <button>
@@ -196,6 +196,21 @@
                     </p>
                 </li>
                 
+                {% if user.username == 'akhil' and user.email == 'mmakhil989@gmail.com' %}
+                <li>
+                    <p class=' text-lg text-left text-violet-700 py-1 my-2'>
+                        <form  class=''>
+                        <a href="{% url "manager" %}">
+                        <button type='button' class=' p-2' >
+                        Manager Dashboard
+                        <button>
+                        </a>
+                        </form>
+                    </p>
+                </li>
+                {% endif %}
+                    
+                
 
             </ul>
         {% endif %}
@@ -213,7 +228,7 @@
                     {% for items in category %}
                     <li   class=' border-b border-violet-500' >
                         <form action="{% url "home-page" %}" method='get' class=''>
-                        <button type='submit' name='category' value="{{items.name}}">
+                        <button type='submit' name='category' value="{{items.name}}" class='text-slate-800'>
                         {{items.name}}
                         </button>
                         </form>

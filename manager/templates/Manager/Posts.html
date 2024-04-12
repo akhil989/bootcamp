@@ -24,7 +24,13 @@
                 <td class='p-2 border border-slate-50 text-slate-800'>{{i.instructor_id}}</td>
                 <td class='p-2 border border-slate-50 text-slate-800'>{{i.thumbnail}}</td>
                 <td class='p-2 border border-slate-50 text-slate-800'>{{i.video}}</td>
-                <td class='p-2 border border-slate-50 text-slate-800'>{{i.free_course}}</td>
+                <td class='p-2 border border-slate-50 text-slate-800'>
+                {% if i.free_course is True %}
+                    Free
+                    {% else %}
+                    Paid Course
+                {% endif %}
+                    </td>
 
 
                 
