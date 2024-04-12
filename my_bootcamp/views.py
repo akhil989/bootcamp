@@ -90,8 +90,6 @@ def home_view(request):
     elif 'category' in request.GET:
         category_name = request.GET['category']
         tutorials_vid = VideoModel.objects.filter(category__name=category_name)
-        if category_name=='Free Courses':
-            tutorials_vid = VideoFormModel.objects.filter(free_course=1)
     elif 'category_like' in request.GET:
         category_name = request.GET['category_like']
         tutorials_vid = VideoModel.objects.filter(likes__user=request.user)
