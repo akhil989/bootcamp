@@ -37,7 +37,7 @@
                     <div class='col-span-1 text-right'>
                         
                         {% if not item.free_course %}
-                        <a>
+                        <a href="{% url 'payment-order' item.id %}">
                         <button type="button" class='text-xs text-center py-4'><i class="fa-regular fa-credit-card  text-blue-300 w-6 h-6 "></i><br>Buy</button>
                         </a>
                         {% endif %}
@@ -95,7 +95,7 @@
                 </form>
                 <p><span class='text-lg font-mono font-bold'>Published On :</span> {{item.created_at}}</p>
                 <p><span class='text-lg font-mono font-bold'>Price:</span> {{item.price}}/Rs</p>
-                <p class='text-pretty overflow-y-scroll sup-scrollbar1'><span class='text-lg font-mono font-bold'>Description:</span>  <span class='p-2'>{{item.description}}</span></p>
+                <p class='text-left overflow-y-scroll sup-scrollbar'><span class='text-lg font-mono font-bold'>Description:</span>  <span class='p-2'>{{item.description}}</span></p>
                 <p><span class='text-lg font-mono font-bold'>Likes:</span> {{item.total_likes}}</p>
                 <p><span class='text-lg font-mono font-bold'>Rating:</span> {{item.average_rating}}</p>
                 <p>

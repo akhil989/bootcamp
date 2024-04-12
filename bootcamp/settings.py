@@ -154,16 +154,22 @@ DJOSER={
         "LOGIN_FIELD":"email",
     }
 
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_FROM = "webdevwithakhil989@gmail.com"
+EMAIL_HOST_USER = "webdevwithakhil989@gmail.com"  
+EMAIL_HOST_PASSWORD = "mujj ftqy umab jenn"  
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+# # SMTP configuration for sending emails
+# EMAIL_BACKEND = os.getenv('EMAIL_BACKEND')
+# EMAIL_HOST = os.getenv('EMAIL_HOST')
+# EMAIL_PORT = os.getenv('EMAIL_PORT')
+# EMAIL_USE_TLS = True  
 
-# SMTP configuration for sending emails
-EMAIL_BACKEND = os.getenv('EMAIL_BACKEND')
-EMAIL_HOST = os.getenv('EMAIL_HOST')
-EMAIL_PORT = os.getenv('EMAIL_PORT')
-EMAIL_USE_TLS = True  
-
-# Credentials for the email account used to send emails
-EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+# # Credentials for the email account used to send emails
+# EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+# EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
