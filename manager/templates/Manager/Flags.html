@@ -1,0 +1,33 @@
+<div id='flagtemplate' class='hidden'>
+    <div class='bg-green-500 p-2 text-lg font-mono font-bold rounded-lg text-center'>Flaged Items</div>
+    <div class='py-2 my-2'>
+        <ul>
+            
+            {% for item in flags %}
+                <li>
+                    <div class='bg-slate-800  grid md:grid-cols-2 gap-2 p-2 h-full '>
+                        <div class='px-2 col-span-1 rounded-lg bg-black h-full py-8'>
+                        <div class='py-2 my-1 h-12'>
+                        <h3 class='font-bold text-lg text-gray-300 text-ellipsis overflow-x-scroll no-scrollbar'>{{item.video.title|capfirst}}</h3>
+                        <p class='font-bold text-lg text-gray-300 text-ellipsis overflow-x-scroll no-scrollbar'>Posted By: {{item.video.intructor_id|capfirst}}</p>
+                        </div>
+                        <video controls autoplay-off class='w-full my-[0%]'>
+                            <source src="/media/{{item.video.video}}" type='video/mp4'>
+                        </video>
+                        <div class='grid grid-cols-4 text-right my-4 rounded-lg bg-green-950  p-2 gap-1'>
+                                <div class=' col-span-1'>
+                                    <a href="{% url 'item-delete-page' item.video.id %}"><button type="submit" class='text-center text-xs'><i class="fa-regular fa-trash-can  text-blue-300 w-6 h-6 "></i><br>Delete Your Post</button></a>
+                                </div>
+                                <div class='col-span-1'></div>
+                                <div class=' col-span-1'>
+                                </div>
+
+                                <div class='col-span-1'></div>
+                        
+                            </div>
+                </li>
+            {% endfor %}
+                
+        
+    </div>
+</div>

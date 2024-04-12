@@ -13,6 +13,7 @@ from django.contrib.auth.models import User, Group
 from tutorapp.models import VideoModel
 from tutorapp.models import Order
 from tutorapp.models import CartVideo
+from tutorapp.models import FlagedVideo
 
 
 # Create your views here.
@@ -32,7 +33,8 @@ def manager_dashboard(request):
         cart = CartVideo.objects.all().order_by('-carted_at')
         order = Order.objects.all().order_by('-enrolled_at')
         users = User.objects.all().order_by('-date_joined')
-        context = {'posts':posts, 'cart':cart, 'order':order,'users':users }
+        flaged = FlagedVideo.objects.all()
+        context = {'posts':posts, 'cart':cart, 'order':order,'users':users , 'flags':flaged}
         return render(request, 'Manager/Manager.html', context)
     else:
         return redirect('home-page')

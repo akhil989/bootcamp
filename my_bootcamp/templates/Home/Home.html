@@ -24,7 +24,25 @@
                 {% endif %}
                     
                 <div class='grid grid-cols-5 text-right rounded-lg bg-green-950 my-2 px-1 gap-1'>
-                    <div class='col-span-1'></div>
+                    <div class='col-span-1'>
+                        
+                        {% if user.is_authenticated %}
+                        {% if user.id in item.flaged_users %}
+                            <form action="{% url 'flag_video' item.id %}" method="post">
+                                {% csrf_token %}
+                                <button type="submit" class='text-center py-4 text-xs'><i class="fa-solid fa-flag  text-orange-600 w-6 h-6 "></i><br>{{item.total_flags}}<br>you complainted</button>
+                            </form>
+                        {% else %}
+                            <form action="{% url 'flag_video' item.id %}" method="post">
+                                {% csrf_token %}
+                                <button type="submit" class='text-center py-4 text-xs'><i class="fa-regular fa-flag  text-blue-500 w-6 h-6 "></i><br>complaint</button>
+                            </form>
+                        {% endif %}
+                        {% else %}
+                        <a href="{% url 'login' %}"><button type="submit" class='text-center py-4 text-xs'><i class="fa-regular fa-heart  text-orange-600 w-6 h-6 "></i><br>complaint</button></a>
+                        {% endif %}
+                            
+                    </div>
                     <div class='col-span-1'>
                         
                         {% if user.is_authenticated %}
@@ -48,7 +66,7 @@
                         {% if user.id in item.liked_users %}
                             <form action="{% url 'like_video' item.id %}" method="post">
                                 {% csrf_token %}
-                                <button type="submit" class='text-center py-4 text-xs'><i class="fa-solid fa-heart  text-orange-600 w-6 h-6 "></i><br> you liked</button>
+                                <button type="submit" class='text-center py-4 text-xs'><i class="fa-solid fa-heart  text-orange-600 w-6 h-6 "></i><br>{{item.total_likes}}<br>you liked</button>
                             </form>
                         {% else %}
                             <form action="{% url 'like_video' item.id %}" method="post">

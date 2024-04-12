@@ -13,11 +13,18 @@
             <div class='col-span-3 '>
                 <span class='text-right text-lg text-red-600 font-semibold'>Are You Sure To Delete This Post?, Then Click The Delete Button :</span>
             </div>
-            {% if user.is_authenticated and user.id == item.instructor_id %}
+            {% if user.is_authenticated and user.id == item.instructor_id  %}
                 <div class=' col-span-1 px-2 text-left'>
                     <form action="" method='post' enctype="multipart/form-data">
                         {% csrf_token %}
                         <a href="{% url "delete-file" item.id %}"><button type="submit"name='delete' value={{item.id}} class='text-center text-xs'><i class="fa-regular fa-trash-can  text-blue-300 w-6 h-6 "></i><br>Delete Your Post</button></a>
+                    </form>
+                </div>
+            {% elif user.is_authenticated and user.username == 'akhil' and user.email == 'mmakhil989@gmail.com'  %}
+                <div class=' col-span-1 px-2 text-left'>
+                    <form action="" method='post' enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <a href="{% url "delete-file" item.id %}"><button type="submit"name='delete' value={{item.id}} class='text-center text-xs'><i class="fa-regular fa-trash-can  text-blue-300 w-6 h-6 "></i><br>Delete This Post</button></a>
                     </form>
                 </div>
             {% else %}

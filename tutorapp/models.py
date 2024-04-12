@@ -34,6 +34,12 @@ class VideoModel(models.Model):
         return [like.user.id for like in self.likes.all()]
     def liked_videos(self):
         return [like.video.id for like in self.likes.all()]
+    def flaged_users(self):
+        return [flag.user.id for flag in self.reported.all()]
+    def flaged_videos(self):
+        return [flag.video.id for flag in self.reported.all()]
+    def total_flags(self):
+        return FlagedVideo.objects.filter(video=self).count()
     def total_cart(self):
         return CartVideo.objects.filter(video=self).count()
     def cart_users(self):
@@ -73,6 +79,10 @@ class FileModel(models.Model):
 class LikeVideo(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     video = models.ForeignKey(VideoModel, on_delete=models.CASCADE, related_name='likes')
+    
+class FlagedVideo(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    video = models.ForeignKey(VideoModel, on_delete=models.CASCADE, related_name='reported')
     
 class CartVideo(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)

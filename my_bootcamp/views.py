@@ -27,7 +27,7 @@ from tutorapp.forms import OrderForm, VideoFormModel
 from tutorapp.forms import CommentForm
 
 
-from tutorapp.models import VideoModel
+from tutorapp.models import FlagedVideo, VideoModel
 from tutorapp.models import LikeVideo
 from tutorapp.models import CartVideo
 from tutorapp.models import Category
@@ -173,8 +173,9 @@ def home_view(request):
     else:
         total_cart = 0
     category = Category.objects.all()
-    ratings = RateVideo.objects.all()    
-    context = {'form':tutorials_vid, 'likes':likes, 'total_cart': total_cart, 'category':category, 'ratings':ratings, 'purchase_bag':purchase_bag}
+    ratings = RateVideo.objects.all()
+    flaged = FlagedVideo.objects.all()    
+    context = {'form':tutorials_vid, 'likes':likes, 'total_cart': total_cart, 'category':category, 'ratings':ratings, 'purchase_bag':purchase_bag, 'flaged':flaged}
     return render(request, 'Home/Home.html', context)
 
 @login_required
@@ -219,6 +220,18 @@ def like_video(request, video_id):
        else:
         LikeVideo.objects.create(user=user, video=video)
     return redirect('http://localhost:8000/?category_like=category_like')
+@login_required
+def flag_video(request, video_id):
+    if request.method=='POST':
+       video = VideoModel.objects.get(id=video_id)
+       user = request.user
+       flaged = FlagedVideo.objects.filter(user=user, video=video)
+       if flaged:
+        flaged.delete()
+       else:
+        FlagedVideo.objects.create(user=user, video=video)
+    return redirect('home-page')    
+
 @login_required
 def cart_item(request, video_id):
     if request.method == 'POST':
@@ -423,6 +436,7 @@ def item_delete_page(request, id):
     if request.method == 'POST':
         if 'delete' in request.POST:
             return redirect('delete-file', id=id)
+        messages(request, 'Your Post Is Deleted Successfully!')
     return render(request, 'ItemDelete/ItemDelete.html', context)
 
 # update post

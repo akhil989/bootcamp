@@ -14,12 +14,16 @@
         <div id='orderlist' class='p-2 m-2 bg-yellow-500 text-slate-800  rounded-lg border border-yellow-100'>
             Order List
         </div>
+        <div id='flaglist' class='p-2 m-2 bg-yellow-500 text-slate-800  rounded-lg border border-yellow-100'>
+            Flaged Items
+        </div>
     </div>
     <div class='col-span-5 text-left p-2 bg-gray-900 m-2 rounded-lg h-scrreen overflow-y-scroll sup-scrollbar'>
     {% include "Manager/Posts.html" %}
     {% include "Manager/Orders.html" %}
     {% include "Manager/User.html" %}
     {% include "Manager/Cart.html" %}
+    {% include "Manager/Flags.html" %}
     </div>
 </div>
 {% endblock manager %}

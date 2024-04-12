@@ -144,6 +144,7 @@
 			  $("#carttemplate").hide();
 			  $("#orderstemplate").hide();
 			  $("#usertemplate").hide();
+			  $("#flagtemplate").hide();
 			});
 		  });
 		  $(document).ready(function(){
@@ -152,6 +153,7 @@
 			  $("#poststemplate").hide();
 			  $("#orderstemplate").hide();
 			  $("#usertemplate").hide();
+			  $("#flagtemplate").hide();
 			});
 		  });
 		  $(document).ready(function(){
@@ -160,6 +162,7 @@
 			  $("#carttemplate").hide();
 			  $("#poststemplate").hide();
 			  $("#usertemplate").hide();
+			  $("#flagtemplate").hide();
 			});
 		  });
 		  $(document).ready(function(){
@@ -168,6 +171,15 @@
 			  $("#orderstemplate").hide();
 			  $("#carttemplate").hide();
 			  $("#poststemplate").hide();
+			  $("#flagtemplate").hide();
+			});});
+		$(document).ready(function(){
+			$("#flaglist").click(function(){
+				$("#flagtemplate").fadeIn();
+				$("#usertemplate").hide();
+				$("#orderstemplate").hide();
+				$("#carttemplate").hide();
+				$("#poststemplate").hide();
 			});
 		  });
 		</script>
