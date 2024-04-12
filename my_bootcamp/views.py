@@ -46,6 +46,11 @@ from dotenv import load_dotenv
 import random
 
 # Create your views here.
+def tutor_home(request):
+    name = request.session.get('name', '') 
+    # user = request.session['session_data']
+    print('username===',  name)
+    return render(request, 'Tutor/TutorHome.html')
 
 def home_view(request):
     pricelst=[]
