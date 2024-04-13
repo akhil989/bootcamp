@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block item_detail %}
 <div>
-    <div class='bg-slate-800  grid md:grid-cols-2 gap-2 p-2 h-full '>
+    <div class='  grid md:grid-cols-2 gap-2 p-2 h-full '>
         <div class='px-2 col-span-1 rounded-lg bg-black h-full py-8'>
         <div class='py-2 my-1 h-12'>
         <h3 class='font-bold text-lg text-gray-300 text-ellipsis overflow-x-scroll no-scrollbar'>{{details.title|capfirst}}</h3>
@@ -152,8 +152,8 @@
                 </button><br>
                 
             </form>
-            <p class='w-full text-right text-yellow-500 px-10 my-1'>
-                <button class='hidden p-1 bg-slate-700' id='rating_hide'>cancel</button>
+            <p class='w-full text-right text-slate-200 px-10 my-1'>
+                <button class='hidden p-2 bg-slate-700 rounded-sm' id='rating_hide'>cancel</button>
             </p>
             </p>
             {% endif %}
