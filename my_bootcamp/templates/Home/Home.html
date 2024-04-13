@@ -23,7 +23,7 @@
                 <img src="/media/{{ item.thumbnail }}" alt="name" class="w-full h-[550px]"></img>
                 {% endif %}
                     
-                <div class='grid grid-cols-5 text-right rounded-lg bg-green-950 my-2 px-1 gap-1'>
+                <div class='grid grid-cols-5 text-right rounded-lg bg-emerald-800 my-2 px-1 gap-1'>
                     <div class='col-span-1'>
                         
                         {% if user.is_authenticated %}
@@ -121,9 +121,9 @@
                 </p>
                 <p>
                     <span class='font-bold text-violet-700 text-lg font-mono rounded-lg bg-cyan-500 p-2'>Comments:-</span>
-                    <ul class='p-2 h-44 overflow-y-scroll sup-scrollbar bg-gray-800 my-2 border-gray-400 rounded-lg'>
+                    <ul class='p-2 my-2  h-44 overflow-y-scroll sup-scrollbar bg-gray-800 border-gray-400 rounded-lg'>
                     {% for comment in item.comments.all  %}
-                            <li>
+                            <li class='rounded-lg mt-2'>
                                 <span class='font-bold mr-2'>{{comment.user}}:</span>{{comment.comment}}
                            
                            {% if comment.user.id == user.id %}

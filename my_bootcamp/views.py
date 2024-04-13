@@ -13,7 +13,7 @@ from django.contrib.auth import get_user_model
 from django.urls import reverse
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.decorators import permission_classes
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from django.contrib.auth.forms import PasswordChangeForm, PasswordResetForm
 from django.contrib.auth import update_session_auth_hash
 from django.utils.html import format_html
@@ -437,7 +437,13 @@ def item_detail_page(request, id):
 @login_required
 def item_delete_page(request, id):
     item = get_object_or_404(VideoModel, pk=id)
-    context = {'item':item}
+    user = request.user.username
+    print(user)
+    user_name = get_object_or_404(User, username=user)
+    manager_group = Group.objects.get(name='Manager')
+    if user_name in manager_group.user_set.all():
+        delete = 1
+    context = {'item':item, 'delete':delete}
     if request.method == 'POST':
         if 'delete' in request.POST:
             return redirect('delete-file', id=id)
