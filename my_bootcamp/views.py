@@ -194,7 +194,8 @@ def cart_page(request):
         pricelst.append(price)
     print('pricelst', pricelst, round(sum(pricelst), 2))
     total_price = round(sum(pricelst)*1, 2)
-    context = {'form':tutorials, 'total_price':total_price, 'total_cart':len(pricelst), 'order_details':order_details, 'reciept_num':reciept_number}
+    category = Category.objects.all()
+    context = {'form':tutorials, 'total_price':total_price, 'total_cart':len(pricelst), 'order_details':order_details, 'reciept_num':reciept_number, 'category':category}
     return render(request, 'CartPage/CartPage.html', context)
 
 def cart_item_count(request):
@@ -443,7 +444,7 @@ def item_delete_page(request, id):
     manager_group = Group.objects.get(name='Manager')
     if user_name in manager_group.user_set.all():
         delete = 1
-    context = {'item':item, 'delete':delete}
+    context = {'item':item, 'delete':1}
     if request.method == 'POST':
         if 'delete' in request.POST:
             return redirect('delete-file', id=id)
