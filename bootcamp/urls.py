@@ -28,6 +28,7 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     path('tutor/', include('tutorapp.urls')),
     path('manager/', include('manager.urls')),
+    path('api/', include('api.urls')),  # Include the API app's URLs under the '/api/' path
 ]
 if settings.DEBUG: 
     urlpatterns += static(settings.MEDIA_URL,

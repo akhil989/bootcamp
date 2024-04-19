@@ -48,10 +48,12 @@ INSTALLED_APPS = [
     'manager',
     'razorpay',
     'corsheaders',
+    'api',
     
     
 ]
 SECURE_CROSS_ORIGIN_OPENER_POLICY = "same-origin-allow-popups"
+CROSS_ORIGIN_WHITELIST = []
 TAILWIND_APP_NAME = 'theme'
 INTERNAL_IPS = [
     "127.0.0.1",
