@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework.authtoken',
     'my_bootcamp',
     'tailwind',
     'theme',
@@ -76,7 +77,8 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [os.path.join(BASE_DIR, '../my_bootcamp/templates'),
-                 os.path.join(BASE_DIR, '../manager/templates')],
+                 os.path.join(BASE_DIR, '../manager/templates'),
+                 os.path.join(BASE_DIR, '../api/templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
